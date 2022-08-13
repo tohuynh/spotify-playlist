@@ -4,7 +4,6 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { trpc } from "../utils/trpc";
 
 const AuthShowcase: React.FC = () => {
-
   const { data: playlists } = trpc.useQuery(["question.getSession"]);
 
   const { data: sessionData } = useSession();
