@@ -133,3 +133,5 @@ Here are some resources that we commonly refer to:
 # TODO
 
 - [x] integrate spotify sign in with next auth
+- [] figure out how to create playlist from user input
+- [] render app

@@ -9,10 +9,14 @@ export function createProtectedRouter() {
     if (!ctx.session || !ctx.session.user) {
       throw new trpc.TRPCError({ code: "UNAUTHORIZED" });
     }
+    if (!ctx.req) {
+      throw new trpc.TRPCError({ code: "UNAUTHORIZED", message: "Not a Next request" });
+    }
     return next({
       ctx: {
-        ...ctx,
-        // infers that `session` is non-nullable to downstream resolvers
+        res: ctx.res,
+        // infers that `session` and `req` is non-nullable to downstream resolvers
+        req: ctx.req,
         session: { ...ctx.session, user: ctx.session.user },
       },
     });

@@ -8,6 +8,8 @@ const AuthShowcase: React.FC = () => {
     "question.getSecretMessage",
   ]);
 
+  const { data: session } = trpc.useQuery(["question.getSession"]);
+
   const { data: sessionData } = useSession();
 
   return (
