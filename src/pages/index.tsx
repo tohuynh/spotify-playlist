@@ -1,12 +1,7 @@
-import type {
-  GetServerSideProps,
-  NextPage,
-  InferGetServerSidePropsType,
-} from "next";
+import type { NextPage } from "next";
 import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { trpc } from "../utils/trpc";
-import { getToken, JWT } from "next-auth/jwt";
 
 const AuthShowcase: React.FC = () => {
   const { data: secretMessage, isLoading } = trpc.useQuery([
@@ -30,18 +25,7 @@ const AuthShowcase: React.FC = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const jwt = await getToken({ req });
-  return {
-    props: { jwt, data: "wat" },
-  };
-  // ...
-};
-
-const Home: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = (
-  props
-) => {
-  console.log(props.jwt);
+const Home: NextPage = () => {
   const hello = trpc.useQuery(["example.hello", { text: "from tRPC" }]);
 
   return (
