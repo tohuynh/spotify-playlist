@@ -14,7 +14,7 @@ const AuthShowcase: React.FC = () => {
       <pre>{JSON.stringify(playlists, null, 4)}</pre>
       <button
         className="px-4 py-2 border-2 border-blue-500 rounded-md"
-        onClick={sessionData ? () => signOut() : () => signIn()}
+        onClick={sessionData ? () => signOut() : () => signIn("spotify")}
       >
         {sessionData ? "Sign out" : "Sign in"}
       </button>
