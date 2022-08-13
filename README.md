@@ -136,6 +136,12 @@ Here are some resources that we commonly refer to:
 - [] figure out how to create playlist from user input
   - [] figure out the right spotify scope
   - [] use protected vs unprotected router, or just protected router?
-  - [] request new access token iff it has expired
+  - [] request new access token iff it has expired https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
   - [] sign in success shows flicker of signout
 - [] render app
+- admin
+  - [] .husky
+  - [] sort import https://github.com/trivago/prettier-plugin-sort-imports
+  - [] gh ci
+    - lint, install, build
+  - [] node engines
