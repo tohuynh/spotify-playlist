@@ -9,12 +9,11 @@ const SPOTIFY_AUTHORIZATION = Buffer.from(
 ).toString("base64");
 
 /**
- * 
+ *
  * Creates a tRPC router that populate `session` with an Spotify API access token
  */
 export function createSpotifyRouter() {
-  return createProtectedRouter()
-  .middleware(async ({ ctx, next }) => {
+  return createProtectedRouter().middleware(async ({ ctx, next }) => {
     // get the refresh token
     const jwt = await getToken(ctx);
     if (!jwt) {
