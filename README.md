@@ -134,4 +134,6 @@ Here are some resources that we commonly refer to:
 
 - [x] integrate spotify sign in with next auth
 - [] figure out how to create playlist from user input
+  - [] figure out the right spotify scope
+  - [] use protected vs unprotected router, or just protected router?
 - [] render app

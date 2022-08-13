@@ -4,19 +4,15 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { trpc } from "../utils/trpc";
 
 const AuthShowcase: React.FC = () => {
-  const { data: secretMessage, isLoading } = trpc.useQuery([
-    "question.getSecretMessage",
-  ]);
 
-  const { data: session } = trpc.useQuery(["question.getSession"]);
+  const { data: playlists } = trpc.useQuery(["question.getSession"]);
 
   const { data: sessionData } = useSession();
 
   return (
     <div>
       {sessionData && <p>Logged in as {sessionData?.user?.name}</p>}
-      <pre>{JSON.stringify(sessionData, null, 4)}</pre>
-      {secretMessage && <p>{secretMessage}</p>}
+      <pre>{JSON.stringify(playlists, null, 4)}</pre>
       <button
         className="px-4 py-2 border-2 border-blue-500 rounded-md"
         onClick={sessionData ? () => signOut() : () => signIn()}
