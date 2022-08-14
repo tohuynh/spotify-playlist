@@ -43,12 +43,14 @@ export function createSpotifyRouter() {
         throw new Error("No access token found");
       }
       const accessToken = token.access_token as string;
+      const userId = jwt.sub as string;
+      const user = { ...ctx.session.user, id: userId };
 
       return next({
         ctx: {
           ...ctx,
           // infers that `accessToken`` is non-nullable to downstream resolvers
-          session: { ...ctx.session, accessToken },
+          session: { ...ctx.session, accessToken, user },
         },
       });
     } catch (e) {

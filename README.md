@@ -147,6 +147,7 @@ Here are some resources that we commonly refer to:
   - [] node engines
 - spotify routes
   - search for songs /search
+    - track id `spotify:track:id`
     - combo box ui (headless ui?)
       - allow multiple select
       - on select add it to the list of track seeds
