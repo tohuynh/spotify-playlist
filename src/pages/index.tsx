@@ -15,9 +15,9 @@ const Home: NextPage = () => {
     <>
       <Head>
         <title>Tiny Mixtapes</title>
-        <meta name="description" content="Create Spotify Playlists" />
+        <meta name="description" content="Create Spotify mixtapes" />
       </Head>
-      <main className="min-h-screen bg-slate-100">
+      <main className="min-h-screen bg-slate-50">
         <AppBar />
         <div className="container mx-auto p-4">
           {data ? <CreatePlaylist /> : <Welcome />}

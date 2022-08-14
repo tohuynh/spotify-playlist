@@ -175,3 +175,4 @@ Here are some resources that we commonly refer to:
   - FAB to create playlist
     - bottom center on mobile
     - top right of container to search for songs and create playlist
+- html lang en
