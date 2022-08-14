@@ -42,7 +42,7 @@ export default function AppBar() {
   }
 
   return (
-    <div className="px-4 md:px-8 xl:px-16 flex flex-row justify-between items-center h-16 shadow-md">
+    <div className="px-4 md:px-8 xl:px-16 flex flex-row justify-between items-center h-16 shadow-md bg-white">
       <h1 className="xl:text-2xl font-medium">
         {data ? `Hello, ${data.user?.name}` : "Hello, Guest"}
       </h1>
