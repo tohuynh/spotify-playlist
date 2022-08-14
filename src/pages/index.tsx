@@ -1,28 +1,16 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useRef, useState } from "react";
+import Intro from "../components/intro";
 import { trpc } from "../utils/trpc";
 
-const AuthShowcase: React.FC = () => {
-  const { data: playlists } = trpc.useQuery(["spotify.getPlaylists"]);
-
-  const { data: sessionData } = useSession();
-
-  return (
-    <div>
-      {sessionData && <p>Logged in as {sessionData?.user?.name}</p>}
-      <pre>{JSON.stringify(playlists, null, 4)}</pre>
-      <button
-        className="px-4 py-2 border-2 border-blue-500 rounded-md"
-        onClick={sessionData ? () => signOut() : () => signIn("spotify")}
-      >
-        {sessionData ? "Sign out" : "Sign in"}
-      </button>
-    </div>
-  );
-};
-
 const Home: NextPage = () => {
+  const [query, setQuery] = useState("");
+  const queryRef = useRef("");
+  const searchQuery = trpc.useQuery([
+    "spotify.search",
+    { q: query, offset: 0, limit: 2 },
+  ]);
   return (
     <>
       <Head>
@@ -31,8 +19,18 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="container mx-auto flex flex-col items-center justify-center min-h-screen p-4">
-        <AuthShowcase />
+      <main className="container mx-auto min-h-screen p-4">
+        <Intro />
+        <div className="mt-16">
+          <input
+            onChange={(e) => {
+              queryRef.current = e.target.value;
+            }}
+            type="search"
+            placeholder="Search for a song..."
+          />
+        </div>
+        <button onClick={() => setQuery(queryRef.current)}>search</button>
       </main>
     </>
   );

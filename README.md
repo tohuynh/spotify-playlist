@@ -145,3 +145,19 @@ Here are some resources that we commonly refer to:
   - [] gh ci
     - lint, install, build
   - [] node engines
+- spotify routes
+  - search for songs /search
+    - combo box ui (headless ui?)
+      - allow multiple select
+      - on select add it to the list of track seeds
+    - debounce on enter input
+    - search result should display track and artist
+  - get recs based on selected songs (up to five seeds) /recommendations
+    - display playlists
+      - previewable or playable tracks
+      - remove track
+      - add track (extra)
+  - create playlist
+    - private or public
+    - name
+  - get several tracks based on ids
