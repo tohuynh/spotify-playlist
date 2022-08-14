@@ -12,8 +12,8 @@ export const spotifyRouter = createSpotifyRouter()
     }),
     output: z.array(
       z.object({
-        trackId: z.string(),
-        trackName: z.string(),
+        id: z.string(),
+        name: z.string(),
         albumName: z.string(),
         artists: z.array(z.string()),
       })
@@ -38,8 +38,8 @@ export const spotifyRouter = createSpotifyRouter()
       ).then((res) => res.json());
       const tracks = res.tracks.items.map((track: any) => {
         return {
-          trackId: track.id,
-          trackName: track.name,
+          id: track.uri,
+          name: track.name,
           albumName: track.album.name,
           artists: track.artists.map((artist: any) => artist.name),
         };

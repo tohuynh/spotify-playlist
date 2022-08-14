@@ -162,3 +162,16 @@ Here are some resources that we commonly refer to:
     - private or public
     - name
   - get several tracks based on ids
+- UI
+  - app bar with hello, user and sigin or sigout
+  - not signed -> show center sign in
+  - combox to search for tracks and select track
+  - on select track show Xable chip
+    - up to five chips
+    - display list of tracks
+      - Xable
+      - previewable
+      -
+  - FAB to create playlist
+    - bottom center on mobile
+    - top right of container to search for songs and create playlist
