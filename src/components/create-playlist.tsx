@@ -16,7 +16,7 @@ const plus = (
 );
 
 export default function CreatePlaylist() {
-  /*   const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("");
   const queryRef = useRef("");
   const searchQuery = trpc.useQuery([
     "spotify.search",
@@ -36,29 +36,29 @@ export default function CreatePlaylist() {
       name: "My test pl",
       description: "test pl",
       isPublic: false,
-    }); */
+    });
 
   return (
     <div className="relative pb-18">
+      <h2>Select up to 5 tracks to generate a mixtape</h2>
+      <div className="w-full">
+        <Combobox value="" onChange={(e) => console.log(e)}>
+          <Combobox.Input onChange={(e) => setQuery(e.target.value)} />
+          <Combobox.Options>
+            {searchQuery.data?.map((track) => (
+              <Combobox.Option key={track.id} value={track.id}>
+                {track.name}
+              </Combobox.Option>
+            ))}
+          </Combobox.Options>
+        </Combobox>
+      </div>
       <button
-        className="fixed h-16 w-16 m-2 lg:absolute bottom-0 lg:top-0 flex left-1/2 -translate-x-1/2 lg:left-0 justify-center items-center bg-green-400 rounded-full shadow-lg"
+        className="fixed h-16 w-16 m-2 lg:absolute bottom-0 lg:top-0 flex left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 justify-center items-center bg-green-400 rounded-full shadow-lg"
         aria-label="Create mixtape"
       >
         {plus}
       </button>
     </div>
   );
-}
-
-{
-  /* <Combobox value="" onChange={(e) => console.log(e)}>
-<Combobox.Input onChange={(e) => setQuery(e.target.value)} />
-<Combobox.Options>
-  {searchQuery.data?.map((track) => (
-    <Combobox.Option key={track.id} value={track.id}>
-      {track.name}
-    </Combobox.Option>
-  ))}
-</Combobox.Options>
-</Combobox> */
 }
