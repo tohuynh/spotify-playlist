@@ -35,13 +35,17 @@ const logout = (
 );
 
 export default function AppBar() {
-  const { data } = useSession();
+  const { data, status } = useSession();
+
+  if (status === "loading") {
+    return null;
+  }
 
   return (
     <div className="px-4 md:px-8 xl:px-16 flex flex-row justify-between items-center h-16 shadow-md">
-      <h1 className="xl:text-2xl font-medium">{`Hello, ${
-        data ? data.user?.name : "Guest"
-      }`}</h1>
+      <h1 className="xl:text-2xl font-medium">
+        {data ? `Hello, ${data.user?.name}` : "Hello, Guest"}
+      </h1>
       <button
         aria-label={data ? "Sign out" : "Sign in"}
         onClick={data ? () => signOut() : () => signIn("spotify")}

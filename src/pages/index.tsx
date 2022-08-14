@@ -6,7 +6,10 @@ import CreatePlaylist from "../components/create-playlist";
 import Welcome from "../components/welcome";
 
 const Home: NextPage = () => {
-  const { data } = useSession();
+  const { data, status } = useSession();
+  if (status === "loading") {
+    return null;
+  }
 
   return (
     <>
