@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import AppBar from "../components/app-bar";
 import { useSession } from "next-auth/react";
-import CreatePlaylist from "../components/create-playlist";
+import NewPlaylist from "../components/new-playlist";
 import Welcome from "../components/welcome";
 
 const Home: NextPage = () => {
@@ -19,9 +19,7 @@ const Home: NextPage = () => {
       </Head>
       <main className="min-h-screen bg-slate-50">
         <AppBar />
-        <div className="container mx-auto p-4">
-          {data ? <CreatePlaylist /> : <Welcome />}
-        </div>
+        <div className="p-4">{data ? <NewPlaylist /> : <Welcome />}</div>
       </main>
     </>
   );

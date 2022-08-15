@@ -162,6 +162,7 @@ Here are some resources that we commonly refer to:
     - private or public
     - name
   - get several tracks based on ids
+  - pick a random track seed from user's liked tracks and use to create an initial playlist
 - UI
   - app bar with hello, user and sigin or sigout
   - not signed -> show center sign in

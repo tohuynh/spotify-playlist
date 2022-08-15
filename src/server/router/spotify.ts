@@ -6,7 +6,7 @@ const API_BASE_URL = "https://api.spotify.com/v1";
 export const spotifyRouter = createSpotifyRouter()
   .query("search", {
     input: z.object({
-      q: z.string().min(1),
+      q: z.string(),
       offset: z.number().min(0).max(1000),
       limit: z.number().min(0).max(50),
     }),
