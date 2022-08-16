@@ -1,3 +1,4 @@
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { createSpotifyRouter } from "./spotify-router";
 
@@ -14,38 +15,36 @@ export const spotifyRouter = createSpotifyRouter()
       z.object({
         id: z.string(),
         name: z.string(),
-        albumName: z.string(),
+        //albumName: z.string(),
         artists: z.array(z.string()),
       })
     ),
     async resolve({ ctx, input }) {
+      let url = `${API_BASE_URL}/search?${new URLSearchParams({
+        q: input.q,
+        type: "track",
+        offset: `${input.offset}`,
+        limit: `${input.limit}`,
+      })}`;
       if (!input.q.trim()) {
-        return;
-      }
-      const res = await fetch(
-        `${API_BASE_URL}/search?${new URLSearchParams({
-          q: input.q,
-          type: "track",
-          offset: `${input.offset}`,
+        url = `${API_BASE_URL}/me/top/tracks?${new URLSearchParams({
           limit: `${input.limit}`,
-        })}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${ctx.session.accessToken}`,
-          },
-        }
-      ).then((res) => res.json());
-      const tracks = res.tracks.items.map((track: any) => {
+        })}`;
+      }
+      const res = await fetch(url, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${ctx.session.accessToken}`,
+        },
+      }).then((res) => res.json());
+      const tracks = !input.q.trim() ? res.items : res.tracks.items;
+      return tracks.map((item: any) => {
         return {
-          id: track.uri,
-          name: track.name,
-          albumName: track.album.name,
-          artists: track.artists.map((artist: any) => artist.name),
+          id: item.id,
+          name: item.name,
+          artists: item.artists.map((artist: any) => artist.name),
         };
       });
-      //console.log(tracks);
-      return tracks;
     },
   })
   .query("getRecommendations", {
