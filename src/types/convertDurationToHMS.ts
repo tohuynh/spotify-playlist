@@ -5,9 +5,8 @@ export function convertDurationToHMS(duration: number) {
   if (hours) {
     return `${hours}:${pad(minutes)}:${pad(seconds)}`;
   }
-  if (minutes) {
-    return `${minutes}:${pad(seconds)}`;
-  }
+
+  return `${minutes}:${pad(seconds)}`;
 }
 
 export default function pad(num: number) {

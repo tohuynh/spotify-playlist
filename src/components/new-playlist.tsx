@@ -1,10 +1,10 @@
-import { Combobox } from "@headlessui/react";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { ArrayElement } from "../types/utility-types";
 import { inferQueryOutput, trpc } from "../utils/trpc";
 import { PlusIcon, XIcon } from "@heroicons/react/outline";
 import SearchTracks from "./search-tracks";
 import { convertDurationToHMS } from "../types/convertDurationToHMS";
+import AudioPlayer from "./audio-player";
 
 type Track = ArrayElement<inferQueryOutput<"spotify.search">>;
 
@@ -110,12 +110,12 @@ export default function NewPlaylist() {
           <TrackChips handleRemove={handleRemove} tracks={selectedTracks} />
         </div>
         <ul className="mt-4 flex flex-col gap-5 lg:p-8">
-          {getRecommendationsQuery.data?.map((track, i) => (
+          {getRecommendationsQuery.data?.map((track) => (
             <li className="hover:bg-slate-200 px-3 py-1" key={track.uri}>
               <div className="flex flex-col lg:flex-row gap-x-8">
-                <div className="flex-1 flex gap-3 items-center">
+                <div className="flex-1 flex gap-4 items-center">
                   <div className="flex flex-col justify-center items-center">
-                    <div>{i + 1}</div>
+                    <AudioPlayer url={track.previewUrl} />
                     <div className="lg:hidden">
                       {convertDurationToHMS(track.duration)}
                     </div>
