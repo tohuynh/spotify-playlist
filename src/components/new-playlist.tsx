@@ -1,56 +1,62 @@
 import { Combobox } from "@headlessui/react";
 import { useRef, useState } from "react";
-import { trpc } from "../utils/trpc";
+import { ArrayElement } from "../types/utility-types";
+import { inferQueryOutput, trpc } from "../utils/trpc";
+import { PlusIcon, XIcon } from "@heroicons/react/outline";
+import SearchTracks from "./search-tracks";
+import { convertDurationToHMS } from "../types/convertDurationToHMS";
 
-function NewTrackTrip() {
-  //add track
-  //share combo box feature
-  //but add track adds to list of chips state
-}
+type Track = ArrayElement<inferQueryOutput<"spotify.search">>;
 
-function TrackChip() {
-  // edit track
-  // open popover to combo box input populate with track's name
-
-  // remove track
-  // callback to remove track
-  return <div></div>;
-}
-
-function TrackChips() {
+function TrackChips({
+  tracks,
+  handleRemove,
+}: {
+  tracks: Track[];
+  handleRemove: (track: Track) => void;
+}) {
   // has maintain list of chips state
   // pass callbacks to add/edit/remove track for TrackChip
   // display or remove NewTrackTrip
-  return <div></div>;
+  return (
+    <div className="flex flex-wrap gap-4 mt-4">
+      {tracks.map((track) => (
+        <button
+          key={track.id}
+          className="rounded-xl flex justify-between items-center ring-1 ring-slate-200 hover:bg-slate-200 max-w-[16rem] px-4 py-1"
+          onClick={() => handleRemove(track)}
+        >
+          <span className="basis-11/12 truncate">{track.name}</span>
+          <XIcon className="h-4 w-4 ml-4" />
+        </button>
+      ))}
+    </div>
+  );
 }
 
 function MixTapes() {}
 
-const plus = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-6 w-6"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-  </svg>
-);
-
-export default function CreatePlaylist() {
-  /*   const [query, setQuery] = useState("");
-  const queryRef = useRef("");
-  const searchQuery = trpc.useQuery([
-    "spotify.search",
-    { q: query, offset: 0, limit: 2 },
-  ]); */
+export default function NewPlaylist() {
+  const [selectedTracks, setSelectedTracks] = useState<Track[]>([]);
 
   const getRecommendationsQuery = trpc.useQuery([
     "spotify.getRecommendations",
-    { trackSeeds: ["51R5mPcJjOnfv9lKY1u5sW"], limit: 1 },
+    {
+      trackSeeds: selectedTracks.map((track) => track.id).join(","),
+      limit: 20,
+    },
   ]);
+
+  const handleRemove = (track: Track) => {
+    const index = selectedTracks.findIndex((t) => t.id === track.id);
+    if (index > -1) {
+      selectedTracks.splice(index, 1);
+      setSelectedTracks((prev) => {
+        prev.slice(index, 1);
+        return [...prev];
+      });
+    }
+  };
 
   /*  const createPlayList = trpc.useMutation(["spotify.createPlaylist"]);
 
@@ -66,41 +72,54 @@ export default function CreatePlaylist() {
   // provide callbacks to add/edit/remove track to TrakcChips
   // use list of chips state to generate list of recommended tracks
   return (
-    <div className="lg:flex lg:flex-row lg:gap-x-4">
-      <div className="basis-32 flex justify-center items-center">
+    <div className="pb-20 lg:pb-0 lg:flex lg:flex-row lg:justify-start lg:gap-x-4">
+      <div className="lg:basis-32 flex justify-center items-start">
         <button
           className="fixed lg:relative h-16 w-16 m-4 lg:m-0 bottom-0 right-0 flex justify-center items-center bg-green-300 rounded-2xl shadow-lg"
           aria-label="New mixtape"
         >
-          {plus}
+          <PlusIcon className="h-6 w-6" aria-hidden />
         </button>
       </div>
-      <div>
+      <div className="lg:flex-1">
         <div>
-          <h2 className="text-lg">
-            Select up to 5 tracks to generate a mixtape
-          </h2>
-          <div>list of chips</div>
+          <SearchTracks
+            selectedTracksNum={selectedTracks.length}
+            handleSelectTrack={(track: Track) =>
+              setSelectedTracks((prev) => [...prev, track])
+            }
+          />
+          <TrackChips handleRemove={handleRemove} tracks={selectedTracks} />
         </div>
-        <div>list of tracks</div>
+        <ul className="mt-4 flex flex-col gap-5 lg:p-8">
+          {getRecommendationsQuery.data?.map((track, i) => (
+            <li className="hover:bg-slate-200 px-3 py-1" key={track.uri}>
+              <div className="flex flex-col lg:flex-row gap-x-8">
+                <div className="flex-1 flex gap-3 items-center">
+                  <div className="flex flex-col justify-center items-center">
+                    <div>{i + 1}</div>
+                    <div className="lg:hidden">
+                      {convertDurationToHMS(track.duration)}
+                    </div>
+                  </div>
+                  <div className="">
+                    <div className="text-lg">{track.name}</div>
+                    <div className="text-md font-light">
+                      {track.artists.join(", ")}
+                    </div>
+                  </div>
+                </div>
+                <div className="hidden lg:block flex-1 text-lg">
+                  {track.albumName}
+                </div>
+                <div className="hidden lg:block text-md">
+                  {convertDurationToHMS(track.duration)}
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
-}
-
-{
-  /* <Combobox value="" onChange={(e) => console.log(e)}>
-          <Combobox.Input
-            className="w-full"
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          <Combobox.Options>
-            {searchQuery.data?.map((track) => (
-              <Combobox.Option key={track.id} value={track.id}>
-                {track.name}
-              </Combobox.Option>
-            ))}
-          </Combobox.Options>
-        </Combobox>
- */
 }
