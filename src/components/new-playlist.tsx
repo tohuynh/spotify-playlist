@@ -20,13 +20,16 @@ function TrackChips({
   // display or remove NewTrackTrip
   return (
     <div className="flex flex-wrap gap-4 mt-4">
-      {tracks.map((track) => (
+      {tracks.map((track, i) => (
         <button
           key={track.id}
           className="rounded-xl flex justify-between items-center ring-1 ring-slate-200 hover:bg-slate-200 max-w-[16rem] px-4 py-1"
           onClick={() => handleRemove(track)}
         >
-          <span className="basis-11/12 truncate">{track.name}</span>
+          <span className="basis-11/12 truncate">
+            <span className="font-light mr-1">{`${i + 1}. `}</span>
+            <span>{track.name}</span>
+          </span>
           <XIcon className="h-4 w-4 ml-4" />
         </button>
       ))}
@@ -109,16 +112,16 @@ export default function NewPlaylist() {
           />
           <TrackChips handleRemove={handleRemove} tracks={selectedTracks} />
         </div>
-        <ul className="mt-4 flex flex-col gap-5 lg:p-8">
+        <ul className="mt-4 flex flex-col gap-5 lg:p-8 m-y-1">
           {getRecommendationsQuery.data?.map((track) => (
-            <li className="hover:bg-slate-200 px-3 py-1" key={track.uri}>
-              <div className="flex flex-col lg:flex-row gap-x-8">
+            <li
+              className="hover:bg-slate-200 hover:shadow-md rounded-md px-3 py-1"
+              key={track.uri}
+            >
+              <div className="flex flex-row gap-x-8">
                 <div className="flex-1 flex gap-4 items-center">
                   <div className="flex flex-col justify-center items-center">
                     <AudioPlayer url={track.previewUrl} />
-                    <div className="lg:hidden">
-                      {convertDurationToHMS(track.duration)}
-                    </div>
                   </div>
                   <div className="">
                     <div className="text-lg">{track.name}</div>
@@ -130,7 +133,7 @@ export default function NewPlaylist() {
                 <div className="hidden lg:block flex-1 text-lg">
                   {track.albumName}
                 </div>
-                <div className="hidden lg:block text-md">
+                <div className="text-md">
                   {convertDurationToHMS(track.duration)}
                 </div>
               </div>

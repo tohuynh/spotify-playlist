@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import debounce from "lodash.debounce";
+import { useCallback, useRef, useState } from "react";
 
 const playIcon = (
   <svg
@@ -27,6 +28,12 @@ const stopIcon = (
 export default function AudioPlayer({ url }: { url: string | null }) {
   const audioPlayerRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+
+  const handleUpdateCurrentTime = useCallback(
+    debounce((time: number) => setCurrentTime(time), 200),
+    []
+  );
 
   const onClick = () => {
     if (audioPlayerRef.current) {
@@ -44,7 +51,7 @@ export default function AudioPlayer({ url }: { url: string | null }) {
       <div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
+          className="h-5 w-5 ml-3"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -68,13 +75,44 @@ export default function AudioPlayer({ url }: { url: string | null }) {
   }
 
   return (
-    <div>
+    <div className="relative">
       <audio
         ref={audioPlayerRef}
         src={url}
         onEnded={() => setIsPlaying(false)}
+        onTimeUpdate={() =>
+          handleUpdateCurrentTime(audioPlayerRef.current?.currentTime || 0)
+        }
       />
+      <svg className="h-10 w-10 z-0" aria-hidden>
+        <circle
+          className={isPlaying ? "text-gray-300" : "text-transparent"}
+          strokeWidth="3"
+          stroke="currentColor"
+          fill="transparent"
+          r="17"
+          cx="20"
+          cy="20"
+        />
+        <circle
+          className={isPlaying ? "text-green-400" : "text-transparent"}
+          strokeWidth="3"
+          strokeDasharray={circumference}
+          strokeDashoffset={
+            circumference -
+            (currentTime / (audioPlayerRef.current?.duration || 30)) *
+              circumference
+          }
+          strokeLinecap="round"
+          stroke="currentColor"
+          fill="transparent"
+          r="17"
+          cx="20"
+          cy="20"
+        />
+      </svg>
       <button
+        className="absolute inset-y-0 ml-[10.5px] z-1"
         aria-label={`${isPlaying ? "Pause" : "Play"} track`}
         onClick={onClick}
       >
@@ -84,4 +122,6 @@ export default function AudioPlayer({ url }: { url: string | null }) {
   );
 }
 
-//todo: add progress for current duration
+// r = (40px - (3 * 2)) / 2 | (w-10 - (strokeWidth * 2)) / 2
+const circumference = 17 * 2 * Math.PI;
+// todo: color animation
