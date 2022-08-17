@@ -10,21 +10,18 @@ type Track = ArrayElement<inferQueryOutput<"spotify.search">>;
 
 function TrackChips({
   tracks,
-  handleRemove,
+  handleRemoveTrack,
 }: {
   tracks: Track[];
-  handleRemove: (track: Track) => void;
+  handleRemoveTrack: (track: Track) => void;
 }) {
-  // has maintain list of chips state
-  // pass callbacks to add/edit/remove track for TrackChip
-  // display or remove NewTrackTrip
   return (
     <div className="flex flex-wrap gap-4 mt-4">
       {tracks.map((track, i) => (
         <button
           key={track.id}
           className="rounded-xl flex justify-between items-center ring-1 ring-slate-200 hover:bg-slate-200 max-w-[16rem] px-4 py-1"
-          onClick={() => handleRemove(track)}
+          onClick={() => handleRemoveTrack(track)}
         >
           <span className="basis-11/12 truncate">
             <span className="font-light mr-1">{`${i + 1}. `}</span>
@@ -36,10 +33,6 @@ function TrackChips({
     </div>
   );
 }
-
-function PlaylistItem() {}
-
-function Playlist() {}
 
 export default function NewPlaylist() {
   const [selectedTracks, setSelectedTracks] = useState<Track[]>([]);
@@ -57,7 +50,14 @@ export default function NewPlaylist() {
     }
   );
 
-  const handleRemove = (track: Track) => {
+  const handleSelectTrack = (track: Track) => {
+    const index = selectedTracks.findIndex((t) => t.id === track.id);
+    if (index === -1) {
+      setSelectedTracks((prev) => [...prev, track]);
+    }
+  };
+
+  const handleRemoveTrack = (track: Track) => {
     const index = selectedTracks.findIndex((t) => t.id === track.id);
     if (index > -1) {
       selectedTracks.splice(index, 1);
@@ -84,9 +84,6 @@ export default function NewPlaylist() {
     }
   };
 
-  // maintain list of chips state
-  // provide callbacks to add/edit/remove track to TrakcChips
-  // use list of chips state to generate list of recommended tracks
   return (
     <div className="pb-20 lg:pb-0 lg:flex lg:flex-row lg:justify-start lg:gap-x-4">
       <div className="lg:basis-32 flex justify-center items-start">
@@ -106,11 +103,12 @@ export default function NewPlaylist() {
         <div>
           <SearchTracks
             selectedTracksNum={selectedTracks.length}
-            handleSelectTrack={(track: Track) =>
-              setSelectedTracks((prev) => [...prev, track])
-            }
+            handleSelectTrack={handleSelectTrack}
           />
-          <TrackChips handleRemove={handleRemove} tracks={selectedTracks} />
+          <TrackChips
+            handleRemoveTrack={handleRemoveTrack}
+            tracks={selectedTracks}
+          />
         </div>
         <ul className="mt-4 flex flex-col gap-5 lg:p-8 m-y-1">
           {getRecommendationsQuery.data?.map((track) => (
