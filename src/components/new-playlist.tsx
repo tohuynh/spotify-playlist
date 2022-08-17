@@ -39,13 +39,18 @@ function MixTapes() {}
 export default function NewPlaylist() {
   const [selectedTracks, setSelectedTracks] = useState<Track[]>([]);
 
-  const getRecommendationsQuery = trpc.useQuery([
-    "spotify.getRecommendations",
+  const getRecommendationsQuery = trpc.useQuery(
+    [
+      "spotify.getRecommendations",
+      {
+        trackSeeds: selectedTracks.map((track) => track.id),
+        limit: 20,
+      },
+    ],
     {
-      trackSeeds: selectedTracks.map((track) => track.id).join(","),
-      limit: 20,
-    },
-  ]);
+      refetchOnWindowFocus: false,
+    }
+  );
 
   const handleRemove = (track: Track) => {
     const index = selectedTracks.findIndex((t) => t.id === track.id);

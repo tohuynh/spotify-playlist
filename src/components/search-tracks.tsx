@@ -23,10 +23,12 @@ export default function SearchTracks(props: Props) {
   const { selectedTracksNum, handleSelectTrack } = props;
   const [selected, setSelected] = useState<Track | undefined>(undefined);
   const [query, setQuery] = useState("");
-  const searchQuery = trpc.useQuery([
-    "spotify.search",
-    { q: query, offset: 0, limit: 5 },
-  ]);
+  const searchQuery = trpc.useQuery(
+    ["spotify.search", { q: query, offset: 0, limit: 5 }],
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
 
   const handleSearch = useCallback(
     debounce((q: string) => setQuery(q), 200),
