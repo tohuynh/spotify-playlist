@@ -95,7 +95,7 @@ export const spotifyRouter = createSpotifyRouter()
   })
   .mutation("createPlaylist", {
     input: z.object({
-      ids: z.array(z.string()).min(1),
+      uris: z.array(z.string()).min(1),
       name: z.string(),
       isPublic: z.boolean(),
       description: z.string().optional(),
@@ -130,9 +130,10 @@ export const spotifyRouter = createSpotifyRouter()
           },
           body: JSON.stringify({
             position: 0,
-            uris: input.ids.map((id) => `spotify:track:${id}`),
+            uris: input.uris,
           }),
         }
       ).then((res) => res.json());
+      console.log("add playlist", addTracksRes);
     },
   });

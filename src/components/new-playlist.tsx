@@ -34,7 +34,9 @@ function TrackChips({
   );
 }
 
-function MixTapes() {}
+function PlaylistItem() {}
+
+function Playlist() {}
 
 export default function NewPlaylist() {
   const [selectedTracks, setSelectedTracks] = useState<Track[]>([]);
@@ -63,15 +65,21 @@ export default function NewPlaylist() {
     }
   };
 
-  /*  const createPlayList = trpc.useMutation(["spotify.createPlaylist"]);
+  const createPlayList = trpc.useMutation(["spotify.createPlaylist"]);
 
-  const onCreate = () =>
-    createPlayList.mutate({
-      ids: ["51R5mPcJjOnfv9lKY1u5sW"],
-      name: "My test pl",
-      description: "test pl",
-      isPublic: false,
-    }); */
+  const onCreate = () => {
+    //open the modal
+    //slide from bottom, mobile
+    //center modal, lg
+    if (getRecommendationsQuery.data) {
+      createPlayList.mutate({
+        uris: getRecommendationsQuery.data.map((track) => track.uri),
+        name: "My test pl",
+        description: "test pl",
+        isPublic: false,
+      });
+    }
+  };
 
   // maintain list of chips state
   // provide callbacks to add/edit/remove track to TrakcChips
@@ -82,6 +90,11 @@ export default function NewPlaylist() {
         <button
           className="fixed lg:relative h-16 w-16 m-4 lg:m-0 bottom-0 right-0 flex justify-center items-center bg-green-300 rounded-2xl shadow-lg"
           aria-label="New mixtape"
+          onClick={onCreate}
+          disabled={
+            getRecommendationsQuery.status === "error" ||
+            getRecommendationsQuery.status === "loading"
+          }
         >
           <PlusIcon className="h-6 w-6" aria-hidden />
         </button>

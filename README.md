@@ -133,10 +133,10 @@ Here are some resources that we commonly refer to:
 # TODO
 
 - [x] integrate spotify sign in with next auth
-- [] figure out how to create playlist from user input
-  - [] figure out the right spotify scope
-  - [] use protected vs unprotected router, or just protected router?
-  - [] request new access token iff it has expired https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
+- [x] figure out how to create playlist from user input
+  - [x] figure out the right spotify scope
+  - [x] use protected vs unprotected router, or just protected router?
+  - [x] request new access token iff it has expired https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
   - [x] sign in success shows flicker of signout
 - [] render app
 - admin
@@ -147,33 +147,36 @@ Here are some resources that we commonly refer to:
   - [] node engines
 - spotify routes
   - search for songs /search
-    - track id `spotify:track:id`
-    - combo box ui (headless ui?)
-      - allow multiple select
-      - on select add it to the list of track seeds
-    - debounce on enter input
-    - search result should display track and artist
+    - [x] combo box ui (headless ui?)
+      - [x] on select add it to the list of track seeds
+    - [x] debounce on enter input
+    - [x] search result should display track and artist
+    - [] remove a track seed
   - get recs based on selected songs (up to five seeds) /recommendations
-    - display playlists
-      - previewable or playable tracks
-      - remove track
-      - add track (extra)
-  - create playlist
-    - private or public
-    - name
-  - get several tracks based on ids
-  - pick a random track seed from user's liked tracks and use to create an initial playlist
+    - [] handle empty track_seeds
+    - [x]figure out output
+    - [] display playlists
+      - [] previewable or playable tracks
+      - [] remove track
+      - [] add track (extra)
+  - [] create playlist
+  - [] private or public
+  - [] name
+  - [] desc
+  - [] get several tracks based on ids
+  - [] pick a random track seed from user's liked tracks and use to create an initial playlist
 - UI
-  - app bar with hello, user and sigin or sigout
-  - not signed -> show center sign in
-  - combox to search for tracks and select track
-  - on select track show Xable chip
-    - up to five chips
-    - display list of tracks
-      - Xable
-      - previewable
-      -
-  - FAB to create playlist
-    - bottom center on mobile
-    - top right of container to search for songs and create playlist
-- html lang en
+  - [x] app bar with hello, user and sigin or sigout
+  - [x] not signed -> show center sign in
+  - [x] combox to search for tracks and select track
+    - [] figure searching rendering logic of resulsts, when to open list
+      - [] when adding on to q, data is loading again and is undefined and the list of tracks is not shown
+  - [] on select track show Xable chip
+    - [] up to five chips
+    - [] display list of tracks
+      - [] Xable
+      - [] previewable
+  - [] FAB to create playlist
+    - [] bottom center on mobile
+    - [] top right of container to search for songs and create playlist
+- [] html lang en
