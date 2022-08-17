@@ -54,7 +54,7 @@ export default function SearchTracks(props: Props) {
       <div className="relative mt-1">
         <div className="relative w-full lg:w-96 cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
           <Combobox.Input
-            className="w-full border-none py-2 pl-10 pr-10 text-sm leading-5 text-gray-900 focus:ring-0 truncate"
+            className="h-12 w-full border-none py-2 pl-10 pr-10 text-md leading-5 text-gray-900 focus:ring-0 truncate"
             displayValue={(track: Track) =>
               track ? `${track.name} • ${track.artists.join(", ")}` : ""
             }
