@@ -52,6 +52,21 @@ export const spotifyRouter = createSpotifyRouter()
       trackSeeds: z.array(z.string()).min(1).max(5),
       limit: z.number().min(1).max(100),
     }),
+    output: z.array(
+      z.object({
+        uri: z.string(),
+        name: z.string(),
+        previewUrl: z.string().nullable(),
+        artists: z.array(z.string()),
+        albumName: z.string(),
+        image: z.object({
+          height: z.number(),
+          width: z.number(),
+          url: z.string(),
+        }),
+        duration: z.number(),
+      })
+    ),
     async resolve({ ctx, input }) {
       const res = await fetch(
         `${API_BASE_URL}/recommendations?${new URLSearchParams({
@@ -65,7 +80,17 @@ export const spotifyRouter = createSpotifyRouter()
           },
         }
       ).then((res) => res.json());
-      return res.tracks;
+      return res.tracks.map((track: any) => {
+        return {
+          uri: track.uri,
+          name: track.name,
+          previewUrl: track.preview_url,
+          artists: track.artists.map((artist: any) => artist.name),
+          albumName: track.album.name,
+          image: track.album.images.at(-1),
+          duration: track.duration_ms,
+        };
+      });
     },
   })
   .mutation("createPlaylist", {
