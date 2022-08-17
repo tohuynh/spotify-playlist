@@ -50,7 +50,7 @@ export default function SearchTracks(props: Props) {
       onChange={onSelectTrack}
       disabled={selectedTracksNum === 5}
     >
-      <Combobox.Label className="text-lg">
+      <Combobox.Label className="text-xl">
         Select up to 5 tracks to generate a mixtape:
       </Combobox.Label>
       <div className="relative mt-1">
