@@ -89,7 +89,7 @@ export default function SearchTracks(props: Props) {
                     </span>
                     {selected && (
                       <span
-                        className={`absolute inset-y-0 left-0 flex items-center pl-3 text-green-700`}
+                        className={`absolute inset-y-0 left-0 flex items-center pl-3 spotify-green`}
                       >
                         <CheckIcon className="h-5 w-5" aria-hidden="true" />
                       </span>

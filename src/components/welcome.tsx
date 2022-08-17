@@ -5,9 +5,8 @@ export default function Welcome() {
     <div className="h-[calc(100vh-8rem)] box-border flex flex-col justify-center items-center">
       <h2 className="text-xl">Sign in with Spotify to create mixtapes.</h2>
       <button
-        className="mt-2 px-4 py-1 text-lg rounded-full flex justify-between items-center font-semibold"
+        className="mt-2 px-4 py-1 text-lg rounded-full flex justify-between items-center spotify-green font-semibold"
         onClick={() => signIn("spotify")}
-        style={{ color: "#1DB954" }}
       >
         <svg
           className="h-8 w-8 mr-3"

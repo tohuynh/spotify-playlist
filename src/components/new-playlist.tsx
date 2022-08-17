@@ -104,7 +104,7 @@ function CreatePlaylistDialog({
                   <label className="block text-md font-medium text-gray-700">
                     <input
                       defaultChecked={true}
-                      className="h-4 w-4 mr-2 text-sm border-2 border-gray-200 rounded outline-none accent-green-300"
+                      className="h-4 w-4 mr-2 text-sm border-2 border-gray-200 rounded outline-none"
                       type="checkbox"
                       name="playlistIsPublic"
                     />
@@ -120,7 +120,7 @@ function CreatePlaylistDialog({
                     </button>
                     <button
                       type="submit"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-green-300 px-4 py-2 text-sm font-medium focus:outline-none"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-spotify-green px-4 py-2 text-sm font-medium focus:outline-none"
                     >
                       Create
                     </button>
@@ -195,20 +195,6 @@ export default function NewPlaylist() {
     }
   };
 
-  const createPlayList = trpc.useMutation(["spotify.createPlaylist"]);
-  const onCreate = () => {
-    //open the modal
-    //slide from bottom, mobile
-    //center modal, lg
-    if (getRecommendationsQuery.data) {
-      createPlayList.mutate({
-        uris: getRecommendationsQuery.data.map((track) => track.uri),
-        name: "My test pl",
-        description: "test pl",
-        isPublic: false,
-      });
-    }
-  };
   const [createPlaylistDialogIsOpen, setCreatePlaylistDialogIsOpen] =
     useState(false);
 
@@ -221,7 +207,7 @@ export default function NewPlaylist() {
       />
       <div className="lg:basis-32 flex justify-center items-start">
         <button
-          className="fixed lg:relative h-16 w-16 m-4 lg:m-0 bottom-0 right-0 flex justify-center items-center bg-green-300 rounded-2xl shadow-lg"
+          className="fixed lg:relative h-16 w-16 m-4 lg:m-0 bottom-0 right-0 flex justify-center items-center rounded-2xl shadow-lg bg-spotify-green"
           aria-label="New mixtape"
           onClick={() => setCreatePlaylistDialogIsOpen(true)}
           disabled={
