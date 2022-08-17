@@ -10,18 +10,18 @@ type Track = ArrayElement<inferQueryOutput<"spotify.search">>;
 
 function TrackChips({
   tracks,
-  handleRemoveTrack,
+  handleUnselectTrack,
 }: {
   tracks: Track[];
-  handleRemoveTrack: (track: Track) => void;
+  handleUnselectTrack: (track: Track) => void;
 }) {
   return (
     <div className="flex flex-wrap gap-4 mt-4">
       {tracks.map((track, i) => (
         <button
           key={track.id}
-          className="rounded-xl flex justify-between items-center ring-1 ring-slate-200 hover:bg-slate-200 max-w-[16rem] px-4 py-1"
-          onClick={() => handleRemoveTrack(track)}
+          className="hover:shadow-md rounded-xl flex justify-between items-center ring-1 ring-slate-200 hover:bg-slate-200 max-w-[16rem] px-4 py-1"
+          onClick={() => handleUnselectTrack(track)}
         >
           <span className="basis-11/12 truncate">
             <span className="font-light mr-1">{`${i + 1}. `}</span>
@@ -57,7 +57,7 @@ export default function NewPlaylist() {
     }
   };
 
-  const handleRemoveTrack = (track: Track) => {
+  const handleUnselectTrack = (track: Track) => {
     const index = selectedTracks.findIndex((t) => t.id === track.id);
     if (index > -1) {
       selectedTracks.splice(index, 1);
@@ -106,7 +106,7 @@ export default function NewPlaylist() {
             handleSelectTrack={handleSelectTrack}
           />
           <TrackChips
-            handleRemoveTrack={handleRemoveTrack}
+            handleUnselectTrack={handleUnselectTrack}
             tracks={selectedTracks}
           />
         </div>

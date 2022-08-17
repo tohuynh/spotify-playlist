@@ -7,14 +7,6 @@ import { inferQueryOutput, trpc } from "../utils/trpc";
 
 type Track = ArrayElement<inferQueryOutput<"spotify.search">>;
 
-const placeholder = (
-  <div className="blur-sm">
-    {Array.from({ length: 5 }, (_, i) => i).map((i) => (
-      <div key={i} className="bg-gray-200 h-9 w-full my-2 m-4" />
-    ))}
-  </div>
-);
-
 type Props = {
   selectedTracksNum: number;
   handleSelectTrack: (track: Track) => void;
