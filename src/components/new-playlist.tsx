@@ -240,7 +240,7 @@ export default function NewPlaylist() {
             tracks={selectedTracks}
           />
         </div>
-        <ul className="mt-4 flex flex-col gap-5 py-1 lg:p-8 m-y-1 bg-white shadow-md">
+        <ul className="mt-4 flex flex-col gap-5 lg:p-8 m-y-1 bg-white shadow-md">
           {getRecommendationsQuery.data?.map((track) => (
             <li
               className="hover:bg-slate-200 hover:shadow-md rounded-md p-1"

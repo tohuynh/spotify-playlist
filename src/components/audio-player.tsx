@@ -84,7 +84,7 @@ export default function AudioPlayer({ url }: { url: string | null }) {
           handleUpdateCurrentTime(audioPlayerRef.current?.currentTime || 0)
         }
       />
-      <svg className="h-10 w-10 z-0" aria-hidden>
+      <svg className="h-10 w-10 -z-10" aria-hidden>
         <circle
           className={isPlaying ? "text-gray-300" : "text-transparent"}
           strokeWidth="3"
@@ -112,7 +112,7 @@ export default function AudioPlayer({ url }: { url: string | null }) {
         />
       </svg>
       <button
-        className="absolute inset-y-0 ml-[10.5px] z-1"
+        className="absolute inset-y-0 ml-[10.5px]"
         aria-label={`${isPlaying ? "Pause" : "Play"} track`}
         onClick={onClick}
       >
