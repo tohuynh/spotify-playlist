@@ -218,7 +218,7 @@ export default function NewPlaylist() {
       />
       <div className="lg:basis-32 flex justify-center items-start">
         <button
-          className="fixed lg:relative h-16 w-16 m-4 lg:m-0 bottom-0 right-0 flex justify-center items-center rounded-2xl shadow-lg bg-spotify-green"
+          className="fixed lg:sticky h-16 w-16 m-4 lg:m-0 bottom-0 right-0 lg:top-4 flex justify-center items-center rounded-2xl shadow-lg bg-spotify-green"
           aria-label="New mixtape"
           onClick={() => setCreatePlaylistDialogIsOpen(true)}
           disabled={
