@@ -158,7 +158,7 @@ function TrackChips({
       {tracks.map((track, i) => (
         <button
           key={track.id}
-          className="hover:shadow-md rounded-xl flex justify-between items-center ring-1 ring-slate-200 hover:bg-slate-200 max-w-[16rem] px-4 py-1"
+          className="shadow-md rounded-xl flex justify-between items-center ring-1 ring-slate-200 hover:bg-slate-200 max-w-[16rem] px-4 py-1"
           onClick={() => handleUnselectTrack(track)}
         >
           <span className="basis-11/12 truncate">
@@ -240,7 +240,7 @@ export default function NewPlaylist() {
             tracks={selectedTracks}
           />
         </div>
-        <ul className="mt-4 flex flex-col gap-5 lg:p-8 m-y-1">
+        <ul className="mt-4 flex flex-col gap-5 py-1 lg:p-8 m-y-1 bg-white shadow-md">
           {getRecommendationsQuery.data?.map((track) => (
             <li
               className="hover:bg-slate-200 hover:shadow-md rounded-md p-1"
