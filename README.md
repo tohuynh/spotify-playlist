@@ -153,6 +153,7 @@ Here are some resources that we commonly refer to:
     - [x] search result should display track and artist
     - [x] remove a track seed
   - get recs based on selected songs (up to five seeds) /recommendations
+    - [] handle user's input on size od recs
     - [] handle empty track_seeds
     - [x]figure out output
     - [] display playlists
@@ -177,6 +178,7 @@ Here are some resources that we commonly refer to:
     - [] display list of tracks
       - [] Xable
       - [] previewable
+      - [] reoder track
   - [x] FAB to create playlist
     - [x] bottom center on mobile
     - [x] top right of container to search for songs and create playlist

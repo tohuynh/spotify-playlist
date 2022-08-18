@@ -243,7 +243,7 @@ export default function NewPlaylist() {
         <ul className="mt-4 flex flex-col gap-5 lg:p-8 m-y-1">
           {getRecommendationsQuery.data?.map((track) => (
             <li
-              className="hover:bg-slate-200 hover:shadow-md rounded-md px-3 py-1"
+              className="hover:bg-slate-200 hover:shadow-md rounded-md p-1"
               key={track.uri}
             >
               <div className="flex flex-row gap-x-8">
@@ -252,8 +252,10 @@ export default function NewPlaylist() {
                     <AudioPlayer url={track.previewUrl} />
                   </div>
                   <div className="">
-                    <div className="text-lg">{track.name}</div>
-                    <div className="text-md font-light">
+                    <div className="text-sm lg:text-lg font-medium">
+                      {track.name}
+                    </div>
+                    <div className="text-xs lg:text-base font-light">
                       {track.artists.join(", ")}
                     </div>
                   </div>
@@ -261,7 +263,7 @@ export default function NewPlaylist() {
                 <div className="hidden lg:block flex-1 text-lg">
                   {track.albumName}
                 </div>
-                <div className="text-md">
+                <div className="text-sm lg:text-lg">
                   {convertDurationToHMS(track.duration)}
                 </div>
               </div>
