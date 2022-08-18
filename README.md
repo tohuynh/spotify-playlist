@@ -151,7 +151,7 @@ Here are some resources that we commonly refer to:
       - [x] on select add it to the list of track seeds
     - [x] debounce on enter input
     - [x] search result should display track and artist
-    - [] remove a track seed
+    - [x] remove a track seed
   - get recs based on selected songs (up to five seeds) /recommendations
     - [] handle empty track_seeds
     - [x]figure out output
@@ -159,10 +159,11 @@ Here are some resources that we commonly refer to:
       - [] previewable or playable tracks
       - [] remove track
       - [] add track (extra)
-  - [] create playlist
-  - [] private or public
-  - [] name
-  - [] desc
+  - [x] create playlist
+    - [] private or public
+      - [] private playlist still visible?
+    - [x] name
+    - [x] desc
   - [] get several tracks based on ids
   - [] pick a random track seed from user's liked tracks and use to create an initial playlist
 - UI
@@ -171,12 +172,14 @@ Here are some resources that we commonly refer to:
   - [x] combox to search for tracks and select track
     - [] figure searching rendering logic of resulsts, when to open list
       - [] when adding on to q, data is loading again and is undefined and the list of tracks is not shown
-  - [] on select track show Xable chip
-    - [] up to five chips
+  - [x] on select track show Xable chip
+    - [x] up to five chips
     - [] display list of tracks
       - [] Xable
       - [] previewable
-  - [] FAB to create playlist
-    - [] bottom center on mobile
-    - [] top right of container to search for songs and create playlist
-- [] html lang en
+  - [x] FAB to create playlist
+    - [x] bottom center on mobile
+    - [x] top right of container to search for songs and create playlist
+  - [] chips and list of UI improvement
+  - [] animate interactive elements(buttons), track list being change, track chips being changed
+- [x] html lang en
