@@ -158,7 +158,7 @@ function TrackChips({
       {tracks.map((track, i) => (
         <button
           key={track.id}
-          className="shadow-md rounded-xl flex justify-between items-center ring-1 ring-slate-200 hover:bg-slate-200 max-w-[16rem] px-4 py-1"
+          className="shadow-md rounded-md flex justify-between items-center ring-1 ring-slate-200 hover:bg-slate-200 max-w-[16rem] px-4 py-1"
           onClick={() => handleUnselectTrack(track)}
         >
           <span className="basis-11/12 truncate">
@@ -218,7 +218,7 @@ export default function NewPlaylist() {
       />
       <div className="lg:basis-32 flex justify-center items-start">
         <button
-          className="fixed lg:sticky h-16 w-16 m-4 lg:m-0 bottom-0 right-0 lg:top-4 flex justify-center items-center rounded-2xl shadow-lg bg-spotify-green"
+          className="fixed lg:sticky h-16 w-16 m-4 lg:m-0 bottom-0 right-0 lg:top-4 flex justify-center items-center rounded-2xl shadow-lg bg-spotify-green disabled:cursor-not-allowed"
           aria-label="New mixtape"
           onClick={() => setCreatePlaylistDialogIsOpen(true)}
           disabled={
