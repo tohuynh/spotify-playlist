@@ -179,6 +179,7 @@ Here are some resources that we commonly refer to:
       - [] Xable
       - [] previewable
       - [] reoder track
+      - [] track text don't wrap onto new line with ellipsis
   - [x] FAB to create playlist
     - [x] bottom center on mobile
     - [x] top right of container to search for songs and create playlist

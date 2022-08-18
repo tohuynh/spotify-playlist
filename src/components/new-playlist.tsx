@@ -158,7 +158,7 @@ function TrackChips({
       {tracks.map((track, i) => (
         <button
           key={track.id}
-          className="shadow-md rounded-md flex justify-between items-center ring-1 ring-slate-200 hover:bg-slate-200 max-w-[16rem] px-4 py-1"
+          className="shadow-md rounded-md flex justify-between items-center ring-1 ring-slate-200 hover:bg-slate-100 max-w-[16rem] px-4 py-1"
           onClick={() => handleUnselectTrack(track)}
         >
           <span className="basis-11/12 truncate">
@@ -180,7 +180,7 @@ export default function NewPlaylist() {
       "spotify.getRecommendations",
       {
         trackSeeds: selectedTracks.map((track) => track.id),
-        limit: 20,
+        limit: 100,
       },
     ],
     {
@@ -240,10 +240,10 @@ export default function NewPlaylist() {
             tracks={selectedTracks}
           />
         </div>
-        <ul className="mt-4 flex flex-col gap-5 lg:p-8 m-y-1">
+        <ul className="mt-8 flex flex-col gap-5 lg:p-8 m-y-1">
           {getRecommendationsQuery.data?.map((track) => (
             <li
-              className="hover:bg-slate-200 hover:shadow-md rounded-md p-1"
+              className="bg-white hover:bg-slate-100 shadow-sm hover:shadow-md rounded-md p-2"
               key={track.uri}
             >
               <div className="flex flex-row gap-x-8">
@@ -251,7 +251,7 @@ export default function NewPlaylist() {
                   <div className="flex flex-col justify-center items-center">
                     <AudioPlayer url={track.previewUrl} />
                   </div>
-                  <div className="">
+                  <div className="flex-1">
                     <div className="text-sm lg:text-lg font-medium">
                       {track.name}
                     </div>
