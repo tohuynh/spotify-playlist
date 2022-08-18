@@ -80,6 +80,7 @@ export const spotifyRouter = createSpotifyRouter()
           },
         }
       ).then((res) => res.json());
+
       return res.tracks.map((track: any) => {
         return {
           uri: track.uri,
@@ -100,6 +101,10 @@ export const spotifyRouter = createSpotifyRouter()
       isPublic: z.boolean(),
       description: z.string().optional(),
     }),
+    output: z.object({
+      name: z.string(),
+      url: z.string(),
+    }),
     async resolve({ ctx, input }) {
       const createPlaylistRes = await fetch(
         `${API_BASE_URL}/users/${ctx.session.user.id}/playlists`,
@@ -116,24 +121,23 @@ export const spotifyRouter = createSpotifyRouter()
           }),
         }
       ).then((res) => res.json());
-
       const playlistId = createPlaylistRes.id;
-      console.log("my id", playlistId);
 
-      const addTracksRes = await fetch(
-        `${API_BASE_URL}/playlists/${playlistId}/tracks`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${ctx.session.accessToken}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            position: 0,
-            uris: input.uris,
-          }),
-        }
-      ).then((res) => res.json());
-      console.log("add playlist", addTracksRes);
+      await fetch(`${API_BASE_URL}/playlists/${playlistId}/tracks`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${ctx.session.accessToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          position: 0,
+          uris: input.uris,
+        }),
+      }).then((res) => res.json());
+
+      return {
+        name: input.name,
+        url: `https://open.spotify.com/playlist/${playlistId}`,
+      };
     },
   });
