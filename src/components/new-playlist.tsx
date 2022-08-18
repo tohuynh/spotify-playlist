@@ -12,6 +12,7 @@ import SearchTracks from "./search-tracks";
 import { convertDurationToHMS } from "../types/convertDurationToHMS";
 import AudioPlayer from "./audio-player";
 import { Transition, Dialog } from "@headlessui/react";
+import toast from "react-hot-toast";
 
 type Track = ArrayElement<inferQueryOutput<"spotify.search">>;
 
@@ -33,13 +34,23 @@ function CreatePlaylistDialog({
       playlistIsPublic: { checked: boolean };
     };
     if (uris.length > 0) {
-      createPlayList.mutate({
-        uris,
-        name: target.playlistName.value,
-        description: target.playlistDescription.value,
-        isPublic: target.playlistIsPublic.checked,
-      });
-      setIsOpen(false);
+      createPlayList.mutate(
+        {
+          uris,
+          name: target.playlistName.value,
+          description: target.playlistDescription.value,
+          isPublic: target.playlistIsPublic.checked,
+        },
+        {
+          onSuccess: (result) => {
+            setIsOpen(false);
+            toast.success(`Created mixtape ${result.name}!`);
+          },
+          onError: (error) => {
+            toast.error(error.message);
+          },
+        }
+      );
     }
   };
 
@@ -77,7 +88,7 @@ function CreatePlaylistDialog({
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900"
                 >
-                  New playlist
+                  New mixtape
                 </Dialog.Title>
                 <form
                   className="mt-2 flex flex-col gap-y-3"

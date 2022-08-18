@@ -4,6 +4,7 @@ import AppBar from "../components/app-bar";
 import { useSession } from "next-auth/react";
 import NewPlaylist from "../components/new-playlist";
 import Welcome from "../components/welcome";
+import { Toaster } from "react-hot-toast";
 
 const Home: NextPage = () => {
   const { data, status } = useSession();
@@ -20,6 +21,28 @@ const Home: NextPage = () => {
       <main className="min-h-screen bg-slate-50">
         <AppBar />
         <div className="p-4">{data ? <NewPlaylist /> : <Welcome />}</div>
+        <Toaster
+          position="bottom-center"
+          toastOptions={{
+            duration: 3000,
+            success: {
+              iconTheme: {
+                primary: "#1db954",
+                secondary: "#ffffff",
+              },
+            },
+            error: {
+              iconTheme: {
+                primary: "#EF4444",
+                secondary: "#ffffff",
+              },
+            },
+            ariaProps: {
+              role: "status",
+              "aria-live": "polite",
+            },
+          }}
+        />
       </main>
     </>
   );
