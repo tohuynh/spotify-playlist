@@ -57,7 +57,7 @@ export default function AudioPlayer({ url }: { url: string | null }) {
           stroke="currentColor"
           strokeWidth={2}
         >
-          <title>No preview audio</title>
+          <title>No preview</title>
           <path
             strokeLinecap="round"
             strokeLinejoin="round"

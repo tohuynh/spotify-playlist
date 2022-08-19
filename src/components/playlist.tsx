@@ -61,6 +61,7 @@ export function SortableItem(props: SortablePlaylistTrackProps) {
         <div className="flex justify-center items-center">
           <button
             className="h-8 w-6 hover:bg-slate-200 rounded-md flex justify-center items-center"
+            title="Reorder"
             aria-label="Drag handle"
             {...listeners}
             {...attributes}
@@ -88,7 +89,8 @@ export function SortableItem(props: SortablePlaylistTrackProps) {
         <div className="flex justify-center items-center">
           <button
             className="h-8 w-6 hover:bg-slate-200 rounded-md flex justify-center items-center"
-            aria-label="Remove handle"
+            title="Remove"
+            aria-label="Remove"
             onClick={() => handleRemovePlaylistTrack(track)}
           >
             <TrashIcon className="h-4 w-4" aria-hidden />
