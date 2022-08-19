@@ -1,19 +1,17 @@
 import { Fragment, useCallback, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon, SearchIcon } from "@heroicons/react/solid";
-import { ArrayElement } from "../types/utility-types";
 import debounce from "lodash.debounce";
-import { inferQueryOutput, trpc } from "../utils/trpc";
-
-type Track = ArrayElement<inferQueryOutput<"spotify.search">>;
+import { trpc } from "../utils/trpc";
+import { TrackSeed } from "../server/router/output-types";
 
 type Props = {
   selectedTracksNum: number;
-  handleSelectTrack: (track: Track) => void;
+  handleSelectTrack: (track: TrackSeed) => void;
 };
 export default function SearchTracks(props: Props) {
   const { selectedTracksNum, handleSelectTrack } = props;
-  const [selected, setSelected] = useState<Track | undefined>(undefined);
+  const [selected, setSelected] = useState<TrackSeed | undefined>(undefined);
   const [query, setQuery] = useState("");
   const searchQuery = trpc.useQuery(
     ["spotify.search", { q: query, offset: 0, limit: 5 }],
@@ -27,7 +25,7 @@ export default function SearchTracks(props: Props) {
     []
   );
 
-  const onSelectTrack = (track: Track) => {
+  const onSelectTrack = (track: TrackSeed) => {
     handleSelectTrack(track);
     setSelected(track);
   };
@@ -49,7 +47,7 @@ export default function SearchTracks(props: Props) {
         <div className="relative w-full lg:w-96 cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
           <Combobox.Input
             className="h-12 w-full border-none py-2 pl-10 pr-10 text-md leading-5 text-gray-900 focus:ring-0 truncate disabled:cursor-not-allowed"
-            displayValue={(track: Track) =>
+            displayValue={(track: TrackSeed) =>
               track ? `${track.name} • ${track.artists.join(", ")}` : ""
             }
             onChange={(e) => handleSearch(e.target.value)}

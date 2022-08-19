@@ -19,12 +19,11 @@ import {
   restrictToVerticalAxis,
 } from "@dnd-kit/modifiers";
 
-import { inferQueryOutput } from "../utils/trpc";
-import { ArrayElement } from "../types/utility-types";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import AudioPlayer from "./audio-player";
 import { convertDurationToHMS } from "../utils/convertDurationToHMS";
+import { PlaylistTrack } from "../server/router/output-types";
 
 const dragHandle = (
   <svg aria-hidden="true" viewBox="0 0 16 16" className="h-4 w-4">
@@ -34,10 +33,6 @@ const dragHandle = (
     ></path>
   </svg>
 );
-
-type PlaylistTrack = ArrayElement<
-  inferQueryOutput<"spotify.getRecommendations">
->;
 
 type SortablePlaylistTrackProps = {
   id: string;
@@ -129,7 +124,7 @@ export default function Playlist(props: PlaylistProps) {
         items={draggablePlaylistTracks}
         strategy={verticalListSortingStrategy}
       >
-        <ul className="mt-8 flex flex-col gap-5 lg:p-8 m-y-1">
+        <ul className="mt-8 flex flex-col gap-5 lg:py-8 lg:pr-8 m-y-1">
           {draggablePlaylistTracks.map((track) => (
             <SortableItem key={track.id} id={track.id} track={track} />
           ))}

@@ -153,7 +153,7 @@ Here are some resources that we commonly refer to:
     - [x] search result should display track and artist
     - [x] remove a track seed
   - get recs based on selected songs (up to five seeds) /recommendations
-    - [] handle user's input on size od recs
+    - [] handle user's input on size of recs
     - [] handle empty track_seeds
     - [x]figure out output
     - [] display playlists
@@ -161,11 +161,10 @@ Here are some resources that we commonly refer to:
       - [] remove track
       - [] add track (extra)
   - [x] create playlist
-    - [] private or public
-      - [] private playlist still visible?
+    - [x] private or public
+      - [x] private playlist still visible?
     - [x] name
     - [x] desc
-  - [] get several tracks based on ids
   - [] pick a random track seed from user's liked tracks and use to create an initial playlist
 - UI
   - [x] app bar with hello, user and sigin or sigout
@@ -178,7 +177,7 @@ Here are some resources that we commonly refer to:
     - [] display list of tracks
       - [] Xable
       - [] previewable
-      - [] reoder track
+      - [x] reoder track
       - [] track text don't wrap onto new line with ellipsis
   - [x] FAB to create playlist
     - [x] bottom center on mobile

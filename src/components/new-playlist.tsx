@@ -5,28 +5,22 @@ import {
   Fragment,
   FormEventHandler,
 } from "react";
-import { ArrayElement } from "../types/utility-types";
-import { inferQueryOutput, trpc } from "../utils/trpc";
-import { PlusIcon, XIcon } from "@heroicons/react/outline";
+import { trpc } from "../utils/trpc";
+import { PlusIcon } from "@heroicons/react/outline";
 import SearchTracks from "./search-tracks";
 import { Transition, Dialog } from "@headlessui/react";
 import toast from "react-hot-toast";
 import Playlist from "./playlist";
+import { PlaylistTrack, TrackSeed } from "../server/router/output-types";
+import TrackChips from "./track-chips";
 
-type TrackSeed = ArrayElement<inferQueryOutput<"spotify.search">>;
-type PlaylistTrack = ArrayElement<
-  inferQueryOutput<"spotify.getRecommendations">
->;
-
-function CreatePlaylistDialog({
-  isOpen,
-  setIsOpen,
-  uris,
-}: {
+type CreatePlaylistDialogProps = {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   uris: string[];
-}) {
+};
+function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
+  const { isOpen, setIsOpen, uris } = props;
   const createPlayList = trpc.useMutation(["spotify.createPlaylist"]);
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -145,32 +139,6 @@ function CreatePlaylistDialog({
         </div>
       </Dialog>
     </Transition>
-  );
-}
-
-function TrackChips({
-  tracks,
-  handleUnselectTrack,
-}: {
-  tracks: TrackSeed[];
-  handleUnselectTrack: (track: TrackSeed) => void;
-}) {
-  return (
-    <div className="flex flex-wrap gap-4 mt-4">
-      {tracks.map((track, i) => (
-        <button
-          key={track.id}
-          className="shadow-md rounded-md flex justify-between items-center ring-1 ring-slate-200 hover:bg-slate-100 max-w-[16rem] px-4 py-1"
-          onClick={() => handleUnselectTrack(track)}
-        >
-          <span className="basis-11/12 truncate">
-            <span className="font-light mr-1">{`${i + 1}. `}</span>
-            <span>{track.name}</span>
-          </span>
-          <XIcon className="h-4 w-4 ml-4" />
-        </button>
-      ))}
-    </div>
   );
 }
 
