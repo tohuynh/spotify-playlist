@@ -153,7 +153,7 @@ export default function NewPlaylist() {
       "spotify.getRecommendations",
       {
         trackSeeds: selectedTracks.map((track) => track.id),
-        limit: 100,
+        limit: 20,
       },
     ],
     {
