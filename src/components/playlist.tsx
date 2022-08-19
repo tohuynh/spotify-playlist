@@ -26,6 +26,15 @@ import { CSS } from "@dnd-kit/utilities";
 import AudioPlayer from "./audio-player";
 import { convertDurationToHMS } from "../utils/convertDurationToHMS";
 
+const dragHandle = (
+  <svg aria-hidden="true" viewBox="0 0 16 16" className="h-4 w-4">
+    <path
+      fillRule="evenodd"
+      d="M10 13a1 1 0 100-2 1 1 0 000 2zm-4 0a1 1 0 100-2 1 1 0 000 2zm1-5a1 1 0 11-2 0 1 1 0 012 0zm3 1a1 1 0 100-2 1 1 0 000 2zm1-5a1 1 0 11-2 0 1 1 0 012 0zM6 5a1 1 0 100-2 1 1 0 000 2z"
+    ></path>
+  </svg>
+);
+
 type PlaylistTrack = ArrayElement<
   inferQueryOutput<"spotify.getRecommendations">
 >;
@@ -49,8 +58,6 @@ export function SortableItem(props: SortablePlaylistTrackProps) {
       className="bg-white hover:bg-slate-100 shadow-sm hover:shadow-md rounded-md p-2"
       ref={setNodeRef}
       style={style}
-      {...attributes}
-      {...listeners}
     >
       <div className="flex flex-row gap-x-8">
         <div className="flex-1 flex gap-4 items-center">
@@ -67,6 +74,16 @@ export function SortableItem(props: SortablePlaylistTrackProps) {
         <div className="hidden lg:block flex-1 text-lg">{track.albumName}</div>
         <div className="text-sm lg:text-lg">
           {convertDurationToHMS(track.duration)}
+        </div>
+        <div className="flex justify-center items-center">
+          <button
+            className="h-8 w-6 hover:bg-slate-200 rounded-md flex justify-center items-center"
+            aria-label="Drag handle"
+            {...listeners}
+            {...attributes}
+          >
+            {dragHandle}
+          </button>
         </div>
       </div>
     </li>
@@ -122,5 +139,5 @@ export default function Playlist(props: PlaylistProps) {
   );
 }
 
-//fix play button
 //variable height?
+//break-words for long strings
