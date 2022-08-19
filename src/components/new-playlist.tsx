@@ -9,12 +9,14 @@ import { ArrayElement } from "../types/utility-types";
 import { inferQueryOutput, trpc } from "../utils/trpc";
 import { PlusIcon, XIcon } from "@heroicons/react/outline";
 import SearchTracks from "./search-tracks";
-import { convertDurationToHMS } from "../types/convertDurationToHMS";
-import AudioPlayer from "./audio-player";
 import { Transition, Dialog } from "@headlessui/react";
 import toast from "react-hot-toast";
+import Playlist from "./playlist";
 
-type Track = ArrayElement<inferQueryOutput<"spotify.search">>;
+type TrackSeed = ArrayElement<inferQueryOutput<"spotify.search">>;
+type PlaylistTrack = ArrayElement<
+  inferQueryOutput<"spotify.getRecommendations">
+>;
 
 function CreatePlaylistDialog({
   isOpen,
@@ -150,8 +152,8 @@ function TrackChips({
   tracks,
   handleUnselectTrack,
 }: {
-  tracks: Track[];
-  handleUnselectTrack: (track: Track) => void;
+  tracks: TrackSeed[];
+  handleUnselectTrack: (track: TrackSeed) => void;
 }) {
   return (
     <div className="flex flex-wrap gap-4 mt-4">
@@ -173,8 +175,11 @@ function TrackChips({
 }
 
 export default function NewPlaylist() {
-  const [selectedTracks, setSelectedTracks] = useState<Track[]>([]);
+  const [selectedTracks, setSelectedTracks] = useState<TrackSeed[]>([]);
 
+  const [draggablePlaylistTracks, setDraggablePlaylistTracks] = useState<
+    PlaylistTrack[]
+  >([]);
   const getRecommendationsQuery = trpc.useQuery(
     [
       "spotify.getRecommendations",
@@ -185,17 +190,20 @@ export default function NewPlaylist() {
     ],
     {
       refetchOnWindowFocus: false,
+      onSuccess: (result) => {
+        setDraggablePlaylistTracks([...result]);
+      },
     }
   );
 
-  const handleSelectTrack = (track: Track) => {
+  const handleSelectTrack = (track: TrackSeed) => {
     const index = selectedTracks.findIndex((t) => t.id === track.id);
     if (index === -1) {
       setSelectedTracks((prev) => [...prev, track]);
     }
   };
 
-  const handleUnselectTrack = (track: Track) => {
+  const handleUnselectTrack = (track: TrackSeed) => {
     const index = selectedTracks.findIndex((t) => t.id === track.id);
     if (index > -1) {
       selectedTracks.splice(index, 1);
@@ -214,11 +222,11 @@ export default function NewPlaylist() {
       <CreatePlaylistDialog
         isOpen={createPlaylistDialogIsOpen}
         setIsOpen={setCreatePlaylistDialogIsOpen}
-        uris={getRecommendationsQuery.data?.map((track) => track.uri) || []}
+        uris={draggablePlaylistTracks.map((track) => track.id) || []}
       />
       <div className="lg:basis-32 flex justify-center items-start">
         <button
-          className="fixed lg:sticky h-16 w-16 m-4 lg:m-0 bottom-0 right-0 lg:top-4 flex justify-center items-center rounded-2xl shadow-lg bg-spotify-green disabled:cursor-not-allowed"
+          className="z-50 fixed lg:sticky h-16 w-16 m-4 lg:m-0 bottom-0 right-0 lg:top-4 flex justify-center items-center rounded-2xl shadow-lg bg-spotify-green disabled:cursor-not-allowed"
           aria-label="New mixtape"
           onClick={() => setCreatePlaylistDialogIsOpen(true)}
           disabled={
@@ -240,36 +248,10 @@ export default function NewPlaylist() {
             tracks={selectedTracks}
           />
         </div>
-        <ul className="mt-8 flex flex-col gap-5 lg:p-8 m-y-1">
-          {getRecommendationsQuery.data?.map((track) => (
-            <li
-              className="bg-white hover:bg-slate-100 shadow-sm hover:shadow-md rounded-md p-2"
-              key={track.uri}
-            >
-              <div className="flex flex-row gap-x-8">
-                <div className="flex-1 flex gap-4 items-center">
-                  <div className="flex flex-col justify-center items-center">
-                    <AudioPlayer url={track.previewUrl} />
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm lg:text-lg font-medium">
-                      {track.name}
-                    </div>
-                    <div className="text-xs lg:text-base font-light">
-                      {track.artists.join(", ")}
-                    </div>
-                  </div>
-                </div>
-                <div className="hidden lg:block flex-1 text-lg">
-                  {track.albumName}
-                </div>
-                <div className="text-sm lg:text-lg">
-                  {convertDurationToHMS(track.duration)}
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <Playlist
+          draggablePlaylistTracks={draggablePlaylistTracks}
+          setDraggablePlaylistTracks={setDraggablePlaylistTracks}
+        />
       </div>
     </div>
   );

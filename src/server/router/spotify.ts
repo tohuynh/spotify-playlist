@@ -1,4 +1,3 @@
-import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { createSpotifyRouter } from "./spotify-router";
 
@@ -54,7 +53,7 @@ export const spotifyRouter = createSpotifyRouter()
     }),
     output: z.array(
       z.object({
-        uri: z.string(),
+        id: z.string(),
         name: z.string(),
         previewUrl: z.string().nullable(),
         artists: z.array(z.string()),
@@ -83,7 +82,7 @@ export const spotifyRouter = createSpotifyRouter()
 
       return res.tracks.map((track: any) => {
         return {
-          uri: track.uri,
+          id: track.uri,
           name: track.name,
           previewUrl: track.preview_url,
           artists: track.artists.map((artist: any) => artist.name),

@@ -9,6 +9,6 @@ export function convertDurationToHMS(duration: number) {
   return `${minutes}:${pad(seconds)}`;
 }
 
-export default function pad(num: number) {
+export function pad(num: number) {
   return `${num}`.padStart(2, "0");
 }
