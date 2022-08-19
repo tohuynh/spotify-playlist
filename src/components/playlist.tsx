@@ -55,19 +55,21 @@ export function SortableItem(props: SortablePlaylistTrackProps) {
       ref={setNodeRef}
       style={style}
     >
-      <div className="flex flex-row gap-x-8">
-        <div className="flex-1 flex gap-4 items-center">
-          <div className="flex flex-col justify-center items-center">
-            <AudioPlayer url={track.previewUrl} />
+      <div className="grid grid-cols-[auto_1fr_auto_auto] lg:grid-cols-[auto_1fr_1fr_auto_auto] gap-x-6 lg:gap-x-8">
+        <div className="flex justify-center items-center">
+          <AudioPlayer url={track.previewUrl} />
+        </div>
+        <div className="overflow-hidden">
+          <div className="text-sm lg:text-lg font-medium truncate">
+            {track.name}
           </div>
-          <div className="flex-1">
-            <div className="text-sm lg:text-lg font-medium">{track.name}</div>
-            <div className="text-xs lg:text-base font-light">
-              {track.artists.join(", ")}
-            </div>
+          <div className="text-xs lg:text-base font-light truncate">
+            {track.artists.join(", ")}
           </div>
         </div>
-        <div className="hidden lg:block flex-1 text-lg">{track.albumName}</div>
+        <div className="hidden lg:block text-lg truncate">
+          {track.albumName}
+        </div>
         <div className="text-sm lg:text-lg">
           {convertDurationToHMS(track.duration)}
         </div>
