@@ -13,10 +13,10 @@ export default function TrackChips({
       {tracks.map((track, i) => (
         <button
           key={track.id}
-          className="shadow-md rounded-md flex justify-between items-center ring-1 ring-slate-200 hover:bg-slate-100 max-w-[16rem] px-4 py-1"
+          className="shadow-md rounded-md flex justify-between items-center ring-1 ring-slate-200 hover:bg-slate-100 max-w-[14rem] lg:max-w-[16rem] px-4 py-1"
           onClick={() => handleUnselectTrack(track)}
         >
-          <span className="basis-11/12 truncate">
+          <span className="basis-11/12 truncate text-sm lg:text-base">
             <span className="font-light mr-1">{`${i + 1}. `}</span>
             <span>{track.name}</span>
           </span>
