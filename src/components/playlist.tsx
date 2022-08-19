@@ -57,7 +57,7 @@ export function SortableItem(props: SortablePlaylistTrackProps) {
       ref={setNodeRef}
       style={style}
     >
-      <div className="grid grid-cols-[auto_1fr_auto_auto_auto] lg:grid-cols-[auto_1fr_1fr_auto_auto_auto] gap-x-6 lg:gap-x-8">
+      <div className="grid grid-cols-[auto_1fr_auto_auto_auto] lg:grid-cols-[auto_1fr_1fr_auto_auto_auto] gap-x-2 lg:gap-x-8">
         <div className="flex justify-center items-center">
           <button
             className="h-8 w-6 hover:bg-slate-200 rounded-md flex justify-center items-center"
@@ -79,7 +79,7 @@ export function SortableItem(props: SortablePlaylistTrackProps) {
         <div className="hidden lg:block text-lg truncate">
           {track.albumName}
         </div>
-        <div className="text-sm lg:text-lg">
+        <div className="text-sm lg:text-lg flex justify-center items-center">
           {convertDurationToHMS(track.duration)}
         </div>
         <div className="flex justify-center items-center">
