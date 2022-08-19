@@ -25,6 +25,7 @@ import { CSS } from "@dnd-kit/utilities";
 import AudioPlayer from "./audio-player";
 import { convertDurationToHMS } from "../utils/convertDurationToHMS";
 import { PlaylistTrack } from "../server/router/output-types";
+import { TrashIcon } from "@heroicons/react/outline";
 
 const dragHandle = (
   <svg aria-hidden="true" viewBox="0 0 16 16" className="h-4 w-4">
@@ -38,9 +39,10 @@ const dragHandle = (
 type SortablePlaylistTrackProps = {
   id: string;
   track: PlaylistTrack;
+  handleRemovePlaylistTrack: (track: PlaylistTrack) => void;
 };
 export function SortableItem(props: SortablePlaylistTrackProps) {
-  const { id, track } = props;
+  const { id, track, handleRemovePlaylistTrack } = props;
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
@@ -55,9 +57,16 @@ export function SortableItem(props: SortablePlaylistTrackProps) {
       ref={setNodeRef}
       style={style}
     >
-      <div className="grid grid-cols-[auto_1fr_auto_auto] lg:grid-cols-[auto_1fr_1fr_auto_auto] gap-x-6 lg:gap-x-8">
+      <div className="grid grid-cols-[auto_1fr_auto_auto_auto] lg:grid-cols-[auto_1fr_1fr_auto_auto_auto] gap-x-6 lg:gap-x-8">
         <div className="flex justify-center items-center">
-          <AudioPlayer url={track.previewUrl} />
+          <button
+            className="h-8 w-6 hover:bg-slate-200 rounded-md flex justify-center items-center"
+            aria-label="Drag handle"
+            {...listeners}
+            {...attributes}
+          >
+            {dragHandle}
+          </button>
         </div>
         <div className="overflow-hidden">
           <div className="text-sm lg:text-lg font-medium truncate">
@@ -74,13 +83,15 @@ export function SortableItem(props: SortablePlaylistTrackProps) {
           {convertDurationToHMS(track.duration)}
         </div>
         <div className="flex justify-center items-center">
+          <AudioPlayer url={track.previewUrl} />
+        </div>
+        <div className="flex justify-center items-center">
           <button
             className="h-8 w-6 hover:bg-slate-200 rounded-md flex justify-center items-center"
-            aria-label="Drag handle"
-            {...listeners}
-            {...attributes}
+            aria-label="Remove handle"
+            onClick={() => handleRemovePlaylistTrack(track)}
           >
-            {dragHandle}
+            <TrashIcon className="h-4 w-4" aria-hidden />
           </button>
         </div>
       </div>
@@ -117,6 +128,16 @@ export default function Playlist(props: PlaylistProps) {
     }
   }
 
+  const handleRemovePlaylistTrack = (track: PlaylistTrack) => {
+    const index = draggablePlaylistTracks.findIndex((t) => t.id === track.id);
+    if (index > -1) {
+      setDraggablePlaylistTracks((prev) => {
+        prev.splice(index, 1);
+        return [...prev];
+      });
+    }
+  };
+
   return (
     <DndContext
       sensors={sensors}
@@ -130,13 +151,15 @@ export default function Playlist(props: PlaylistProps) {
       >
         <ul className="mt-8 flex flex-col gap-5 lg:py-8 lg:pr-8 m-y-1">
           {draggablePlaylistTracks.map((track) => (
-            <SortableItem key={track.id} id={track.id} track={track} />
+            <SortableItem
+              key={track.id}
+              id={track.id}
+              track={track}
+              handleRemovePlaylistTrack={handleRemovePlaylistTrack}
+            />
           ))}
         </ul>
       </SortableContext>
     </DndContext>
   );
 }
-
-//variable height?
-//break-words for long strings
