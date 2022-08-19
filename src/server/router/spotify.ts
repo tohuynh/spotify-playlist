@@ -48,7 +48,7 @@ export const spotifyRouter = createSpotifyRouter()
   })
   .query("getRecommendations", {
     input: z.object({
-      trackSeeds: z.array(z.string()).min(1).max(5),
+      trackSeeds: z.array(z.string()).max(5),
       limit: z.number().min(1).max(100),
     }),
     output: z.array(
@@ -67,6 +67,9 @@ export const spotifyRouter = createSpotifyRouter()
       })
     ),
     async resolve({ ctx, input }) {
+      if (input.trackSeeds.length === 0) {
+        return [];
+      }
       const res = await fetch(
         `${API_BASE_URL}/recommendations?${new URLSearchParams({
           seed_tracks: input.trackSeeds.join(","),

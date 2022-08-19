@@ -154,7 +154,7 @@ Here are some resources that we commonly refer to:
     - [x] remove a track seed
   - get recs based on selected songs (up to five seeds) /recommendations
     - [] handle user's input on size of recs
-    - [] handle empty track_seeds
+    - [x] handle empty track_seeds
     - [x]figure out output
     - [] display playlists
       - [] previewable or playable tracks
