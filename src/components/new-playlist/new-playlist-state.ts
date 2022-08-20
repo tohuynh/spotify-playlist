@@ -118,7 +118,7 @@ export function userInputReducer(state: UserInput, action: UserAction) {
       if (index === -1) {
         return {
           ...state,
-          playlistTracks: [...state.playlistTracks, action.payload],
+          playlistTracks: [action.payload, ...state.playlistTracks],
         };
       } else {
         return state;

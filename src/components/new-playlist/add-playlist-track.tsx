@@ -38,7 +38,7 @@ export default function AddPlaylistTrack({
   return (
     <Combobox
       as="div"
-      className="lg:flex lg:flex-col lg:items-center pb-60"
+      className="lg:flex lg:flex-col lg:items-center mt-4"
       value={selected}
       onChange={onSelectTrack}
     >
@@ -66,7 +66,7 @@ export default function AddPlaylistTrack({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Combobox.Options className="mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Combobox.Options className="z-10 absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
               {data.map((track) => (
                 <Combobox.Option
                   key={track.id}

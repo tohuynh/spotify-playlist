@@ -106,11 +106,11 @@ export default function NewPlaylist() {
               dispatchUserAction={dispatchUserAction}
             />
           )}
+        <AddPlaylistTrack dispatchUserAction={dispatchUserAction} />
         <Playlist
           draggablePlaylistTracks={userInput.playlistTracks}
           dispatchUserAction={dispatchUserAction}
         />
-        <AddPlaylistTrack dispatchUserAction={dispatchUserAction} />
       </div>
     </div>
   );
