@@ -85,16 +85,14 @@ export default function NewPlaylist() {
         </button>
       </div>
       <div className="lg:flex-1">
-        <div>
-          <SearchTracks
-            selectedTracksNum={userInput.trackSeeds.length}
-            dispatchUserAction={dispatchUserAction}
-          />
-          <TrackChips
-            dispatchUserAction={dispatchUserAction}
-            tracks={userInput.trackSeeds}
-          />
-        </div>
+        <SearchTracks
+          selectedTracksNum={userInput.trackSeeds.length}
+          dispatchUserAction={dispatchUserAction}
+        />
+        <TrackChips
+          dispatchUserAction={dispatchUserAction}
+          tracks={userInput.trackSeeds}
+        />
         {getRecommendationsQuery.status === "loading" && <div>Loading...</div>}
         {getRecommendationsQuery.status === "error" ||
           (getRecommendationsQuery.status === "success" &&

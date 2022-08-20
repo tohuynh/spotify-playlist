@@ -41,7 +41,7 @@ const Home: NextPage = () => {
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      <main className="min-h-screen bg-slate-50">
+      <main className="min-h-screen bg-slate-100">
         <AppBar />
         <div className="p-4">{data ? <NewPlaylist /> : <Welcome />}</div>
         <Toaster

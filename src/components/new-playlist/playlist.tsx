@@ -16,8 +16,8 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import {
-  restrictToFirstScrollableAncestor,
   restrictToVerticalAxis,
+  restrictToParentElement,
 } from "@dnd-kit/modifiers";
 
 import { useSortable } from "@dnd-kit/sortable";
@@ -57,7 +57,7 @@ export function SortableItem({
 
   return (
     <li
-      className="bg-white hover:bg-slate-100 shadow-sm hover:shadow-md rounded-md p-2"
+      className="bg-white shadow-sm hover:shadow-md rounded-md p-2"
       ref={setNodeRef}
       style={style}
     >
@@ -74,17 +74,15 @@ export function SortableItem({
           </button>
         </div>
         <div className="overflow-hidden">
-          <div className="text-sm lg:text-lg font-medium truncate">
-            {track.name}
-          </div>
-          <div className="text-xs lg:text-base font-light truncate">
+          <div className="text-sm md:text-lg truncate">{track.name}</div>
+          <div className="text-xs md:text-base truncate">
             {track.artists.join(", ")}
           </div>
         </div>
         <div className="hidden lg:block text-lg truncate">
           {track.albumName}
         </div>
-        <div className="text-sm lg:text-lg flex justify-center items-center">
+        <div className="text-sm md:text-lg flex justify-center items-center">
           {convertDurationToHMS(track.duration)}
         </div>
         <div className="flex justify-center items-center">
@@ -150,13 +148,13 @@ export default function Playlist({
       sensors={sensors}
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
-      modifiers={[restrictToFirstScrollableAncestor, restrictToVerticalAxis]}
+      modifiers={[restrictToParentElement, restrictToVerticalAxis]}
     >
       <SortableContext
         items={draggablePlaylistTracks}
         strategy={verticalListSortingStrategy}
       >
-        <ul className="mt-8 flex flex-col gap-5 lg:py-8 lg:pr-8 m-y-1">
+        <ul className="mt-16 flex flex-col gap-4 lg:py-8 lg:pr-8 my-1">
           {draggablePlaylistTracks.map((track) => (
             <SortableItem
               key={track.id}

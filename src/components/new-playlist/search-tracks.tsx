@@ -37,27 +37,32 @@ export default function SearchTracks({
 
   return (
     <Combobox
-      as="div"
-      className="lg:flex lg:flex-col lg:items-center"
       value={selected}
       onChange={onSelectTrack}
       disabled={selectedTracksNum === 5}
     >
-      <div className="relative mt-1 w-full lg:w-1/2">
-        <div className="relative cursor-default overflow-hidden rounded-lg bg-white shadow-md">
+      <div className="relative mx-auto w-full md:w-2/3 lg:w-1/2">
+        <div className="relative cursor-default overflow-hidden rounded-md bg-white shadow-md">
           <Combobox.Input
-            className="h-16 w-full py-2 px-10 lg:px-14 text-base lg:text-lg truncate disabled:cursor-not-allowed"
+            className="h-14 w-full py-2 px-10 lg:px-14 text-base lg:text-lg truncate disabled:cursor-not-allowed"
             displayValue={(track: TrackSeed) =>
               track ? `${track.name} • ${track.artists.join(", ")}` : ""
             }
             onChange={(e) => handleSearch(e.target.value)}
+            title="Select up to 5 tracks to generate a mixtape"
             placeholder="Select up to 5 tracks to generate a mixtape"
           />
           <div className="absolute inset-y-0 left-0 flex items-center px-2">
-            <SearchIcon className="h-5 w-5 lg:h-6 lg:w-6 text-gray-400" aria-hidden />
+            <SearchIcon
+              className="h-5 w-5 lg:h-6 lg:w-6 text-gray-400"
+              aria-hidden
+            />
           </div>
           <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-            <SelectorIcon className="h-5 w-5 lg:h-6 lg:w-6 text-gray-400" aria-hidden />
+            <SelectorIcon
+              className="h-5 w-5 lg:h-6 lg:w-6 text-gray-400"
+              aria-hidden
+            />
           </Combobox.Button>
         </div>
         {data && data.length > 0 && (

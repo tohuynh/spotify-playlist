@@ -17,7 +17,7 @@ export default function TrackChips({
       {tracks.map((track, i) => (
         <button
           key={track.id}
-          className="shadow-md rounded-md flex justify-between items-center ring-1 ring-slate-200 hover:bg-slate-100 w-full md:max-w-[16rem] px-4 py-1"
+          className="bg-white shadow-md rounded-md flex justify-between gap-x-4 items-center w-full md:w-auto md:max-w-[16rem] px-4 py-2"
           onClick={() =>
             dispatchUserAction({
               type: UserActionType.UNSELECT_TRACK,
@@ -29,7 +29,7 @@ export default function TrackChips({
             <span className="font-light mr-1">{`${i + 1}. `}</span>
             <span>{track.name}</span>
           </span>
-          <XIcon className="h-4 w-4 ml-4" />
+          <XIcon className="h-4 w-4" />
         </button>
       ))}
     </div>

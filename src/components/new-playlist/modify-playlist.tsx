@@ -32,11 +32,11 @@ export default function ModifyPlaylist({
   };
   return (
     <div className="w-full pt-16">
-      <div className="mx-auto w-full lg:w-1/2 rounded-xl bg-white shadow-md p-2">
+      <div className="mx-auto w-full md:w-2/3 lg:w-1/2 rounded-md bg-white shadow-md">
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="flex w-full justify-between rounded-lg px-4 py-2 text-left text-lg font-medium">
+              <Disclosure.Button className="h-14 flex w-full justify-between items-center px-4 py-2 text-base md:text-lg">
                 <span>Modify mood of mixtape</span>
                 <ChevronDownIcon
                   className={`${open ? "rotate-180 transform" : ""} h-6 w-6`}
@@ -51,7 +51,7 @@ export default function ModifyPlaylist({
                 leaveFrom="transform scale-100 opacity-100"
                 leaveTo="transform scale-95 opacity-0"
               />
-              <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm md:text-base lg:text-base font-light">
+              <Disclosure.Panel className="px-4 py-2 text-xs md:text-base">
                 <form
                   className="grid grid-cols-[auto_1fr_auto] gap-2"
                   onSubmit={handleSubmit}
@@ -113,7 +113,7 @@ export default function ModifyPlaylist({
                   <label htmlFor="instrumentalness">Instrumental</label>
                   <div className="mt-4 col-span-full ">
                     <button
-                      className="rounded-md border border-transparent bg-gray-300 px-4 py-2 text-base font-medium focus:outline-none"
+                      className="rounded-md border border-transparent bg-gray-300 px-4 py-2 text-base font-medium"
                       type="submit"
                     >
                       Modify

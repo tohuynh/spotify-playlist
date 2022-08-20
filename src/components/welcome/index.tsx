@@ -7,11 +7,12 @@ export default function Welcome() {
         Sign in with Spotify to create mixtapes.
       </h2>
       <button
-        className="mt-2 px-4 py-1 text-lg rounded-full flex justify-between items-center spotify-green font-semibold"
+        className="mt-2 px-4 py-1 text-lg rounded-full flex justify-between items-center gap-x-3 spotify-green font-semibold"
         onClick={() => signIn("spotify")}
       >
         <svg
-          className="h-8 w-8 mr-3"
+          aria-hidden
+          className="h-8 w-8"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1333.33 1333.3"
           shapeRendering="geometricPrecision"

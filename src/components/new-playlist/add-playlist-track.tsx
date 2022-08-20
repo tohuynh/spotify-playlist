@@ -36,16 +36,11 @@ export default function AddPlaylistTrack({
 
   const { data } = searchQuery;
   return (
-    <Combobox
-      as="div"
-      className="lg:flex lg:flex-col lg:items-center mt-4"
-      value={selected}
-      onChange={onSelectTrack}
-    >
-      <div className="relative mt-1 w-full lg:w-1/2">
-        <div className="relative cursor-default overflow-hidden rounded-lg bg-white shadow-md">
+    <Combobox value={selected} onChange={onSelectTrack}>
+      <div className="relative mt-4 mx-auto w-full md:w-2/3 lg:w-1/2">
+        <div className="relative cursor-default overflow-hidden rounded-md bg-white shadow-md">
           <Combobox.Input
-            className="h-14 w-full border-none py-2 px-10 lg:px-14 text-sm lg:text-base truncate disabled:cursor-not-allowed"
+            className="h-14 w-full border-none py-2 px-10 lg:px-14 text-sm md:text-base truncate disabled:cursor-not-allowed"
             displayValue={(track: TrackSeed) =>
               track ? `${track.name} • ${track.artists.join(", ")}` : ""
             }
@@ -72,12 +67,12 @@ export default function AddPlaylistTrack({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Combobox.Options className="z-10 absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Combobox.Options className="z-10 absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-md">
               {data.map((track) => (
                 <Combobox.Option
                   key={track.id}
                   className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 text-gray-900 ${
+                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
                       active ? "bg-gray-100" : "bg-white"
                     }`
                   }
