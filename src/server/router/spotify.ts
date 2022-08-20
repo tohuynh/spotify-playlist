@@ -50,6 +50,10 @@ export const spotifyRouter = createSpotifyRouter()
     input: z.object({
       trackSeeds: z.array(z.string()).max(5),
       limit: z.number().min(1).max(100),
+      danceability: z.number().min(0).max(100).optional(),
+      instrumentalness: z.number().min(0).max(100).optional(),
+      valence: z.number().min(0).max(100).optional(),
+      energy: z.number().min(0).max(100).optional(),
     }),
     output: z.array(
       z.object({
@@ -64,16 +68,59 @@ export const spotifyRouter = createSpotifyRouter()
           url: z.string(),
         }),
         duration: z.number(),
+        danceability: z.number().min(0).max(100),
+        instrumentalness: z.number().min(0).max(100),
+        valence: z.number().min(0).max(100),
+        energy: z.number().min(0).max(100),
       })
     ),
     async resolve({ ctx, input }) {
       if (input.trackSeeds.length === 0) {
         return [];
       }
+
+      const searchParams = new URLSearchParams({
+        seed_tracks: input.trackSeeds.join(","),
+        limit: `${100}`,
+      });
+      if (input.danceability !== undefined) {
+        searchParams.append(
+          "target_danceability",
+          `${input.danceability / 100}`
+        );
+      }
+      if (input.instrumentalness !== undefined) {
+        searchParams.append(
+          "target_instrumentalness",
+          `${input.instrumentalness / 100}`
+        );
+      }
+      if (input.valence !== undefined) {
+        searchParams.append("target_valence", `${input.valence / 100}`);
+      }
+      if (input.energy !== undefined) {
+        searchParams.append("target_energy", `${input.energy / 100}`);
+      }
+
       const res = await fetch(
-        `${API_BASE_URL}/recommendations?${new URLSearchParams({
-          seed_tracks: input.trackSeeds.join(","),
-          limit: `${input.limit}`,
+        `${API_BASE_URL}/recommendations?${searchParams}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${ctx.session.accessToken}`,
+          },
+        }
+      ).then((res) => res.json());
+
+      //get only previewable tracks
+      const tracks = res.tracks
+        .filter((track: any) => track.preview_url)
+        .slice(0, input.limit);
+
+      //get audio features of each track
+      const audioFeaturesRes = await fetch(
+        `${API_BASE_URL}/audio-features?${new URLSearchParams({
+          ids: tracks.map((track: any) => track.id).join(","),
         })}`,
         {
           method: "GET",
@@ -83,7 +130,7 @@ export const spotifyRouter = createSpotifyRouter()
         }
       ).then((res) => res.json());
 
-      return res.tracks.map((track: any) => {
+      return tracks.map((track: any, i: number) => {
         return {
           id: track.uri,
           name: track.name,
@@ -92,6 +139,14 @@ export const spotifyRouter = createSpotifyRouter()
           albumName: track.album.name,
           image: track.album.images.at(-1),
           duration: track.duration_ms,
+          danceability: Math.floor(
+            audioFeaturesRes.audio_features[i].danceability * 100
+          ),
+          instrumentalness: Math.floor(
+            audioFeaturesRes.audio_features[i].instrumentalness * 100
+          ),
+          valence: Math.floor(audioFeaturesRes.audio_features[i].valence * 100),
+          energy: Math.floor(audioFeaturesRes.audio_features[i].energy * 100),
         };
       });
     },

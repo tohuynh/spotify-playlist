@@ -2,8 +2,8 @@ import { Fragment, useCallback, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon, SearchIcon } from "@heroicons/react/solid";
 import debounce from "lodash.debounce";
-import { trpc } from "../utils/trpc";
-import { TrackSeed } from "../server/router/output-types";
+import { trpc } from "../../utils/trpc";
+import { TrackSeed } from "../../server/router/output-types";
 
 type Props = {
   selectedTracksNum: number;

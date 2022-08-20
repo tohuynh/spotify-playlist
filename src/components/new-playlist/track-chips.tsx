@@ -1,5 +1,5 @@
 import { XIcon } from "@heroicons/react/outline";
-import { TrackSeed } from "../server/router/output-types";
+import { TrackSeed } from "../../server/router/output-types";
 
 export default function TrackChips({
   tracks,

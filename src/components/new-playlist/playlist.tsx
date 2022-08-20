@@ -23,8 +23,8 @@ import {
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import AudioPlayer from "./audio-player";
-import { convertDurationToHMS } from "../utils/convertDurationToHMS";
-import { PlaylistTrack } from "../server/router/output-types";
+import { convertDurationToHMS } from "../../utils/convert-duration-to-hms";
+import { PlaylistTrack } from "../../server/router/output-types";
 import { TrashIcon } from "@heroicons/react/outline";
 
 const dragHandle = (
@@ -139,6 +139,10 @@ export default function Playlist(props: PlaylistProps) {
       });
     }
   };
+
+  if (draggablePlaylistTracks.length === 0) {
+    return <div>"no reuslt found"</div>;
+  }
 
   return (
     <DndContext
