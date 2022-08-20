@@ -28,6 +28,7 @@ export enum UserActionType {
   MODIFY_AUDIO_FEATURES,
   UPDATE_PLAYLIST,
   REMOVE_TRACK,
+  ADD_TRACK,
 }
 
 export type UserAction =
@@ -49,7 +50,7 @@ export type UserAction =
       payload: PlaylistTrack[];
     }
   | {
-      type: UserActionType.REMOVE_TRACK;
+      type: UserActionType.REMOVE_TRACK | UserActionType.ADD_TRACK;
       payload: PlaylistTrack;
     };
 
@@ -105,6 +106,19 @@ export function userInputReducer(state: UserInput, action: UserAction) {
         return {
           ...state,
           playlistTracks: [...state.playlistTracks],
+        };
+      } else {
+        return state;
+      }
+    }
+    case UserActionType.ADD_TRACK: {
+      const index = state.playlistTracks.findIndex(
+        (track) => track.id === action.payload.id
+      );
+      if (index === -1) {
+        return {
+          ...state,
+          playlistTracks: [...state.playlistTracks, action.payload],
         };
       } else {
         return state;

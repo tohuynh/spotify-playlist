@@ -157,9 +157,10 @@ Here are some resources that we commonly refer to:
     - [x] handle empty track_seeds
     - [x]figure out output
     - [] display playlists
-      - [] previewable or playable tracks
-      - [] remove track
+      - [x] previewable or playable tracks
+      - [x] remove track
       - [] add track (extra)
+        - [] get full play list track data
   - [x] create playlist
     - [x] private or public
       - [x] private playlist still visible?
@@ -175,10 +176,19 @@ Here are some resources that we commonly refer to:
   - [x] on select track show Xable chip
     - [x] up to five chips
     - [] display list of tracks
-      - [] Xable
-      - [] previewable
+      - [x] Xable
+      - [x] previewable
       - [x] reoder track
-      - [] track text don't wrap onto new line with ellipsis
+      - [x] track text don't wrap onto new line with ellipsis
+      - [] rendering logic
+        - [] is getting recs (when .getrecs is loading)
+        - [] no recs found (when .getrecs has error or data.length === 0)
+          - [] from selecting seeds (don't show modify ui, or show with undefined audio features)
+          - [] from changing moods (show modify ui)
+        - [] empty recs due to remove all tracks (just empty playlisttracks)
+        - [] submit modify mood doesn't re-redner its ui
+        - [] show add track ui after .getrecs or modify audio features
+          - [] pb for add track ui
   - [x] FAB to create playlist
     - [x] bottom center on mobile
     - [x] top right of container to search for songs and create playlist

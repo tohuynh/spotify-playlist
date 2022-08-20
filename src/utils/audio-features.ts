@@ -7,13 +7,15 @@ function average(nums: number[]) {
 
 export function calculateAverageAudioFeatures(tracks: PlaylistTrack[]) {
   const danceability = Math.floor(
-    average(tracks.map((track) => track.danceability))
+    average(tracks.map((track) => track.danceability || 0))
   );
   const instrumentalness = Math.floor(
-    average(tracks.map((track) => track.instrumentalness))
+    average(tracks.map((track) => track.instrumentalness || 0))
   );
-  const valence = Math.floor(average(tracks.map((track) => track.valence)));
-  const energy = Math.floor(average(tracks.map((track) => track.energy)));
+  const valence = Math.floor(
+    average(tracks.map((track) => track.valence || 0))
+  );
+  const energy = Math.floor(average(tracks.map((track) => track.energy || 0)));
   return {
     danceability,
     instrumentalness,

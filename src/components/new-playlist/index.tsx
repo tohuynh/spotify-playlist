@@ -17,6 +17,7 @@ import {
   UserActionType,
   userInputReducer,
 } from "./new-playlist-state";
+import AddPlaylistTrack from "./add-playlist-track";
 
 export default function NewPlaylist() {
   const [userInput, dispatchUserAction] = useReducer(userInputReducer, {
@@ -49,7 +50,6 @@ export default function NewPlaylist() {
           type: UserActionType.UPDATE_PLAYLIST,
           payload: [...result],
         });
-        //setDraggablePlaylistTracks([...result]);
         if (
           result.length > 0 &&
           Object.values(userInput.audioFeatures).every((af) => af === undefined)
@@ -110,6 +110,7 @@ export default function NewPlaylist() {
           draggablePlaylistTracks={userInput.playlistTracks}
           dispatchUserAction={dispatchUserAction}
         />
+        <AddPlaylistTrack dispatchUserAction={dispatchUserAction} />
       </div>
     </div>
   );

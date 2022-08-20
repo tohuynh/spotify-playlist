@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { PlaylistTracksSchema } from "./output-types";
 import { createSpotifyRouter } from "./spotify-router";
 
 const API_BASE_URL = "https://api.spotify.com/v1";
@@ -46,6 +47,39 @@ export const spotifyRouter = createSpotifyRouter()
       });
     },
   })
+  .query("searchForPlaylistTrack", {
+    input: z.object({
+      q: z.string(),
+      offset: z.number().min(0).max(1000),
+      limit: z.number().min(0).max(50),
+    }),
+    output: PlaylistTracksSchema,
+    async resolve({ ctx, input }) {
+      let url = `${API_BASE_URL}/search?${new URLSearchParams({
+        q: input.q,
+        type: "track",
+        offset: `${input.offset}`,
+        limit: `${input.limit}`,
+      })}`;
+      const res = await fetch(url, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${ctx.session.accessToken}`,
+        },
+      }).then((res) => res.json());
+      return res.tracks.items.map((item: any) => {
+        return {
+          id: item.uri,
+          name: item.name,
+          artists: item.artists.map((artist: any) => artist.name),
+          previewUrl: item.preview_url,
+          albumName: item.album.name,
+          image: item.album.images.at(-1),
+          duration: item.duration_ms,
+        };
+      });
+    },
+  })
   .query("getRecommendations", {
     input: z.object({
       trackSeeds: z.array(z.string()).max(5),
@@ -55,25 +89,7 @@ export const spotifyRouter = createSpotifyRouter()
       valence: z.number().min(0).max(100).optional(),
       energy: z.number().min(0).max(100).optional(),
     }),
-    output: z.array(
-      z.object({
-        id: z.string(),
-        name: z.string(),
-        previewUrl: z.string().nullable(),
-        artists: z.array(z.string()),
-        albumName: z.string(),
-        image: z.object({
-          height: z.number(),
-          width: z.number(),
-          url: z.string(),
-        }),
-        duration: z.number(),
-        danceability: z.number().min(0).max(100),
-        instrumentalness: z.number().min(0).max(100),
-        valence: z.number().min(0).max(100),
-        energy: z.number().min(0).max(100),
-      })
-    ),
+    output: PlaylistTracksSchema,
     async resolve({ ctx, input }) {
       if (input.trackSeeds.length === 0) {
         return [];
