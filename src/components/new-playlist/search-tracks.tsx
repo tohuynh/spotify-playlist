@@ -1,16 +1,19 @@
-import { Fragment, useCallback, useState } from "react";
+import { Dispatch, Fragment, useCallback, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon, SearchIcon } from "@heroicons/react/solid";
 import debounce from "lodash.debounce";
 import { trpc } from "../../utils/trpc";
 import { TrackSeed } from "../../server/router/output-types";
+import { UserAction, UserActionType } from "./new-playlist-state";
 
 type Props = {
   selectedTracksNum: number;
-  handleSelectTrack: (track: TrackSeed) => void;
+  dispatchUserAction: Dispatch<UserAction>;
 };
-export default function SearchTracks(props: Props) {
-  const { selectedTracksNum, handleSelectTrack } = props;
+export default function SearchTracks({
+  selectedTracksNum,
+  dispatchUserAction,
+}: Props) {
   const [selected, setSelected] = useState<TrackSeed | undefined>(undefined);
   const [query, setQuery] = useState("");
   const searchQuery = trpc.useQuery(
@@ -26,7 +29,7 @@ export default function SearchTracks(props: Props) {
   );
 
   const onSelectTrack = (track: TrackSeed) => {
-    handleSelectTrack(track);
+    dispatchUserAction({ type: UserActionType.SELECT_TRACK, payload: track });
     setSelected(track);
   };
 

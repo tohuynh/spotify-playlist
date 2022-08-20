@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch } from "react";
 import {
   DndContext,
   closestCenter,
@@ -26,6 +26,7 @@ import AudioPlayer from "./audio-player";
 import { convertDurationToHMS } from "../../utils/convert-duration-to-hms";
 import { PlaylistTrack } from "../../server/router/output-types";
 import { TrashIcon } from "@heroicons/react/outline";
+import { UserAction, UserActionType } from "./new-playlist-state";
 
 const dragHandle = (
   <svg aria-hidden="true" viewBox="0 0 16 16" className="h-4 w-4">
@@ -39,10 +40,13 @@ const dragHandle = (
 type SortablePlaylistTrackProps = {
   id: string;
   track: PlaylistTrack;
-  handleRemovePlaylistTrack: (track: PlaylistTrack) => void;
+  dispatchUserAction: Dispatch<UserAction>;
 };
-export function SortableItem(props: SortablePlaylistTrackProps) {
-  const { id, track, handleRemovePlaylistTrack } = props;
+export function SortableItem({
+  id,
+  track,
+  dispatchUserAction,
+}: SortablePlaylistTrackProps) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
@@ -91,7 +95,12 @@ export function SortableItem(props: SortablePlaylistTrackProps) {
             className="h-8 w-6 hover:bg-slate-200 rounded-md flex justify-center items-center"
             title="Remove"
             aria-label="Remove"
-            onClick={() => handleRemovePlaylistTrack(track)}
+            onClick={() =>
+              dispatchUserAction({
+                type: UserActionType.REMOVE_TRACK,
+                payload: track,
+              })
+            }
           >
             <TrashIcon className="h-4 w-4" aria-hidden />
           </button>
@@ -103,10 +112,12 @@ export function SortableItem(props: SortablePlaylistTrackProps) {
 
 type PlaylistProps = {
   draggablePlaylistTracks: PlaylistTrack[];
-  setDraggablePlaylistTracks: Dispatch<SetStateAction<PlaylistTrack[]>>;
+  dispatchUserAction: Dispatch<UserAction>;
 };
-export default function Playlist(props: PlaylistProps) {
-  const { draggablePlaylistTracks, setDraggablePlaylistTracks } = props;
+export default function Playlist({
+  draggablePlaylistTracks,
+  dispatchUserAction,
+}: PlaylistProps) {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -120,28 +131,18 @@ export default function Playlist(props: PlaylistProps) {
 
     if (over) {
       if (active.id !== over.id) {
-        setDraggablePlaylistTracks((items) => {
-          const oldIndex = items.findIndex((item) => item.id === active.id);
-          const newIndex = items.findIndex((item) => item.id === over.id);
-
-          return arrayMove(items, oldIndex, newIndex);
+        const oldIndex = draggablePlaylistTracks.findIndex(
+          (item) => item.id === active.id
+        );
+        const newIndex = draggablePlaylistTracks.findIndex(
+          (item) => item.id === over.id
+        );
+        dispatchUserAction({
+          type: UserActionType.UPDATE_PLAYLIST,
+          payload: arrayMove(draggablePlaylistTracks, oldIndex, newIndex),
         });
       }
     }
-  }
-
-  const handleRemovePlaylistTrack = (track: PlaylistTrack) => {
-    const index = draggablePlaylistTracks.findIndex((t) => t.id === track.id);
-    if (index > -1) {
-      setDraggablePlaylistTracks((prev) => {
-        prev.splice(index, 1);
-        return [...prev];
-      });
-    }
-  };
-
-  if (draggablePlaylistTracks.length === 0) {
-    return <div>"no reuslt found"</div>;
   }
 
   return (
@@ -161,7 +162,7 @@ export default function Playlist(props: PlaylistProps) {
               key={track.id}
               id={track.id}
               track={track}
-              handleRemovePlaylistTrack={handleRemovePlaylistTrack}
+              dispatchUserAction={dispatchUserAction}
             />
           ))}
         </ul>

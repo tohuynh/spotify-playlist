@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import { trpc } from "../../utils/trpc";
 import { PlusIcon } from "@heroicons/react/outline";
 import SearchTracks from "./search-tracks";
@@ -12,69 +12,53 @@ import TrackChips from "./track-chips";
 import { calculateAverageAudioFeatures } from "../../utils/audio-features";
 import CreatePlaylistDialog from "./create-playlist-dialog";
 import ModifyPlaylist from "./modify-playlist";
+import {
+  INITIAL_AUDIO_FEATURES,
+  UserActionType,
+  userInputReducer,
+} from "./new-playlist-state";
 
 export default function NewPlaylist() {
-  const [selectedTracks, setSelectedTracks] = useState<TrackSeed[]>([]);
-  const [audioFeaturesForRecommedations, setAudioFeaturesForRecommedations] =
-    useState<Partial<AudioFeatures>>({
-      danceability: undefined,
-      instrumentalness: undefined,
-      valence: undefined,
-    });
+  const [userInput, dispatchUserAction] = useReducer(userInputReducer, {
+    trackSeeds: [],
+    audioFeatures: { ...INITIAL_AUDIO_FEATURES },
+    playlistTracks: [],
+  });
   const [audioFeaturesForDisplay, setAudioFeaturesForDisplay] = useState<
     Partial<AudioFeatures>
   >({
-    danceability: undefined,
-    instrumentalness: undefined,
-    valence: undefined,
+    ...INITIAL_AUDIO_FEATURES,
   });
 
-  const [draggablePlaylistTracks, setDraggablePlaylistTracks] = useState<
+  /* const [draggablePlaylistTracks, setDraggablePlaylistTracks] = useState<
     PlaylistTrack[]
-  >([]);
+  >([]); */
   const getRecommendationsQuery = trpc.useQuery(
     [
       "spotify.getRecommendations",
       {
-        ...audioFeaturesForRecommedations,
-        trackSeeds: selectedTracks.map((track) => track.id),
+        ...userInput.audioFeatures,
+        trackSeeds: userInput.trackSeeds.map((track) => track.id),
         limit: 20,
       },
     ],
     {
       refetchOnWindowFocus: false,
       onSuccess: (result) => {
-        setDraggablePlaylistTracks([...result]);
-        if (result.length > 0) {
+        dispatchUserAction({
+          type: UserActionType.UPDATE_PLAYLIST,
+          payload: [...result],
+        });
+        //setDraggablePlaylistTracks([...result]);
+        if (
+          result.length > 0 &&
+          Object.values(userInput.audioFeatures).every((af) => af === undefined)
+        ) {
           setAudioFeaturesForDisplay(calculateAverageAudioFeatures(result));
         }
       },
     }
   );
-
-  const handleSelectTrack = (track: TrackSeed) => {
-    const index = selectedTracks.findIndex((t) => t.id === track.id);
-    if (index === -1) {
-      setSelectedTracks((prev) => [...prev, track]);
-      setAudioFeaturesForRecommedations({
-        danceability: undefined,
-        instrumentalness: undefined,
-        valence: undefined,
-        energy: undefined,
-      });
-    }
-  };
-
-  const handleUnselectTrack = (track: TrackSeed) => {
-    const index = selectedTracks.findIndex((t) => t.id === track.id);
-    if (index > -1) {
-      selectedTracks.splice(index, 1);
-      setSelectedTracks((prev) => {
-        prev.slice(index, 1);
-        return [...prev];
-      });
-    }
-  };
 
   const [createPlaylistDialogIsOpen, setCreatePlaylistDialogIsOpen] =
     useState(false);
@@ -84,7 +68,7 @@ export default function NewPlaylist() {
       <CreatePlaylistDialog
         isOpen={createPlaylistDialogIsOpen}
         setIsOpen={setCreatePlaylistDialogIsOpen}
-        uris={draggablePlaylistTracks.map((track) => track.id) || []}
+        uris={userInput.playlistTracks.map((track) => track.id)}
       />
       <div className="lg:basis-32 flex justify-center items-start">
         <button
@@ -93,7 +77,8 @@ export default function NewPlaylist() {
           onClick={() => setCreatePlaylistDialogIsOpen(true)}
           disabled={
             getRecommendationsQuery.status === "error" ||
-            getRecommendationsQuery.status === "loading"
+            getRecommendationsQuery.status === "loading" ||
+            userInput.playlistTracks.length === 0
           }
         >
           <PlusIcon className="h-6 w-6" aria-hidden />
@@ -102,25 +87,28 @@ export default function NewPlaylist() {
       <div className="lg:flex-1">
         <div>
           <SearchTracks
-            selectedTracksNum={selectedTracks.length}
-            handleSelectTrack={handleSelectTrack}
+            selectedTracksNum={userInput.trackSeeds.length}
+            dispatchUserAction={dispatchUserAction}
           />
           <TrackChips
-            handleUnselectTrack={handleUnselectTrack}
-            tracks={selectedTracks}
+            dispatchUserAction={dispatchUserAction}
+            tracks={userInput.trackSeeds}
           />
         </div>
-        {draggablePlaylistTracks.length > 0 && (
-          <ModifyPlaylist
-            audioFeaturesForDisplay={audioFeaturesForDisplay}
-            setAudioFeaturesForRecommedations={
-              setAudioFeaturesForRecommedations
-            }
-          />
-        )}
+        {getRecommendationsQuery.status === "loading" && <div>Loading...</div>}
+        {getRecommendationsQuery.status === "error" ||
+          (getRecommendationsQuery.status === "success" &&
+            getRecommendationsQuery.data.length === 0 && <div>Loading...</div>)}
+        {getRecommendationsQuery.status === "success" &&
+          getRecommendationsQuery.data.length > 0 && (
+            <ModifyPlaylist
+              audioFeaturesForDisplay={audioFeaturesForDisplay}
+              dispatchUserAction={dispatchUserAction}
+            />
+          )}
         <Playlist
-          draggablePlaylistTracks={draggablePlaylistTracks}
-          setDraggablePlaylistTracks={setDraggablePlaylistTracks}
+          draggablePlaylistTracks={userInput.playlistTracks}
+          dispatchUserAction={dispatchUserAction}
         />
       </div>
     </div>

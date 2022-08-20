@@ -1,17 +1,16 @@
-import { Dispatch, SetStateAction, FormEventHandler } from "react";
+import { Dispatch, FormEventHandler } from "react";
 import { ChevronUpIcon } from "@heroicons/react/solid";
-import { Transition, Dialog, Disclosure } from "@headlessui/react";
+import { Transition, Disclosure } from "@headlessui/react";
 import { AudioFeatures } from "../../server/router/output-types";
+import { UserAction, UserActionType } from "./new-playlist-state";
 
 type ModifyPlaylistProps = {
   audioFeaturesForDisplay: Partial<AudioFeatures>;
-  setAudioFeaturesForRecommedations: Dispatch<
-    SetStateAction<Partial<AudioFeatures>>
-  >;
+  dispatchUserAction: Dispatch<UserAction>;
 };
 export default function ModifyPlaylist({
   audioFeaturesForDisplay,
-  setAudioFeaturesForRecommedations,
+  dispatchUserAction,
 }: ModifyPlaylistProps) {
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -21,11 +20,14 @@ export default function ModifyPlaylist({
       valence: { value: string };
       energy: { value: string };
     };
-    setAudioFeaturesForRecommedations({
-      danceability: parseInt(target.danceability.value, 10),
-      instrumentalness: parseInt(target.instrumentalness.value, 10),
-      valence: parseInt(target.valence.value, 10),
-      energy: parseInt(target.energy.value, 10),
+    dispatchUserAction({
+      type: UserActionType.MODIFY_AUDIO_FEATURES,
+      payload: {
+        danceability: parseInt(target.danceability.value, 10),
+        instrumentalness: parseInt(target.instrumentalness.value, 10),
+        valence: parseInt(target.valence.value, 10),
+        energy: parseInt(target.energy.value, 10),
+      },
     });
   };
   return (
