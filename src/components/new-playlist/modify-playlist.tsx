@@ -36,7 +36,7 @@ export default function ModifyPlaylist({
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="flex w-full justify-between rounded-lg px-4 py-2 text-left text-lg font-medium focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
+              <Disclosure.Button className="flex w-full justify-between rounded-lg px-4 py-2 text-left text-lg font-medium">
                 <span>Modify mood of mixtape</span>
                 <ChevronDownIcon
                   className={`${open ? "rotate-180 transform" : ""} h-6 w-6`}

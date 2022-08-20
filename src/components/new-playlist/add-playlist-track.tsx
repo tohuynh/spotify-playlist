@@ -42,21 +42,27 @@ export default function AddPlaylistTrack({
       value={selected}
       onChange={onSelectTrack}
     >
-      <Combobox.Label className="text-lg">Add track to mixtape</Combobox.Label>
-      <div className="relative mt-1 w-full lg:w-1/3">
-        <div className="relative cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
+      <div className="relative mt-1 w-full lg:w-1/2">
+        <div className="relative cursor-default overflow-hidden rounded-lg bg-white shadow-md">
           <Combobox.Input
-            className="h-8 w-full border-none py-2 px-10 lg:px-14 text-sm lg:text-base text-gray-900 focus:ring-0 truncate disabled:cursor-not-allowed"
+            className="h-14 w-full border-none py-2 px-10 lg:px-14 text-sm lg:text-base truncate disabled:cursor-not-allowed"
             displayValue={(track: TrackSeed) =>
               track ? `${track.name} • ${track.artists.join(", ")}` : ""
             }
             onChange={(e) => handleSearch(e.target.value)}
+            placeholder="Add track to mixtape"
           />
           <div className="absolute inset-y-0 left-0 flex items-center px-2">
-            <SearchIcon className="h-5 w-5 text-gray-400" aria-hidden />
+            <SearchIcon
+              className="h-5 w-5 lg:h-6 lg:w-6 text-gray-400"
+              aria-hidden
+            />
           </div>
           <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-            <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden />
+            <SelectorIcon
+              className="h-5 w-5 lg:h-6 lg:w-6 text-gray-400"
+              aria-hidden
+            />
           </Combobox.Button>
         </div>
         {data && data.length > 0 && (

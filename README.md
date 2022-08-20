@@ -187,11 +187,14 @@ Here are some resources that we commonly refer to:
           - [] from changing moods (show modify ui)
         - [] empty recs due to remove all tracks (just empty playlisttracks)
         - [] submit modify mood doesn't re-redner its ui
+          - [] modify mood visible when trackseeds.length > 0
         - [] show add track ui after .getrecs or modify audio features
           - [] pb for add track ui
+        - [] when to calc average mood
   - [x] FAB to create playlist
     - [x] bottom center on mobile
     - [x] top right of container to search for songs and create playlist
   - [] chips and list of UI improvement
   - [] animate interactive elements(buttons), track list being change, track chips being changed
+  - [] equal padding on white elements
 - [x] html lang en

@@ -55,6 +55,9 @@ export const spotifyRouter = createSpotifyRouter()
     }),
     output: PlaylistTracksSchema,
     async resolve({ ctx, input }) {
+      if (!input.q.trim()) {
+        return [];
+      }
       let url = `${API_BASE_URL}/search?${new URLSearchParams({
         q: input.q,
         type: "track",

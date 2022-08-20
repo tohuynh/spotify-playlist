@@ -98,7 +98,9 @@ export default function NewPlaylist() {
         {getRecommendationsQuery.status === "loading" && <div>Loading...</div>}
         {getRecommendationsQuery.status === "error" ||
           (getRecommendationsQuery.status === "success" &&
-            getRecommendationsQuery.data.length === 0 && <div>Loading...</div>)}
+            getRecommendationsQuery.data.length === 0 && (
+              <div>No results found...</div>
+            ))}
         {getRecommendationsQuery.status === "success" &&
           getRecommendationsQuery.data.length > 0 && (
             <ModifyPlaylist
