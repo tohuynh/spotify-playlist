@@ -9,4 +9,7 @@
   .bg-spotify-green {
     background-color: #1db954;
   }
+  .spotify-accent {
+    accent-color: #1db954;
+  }
 }
