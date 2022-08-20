@@ -1,5 +1,5 @@
 import { Dispatch, FormEventHandler } from "react";
-import { ChevronUpIcon } from "@heroicons/react/solid";
+import { ChevronDownIcon } from "@heroicons/react/solid";
 import { Transition, Disclosure } from "@headlessui/react";
 import { AudioFeatures } from "../../server/router/output-types";
 import { UserAction, UserActionType } from "./new-playlist-state";
@@ -31,15 +31,15 @@ export default function ModifyPlaylist({
     });
   };
   return (
-    <div className="w-full px-4 pt-16">
-      <div className="mx-auto w-full max-w-md rounded-2xl bg-white p-2">
+    <div className="w-full pt-16">
+      <div className="mx-auto w-full lg:w-1/2 rounded-xl bg-white shadow-md p-2">
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="flex w-full justify-between rounded-lg px-4 py-2 text-left text-sm font-medium focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
-                <span>Modify</span>
-                <ChevronUpIcon
-                  className={`${open ? "rotate-180 transform" : ""} h-5 w-5`}
+              <Disclosure.Button className="flex w-full justify-between rounded-lg px-4 py-2 text-left text-lg font-medium focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
+                <span>Modify mood of mixtape</span>
+                <ChevronDownIcon
+                  className={`${open ? "rotate-180 transform" : ""} h-6 w-6`}
                 />
               </Disclosure.Button>
               <Transition
@@ -51,12 +51,14 @@ export default function ModifyPlaylist({
                 leaveFrom="transform scale-100 opacity-100"
                 leaveTo="transform scale-95 opacity-0"
               />
-              <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
+              <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm md:text-base lg:text-base font-light">
                 <form
-                  className="grid grid-cols-[auto_1fr_auto]"
+                  className="grid grid-cols-[auto_1fr_auto] gap-2"
                   onSubmit={handleSubmit}
                 >
-                  <label htmlFor="danceability">Relaxed</label>
+                  <label className="text-right" htmlFor="danceability">
+                    Relaxed
+                  </label>
                   <input
                     className="spotify-accent"
                     type="range"
@@ -68,7 +70,9 @@ export default function ModifyPlaylist({
                   />
                   <label htmlFor="danceability">Danceable</label>
 
-                  <label htmlFor="valence">Negative</label>
+                  <label className="text-right" htmlFor="valence">
+                    Negative
+                  </label>
                   <input
                     className="spotify-accent"
                     type="range"
@@ -80,7 +84,9 @@ export default function ModifyPlaylist({
                   />
                   <label htmlFor="valence">Positive</label>
 
-                  <label htmlFor="energy">Chill</label>
+                  <label className="text-right" htmlFor="energy">
+                    Chill
+                  </label>
                   <input
                     className="spotify-accent"
                     type="range"
@@ -92,7 +98,9 @@ export default function ModifyPlaylist({
                   />
                   <label htmlFor="valence">Intense</label>
 
-                  <label htmlFor="instrumentalness">Vocal</label>
+                  <label className="text-right" htmlFor="instrumentalness">
+                    Vocal
+                  </label>
                   <input
                     className="spotify-accent"
                     type="range"
@@ -103,8 +111,14 @@ export default function ModifyPlaylist({
                     defaultValue={audioFeaturesForDisplay.instrumentalness || 0}
                   />
                   <label htmlFor="instrumentalness">Instrumental</label>
-
-                  <button type="submit">Submit</button>
+                  <div className="mt-4 col-span-full ">
+                    <button
+                      className="rounded-md border border-transparent bg-gray-300 px-4 py-2 text-base font-medium focus:outline-none"
+                      type="submit"
+                    >
+                      Modify
+                    </button>
+                  </div>
                 </form>
               </Disclosure.Panel>
             </>
