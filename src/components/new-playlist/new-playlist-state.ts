@@ -20,6 +20,7 @@ export type UserInput = {
     instrumentalness?: number;
   };
   playlistTracks: PlaylistTrack[];
+  hasNewTrackSeeds: boolean;
 };
 
 export enum UserActionType {
@@ -60,15 +61,16 @@ export function userInputReducer(state: UserInput, action: UserAction) {
       const index = state.trackSeeds.findIndex(
         (track) => track.id === action.payload.id
       );
+      const trackSeeds = state.trackSeeds;
       if (index === -1) {
-        return {
-          ...state,
-          audioFeatures: { ...INITIAL_AUDIO_FEATURES },
-          trackSeeds: [...state.trackSeeds, action.payload],
-        };
-      } else {
-        return state;
+        trackSeeds.push(action.payload);
       }
+      return {
+        ...state,
+        audioFeatures: { ...INITIAL_AUDIO_FEATURES },
+        trackSeeds: [...trackSeeds],
+        hasNewTrackSeeds: true,
+      };
     }
     case UserActionType.UNSELECT_TRACK: {
       const index = state.trackSeeds.findIndex(
@@ -76,19 +78,19 @@ export function userInputReducer(state: UserInput, action: UserAction) {
       );
       if (index > -1) {
         state.trackSeeds.splice(index, 1);
-        return {
-          ...state,
-          audioFeatures: { ...INITIAL_AUDIO_FEATURES },
-          trackSeeds: [...state.trackSeeds],
-        };
-      } else {
-        return state;
       }
+      return {
+        ...state,
+        audioFeatures: { ...INITIAL_AUDIO_FEATURES },
+        trackSeeds: [...state.trackSeeds],
+        hasNewTrackSeeds: true,
+      };
     }
     case UserActionType.MODIFY_AUDIO_FEATURES: {
       return {
         ...state,
         audioFeatures: { ...action.payload },
+        hasNewTrackSeeds: false,
       };
     }
     case UserActionType.UPDATE_PLAYLIST: {
@@ -103,26 +105,24 @@ export function userInputReducer(state: UserInput, action: UserAction) {
       );
       if (index > -1) {
         state.playlistTracks.splice(index, 1);
-        return {
-          ...state,
-          playlistTracks: [...state.playlistTracks],
-        };
-      } else {
-        return state;
       }
+      return {
+        ...state,
+        playlistTracks: [...state.playlistTracks],
+      };
     }
     case UserActionType.ADD_TRACK: {
       const index = state.playlistTracks.findIndex(
         (track) => track.id === action.payload.id
       );
+      const playlistTracks = state.playlistTracks;
       if (index === -1) {
-        return {
-          ...state,
-          playlistTracks: [action.payload, ...state.playlistTracks],
-        };
-      } else {
-        return state;
+        playlistTracks.unshift(action.payload);
       }
+      return {
+        ...state,
+        playlistTracks: [...playlistTracks],
+      };
     }
     default: {
       return state;

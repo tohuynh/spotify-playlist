@@ -3,11 +3,7 @@ import { trpc } from "../../utils/trpc";
 import { PlusIcon } from "@heroicons/react/outline";
 import SearchTracks from "./search-tracks";
 import Playlist from "./playlist";
-import {
-  AudioFeatures,
-  PlaylistTrack,
-  TrackSeed,
-} from "../../server/router/output-types";
+import { AudioFeatures } from "../../server/router/output-types";
 import TrackChips from "./track-chips";
 import { calculateAverageAudioFeatures } from "../../utils/audio-features";
 import CreatePlaylistDialog from "./create-playlist-dialog";
@@ -24,6 +20,7 @@ export default function NewPlaylist() {
     trackSeeds: [],
     audioFeatures: { ...INITIAL_AUDIO_FEATURES },
     playlistTracks: [],
+    hasNewTrackSeeds: false,
   });
   const [audioFeaturesForDisplay, setAudioFeaturesForDisplay] = useState<
     Partial<AudioFeatures>
@@ -31,9 +28,6 @@ export default function NewPlaylist() {
     ...INITIAL_AUDIO_FEATURES,
   });
 
-  /* const [draggablePlaylistTracks, setDraggablePlaylistTracks] = useState<
-    PlaylistTrack[]
-  >([]); */
   const getRecommendationsQuery = trpc.useQuery(
     [
       "spotify.getRecommendations",
@@ -50,16 +44,17 @@ export default function NewPlaylist() {
           type: UserActionType.UPDATE_PLAYLIST,
           payload: [...result],
         });
-        if (
-          result.length > 0 &&
-          Object.values(userInput.audioFeatures).every((af) => af === undefined)
-        ) {
+        if (result.length > 0 && userInput.hasNewTrackSeeds) {
           setAudioFeaturesForDisplay(calculateAverageAudioFeatures(result));
         }
       },
     }
   );
 
+  const { data, status } = getRecommendationsQuery;
+  const hasResults = status === "success" && data.length > 0;
+  const showModifyUi =
+    (userInput.hasNewTrackSeeds && hasResults) || !userInput.hasNewTrackSeeds;
   const [createPlaylistDialogIsOpen, setCreatePlaylistDialogIsOpen] =
     useState(false);
 
@@ -93,20 +88,16 @@ export default function NewPlaylist() {
           dispatchUserAction={dispatchUserAction}
           tracks={userInput.trackSeeds}
         />
-        {getRecommendationsQuery.status === "loading" && <div>Loading...</div>}
-        {getRecommendationsQuery.status === "error" ||
-          (getRecommendationsQuery.status === "success" &&
-            getRecommendationsQuery.data.length === 0 && (
-              <div>No results found...</div>
-            ))}
-        {getRecommendationsQuery.status === "success" &&
-          getRecommendationsQuery.data.length > 0 && (
+        {showModifyUi && (
+          <>
             <ModifyPlaylist
               audioFeaturesForDisplay={audioFeaturesForDisplay}
+              setAudioFeaturesForDisplay={setAudioFeaturesForDisplay}
               dispatchUserAction={dispatchUserAction}
             />
-          )}
-        <AddPlaylistTrack dispatchUserAction={dispatchUserAction} />
+            <AddPlaylistTrack dispatchUserAction={dispatchUserAction} />
+          </>
+        )}
         <Playlist
           draggablePlaylistTracks={userInput.playlistTracks}
           dispatchUserAction={dispatchUserAction}

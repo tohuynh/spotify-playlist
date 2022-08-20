@@ -159,8 +159,8 @@ Here are some resources that we commonly refer to:
     - [] display playlists
       - [x] previewable or playable tracks
       - [x] remove track
-      - [] add track (extra)
-        - [] get full play list track data
+      - [x] add track (extra)
+        - [x] get full play list track data
   - [x] create playlist
     - [x] private or public
       - [x] private playlist still visible?
@@ -180,21 +180,22 @@ Here are some resources that we commonly refer to:
       - [x] previewable
       - [x] reoder track
       - [x] track text don't wrap onto new line with ellipsis
-      - [] rendering logic
-        - [] is getting recs (when .getrecs is loading)
-        - [] no recs found (when .getrecs has error or data.length === 0)
-          - [] from selecting seeds (don't show modify ui, or show with undefined audio features)
-          - [] from changing moods (show modify ui)
-        - [] empty recs due to remove all tracks (just empty playlisttracks)
-        - [] submit modify mood doesn't re-redner its ui
-          - [] modify mood visible when trackseeds.length > 0
-        - [] show add track ui after .getrecs or modify audio features
-          - [] pb for add track ui
-        - [] when to calc average mood
+      - [x] rendering logic
+        - [x] is getting recs (when .getrecs is loading)
+        - [x] no recs found (when .getrecs has error or data.length === 0)
+          - [x] from selecting seeds (don't show modify ui, or show with undefined audio features)
+          - [x] from changing moods (show modify ui)
+        - [x] empty recs due to remove all tracks (just empty playlisttracks)
+        - [x] submit modify mood doesn't re-redner its ui
+          - [x] modify mood visible when trackseeds.length > 0
+        - [x] show add track ui after .getrecs or modify audio features
+          - [x] pb for add track ui
+        - [x] when to calc average mood
   - [x] FAB to create playlist
     - [x] bottom center on mobile
     - [x] top right of container to search for songs and create playlist
   - [] chips and list of UI improvement
   - [] animate interactive elements(buttons), track list being change, track chips being changed
   - [] equal padding on white elements
+  - [x] default value on modify mood slider not working
 - [x] html lang en

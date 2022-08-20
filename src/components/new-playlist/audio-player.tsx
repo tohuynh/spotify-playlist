@@ -31,7 +31,7 @@ export default function AudioPlayer({ url }: { url: string | null }) {
   const [currentTime, setCurrentTime] = useState(0);
 
   const handleUpdateCurrentTime = useCallback(
-    debounce((time: number) => setCurrentTime(time), 200),
+    debounce((time: number) => setCurrentTime(time), 100),
     []
   );
 

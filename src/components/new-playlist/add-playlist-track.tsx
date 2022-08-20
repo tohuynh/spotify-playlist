@@ -25,7 +25,7 @@ export default function AddPlaylistTrack({
   );
 
   const handleSearch = useCallback(
-    debounce((q: string) => setQuery(q), 200),
+    debounce((q: string) => setQuery(q), 100),
     []
   );
 

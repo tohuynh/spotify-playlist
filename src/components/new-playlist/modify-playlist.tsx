@@ -1,4 +1,9 @@
-import { Dispatch, FormEventHandler } from "react";
+import {
+  ChangeEventHandler,
+  Dispatch,
+  FormEventHandler,
+  SetStateAction,
+} from "react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import { Transition, Disclosure } from "@headlessui/react";
 import { AudioFeatures } from "../../server/router/output-types";
@@ -6,10 +11,12 @@ import { UserAction, UserActionType } from "./new-playlist-state";
 
 type ModifyPlaylistProps = {
   audioFeaturesForDisplay: Partial<AudioFeatures>;
+  setAudioFeaturesForDisplay: Dispatch<SetStateAction<Partial<AudioFeatures>>>;
   dispatchUserAction: Dispatch<UserAction>;
 };
 export default function ModifyPlaylist({
   audioFeaturesForDisplay,
+  setAudioFeaturesForDisplay,
   dispatchUserAction,
 }: ModifyPlaylistProps) {
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
@@ -28,6 +35,15 @@ export default function ModifyPlaylist({
         valence: parseInt(target.valence.value, 10),
         energy: parseInt(target.energy.value, 10),
       },
+    });
+  };
+
+  const handleChange: ChangeEventHandler<HTMLFormElement> = (e) => {
+    setAudioFeaturesForDisplay((prev) => {
+      return {
+        ...prev,
+        [e.target.name]: e.target.value,
+      };
     });
   };
   return (
@@ -55,6 +71,7 @@ export default function ModifyPlaylist({
                 <form
                   className="grid grid-cols-[auto_1fr_auto] gap-2"
                   onSubmit={handleSubmit}
+                  onChange={handleChange}
                 >
                   <label className="text-right" htmlFor="danceability">
                     Relaxed
@@ -66,7 +83,7 @@ export default function ModifyPlaylist({
                     name="danceability"
                     min={0}
                     max={100}
-                    defaultValue={audioFeaturesForDisplay.danceability || 0}
+                    value={audioFeaturesForDisplay.danceability || 0}
                   />
                   <label htmlFor="danceability">Danceable</label>
 
@@ -80,7 +97,7 @@ export default function ModifyPlaylist({
                     name="valence"
                     min={0}
                     max={100}
-                    defaultValue={audioFeaturesForDisplay.valence || 0}
+                    value={audioFeaturesForDisplay.valence || 0}
                   />
                   <label htmlFor="valence">Positive</label>
 
@@ -94,7 +111,7 @@ export default function ModifyPlaylist({
                     name="energy"
                     min={0}
                     max={100}
-                    defaultValue={audioFeaturesForDisplay.energy || 0}
+                    value={audioFeaturesForDisplay.energy || 0}
                   />
                   <label htmlFor="valence">Intense</label>
 
@@ -108,7 +125,7 @@ export default function ModifyPlaylist({
                     name="instrumentalness"
                     min={0}
                     max={100}
-                    defaultValue={audioFeaturesForDisplay.instrumentalness || 0}
+                    value={audioFeaturesForDisplay.instrumentalness || 0}
                   />
                   <label htmlFor="instrumentalness">Instrumental</label>
                   <div className="mt-4 col-span-full ">
