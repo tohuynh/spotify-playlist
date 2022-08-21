@@ -14,6 +14,7 @@ import {
   userInputReducer,
 } from "./new-playlist-state";
 import AddPlaylistTrack from "./add-playlist-track";
+import Spinner from "./spinner";
 
 export default function NewPlaylist() {
   const [userInput, dispatchUserAction] = useReducer(userInputReducer, {
@@ -52,9 +53,10 @@ export default function NewPlaylist() {
   );
 
   const { data, status } = getRecommendationsQuery;
+  const isLoading = status === "loading";
   const hasResults = status === "success" && data.length > 0;
-  const showModifyUi =
-    (userInput.hasNewTrackSeeds && hasResults) || !userInput.hasNewTrackSeeds;
+  const showModifyUi = userInput.trackSeeds.length > 0;
+
   const [createPlaylistDialogIsOpen, setCreatePlaylistDialogIsOpen] =
     useState(false);
 
@@ -100,10 +102,16 @@ export default function NewPlaylist() {
             <AddPlaylistTrack dispatchUserAction={dispatchUserAction} />
           </div>
         )}
-        <Playlist
-          draggablePlaylistTracks={userInput.playlistTracks}
-          dispatchUserAction={dispatchUserAction}
-        />
+        {isLoading ? (
+          <div className="flex justify-center py-8">
+            <Spinner />
+          </div>
+        ) : (
+          <Playlist
+            draggablePlaylistTracks={userInput.playlistTracks}
+            dispatchUserAction={dispatchUserAction}
+          />
+        )}
       </div>
     </div>
   );
