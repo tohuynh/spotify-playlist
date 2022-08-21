@@ -88,7 +88,7 @@ export const spotifyRouter = createSpotifyRouter()
       trackSeeds: z.array(z.string()).max(5),
       limit: z.number().min(1).max(100),
       danceability: z.number().min(0).max(100).optional(),
-      instrumentalness: z.number().min(0).max(100).optional(),
+      tempo: z.number().optional(),
       valence: z.number().min(0).max(100).optional(),
       energy: z.number().min(0).max(100).optional(),
     }),
@@ -108,11 +108,8 @@ export const spotifyRouter = createSpotifyRouter()
           `${input.danceability / 100}`
         );
       }
-      if (input.instrumentalness !== undefined) {
-        searchParams.append(
-          "target_instrumentalness",
-          `${input.instrumentalness / 100}`
-        );
+      if (input.tempo !== undefined) {
+        searchParams.append("target_tempo", `${input.tempo}`);
       }
       if (input.valence !== undefined) {
         searchParams.append("target_valence", `${input.valence / 100}`);
@@ -161,9 +158,8 @@ export const spotifyRouter = createSpotifyRouter()
           danceability: Math.floor(
             audioFeaturesRes.audio_features[i].danceability * 100
           ),
-          instrumentalness: Math.floor(
-            audioFeaturesRes.audio_features[i].instrumentalness * 100
-          ),
+          tempo:
+            audioFeaturesRes.audio_features[i].tempo,
           valence: Math.floor(audioFeaturesRes.audio_features[i].valence * 100),
           energy: Math.floor(audioFeaturesRes.audio_features[i].energy * 100),
         };

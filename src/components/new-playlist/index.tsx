@@ -20,7 +20,7 @@ export default function NewPlaylist() {
     trackSeeds: [],
     audioFeatures: { ...INITIAL_AUDIO_FEATURES },
     playlistTracks: [],
-    hasNewTrackSeeds: false,
+    hasNewTrackSeeds: true,
   });
   const [audioFeaturesForDisplay, setAudioFeaturesForDisplay] = useState<
     Partial<AudioFeatures>

@@ -6,19 +6,14 @@ import {
 
 export const INITIAL_AUDIO_FEATURES: Partial<AudioFeatures> = {
   danceability: undefined,
-  instrumentalness: undefined,
+  tempo: undefined,
   valence: undefined,
   energy: undefined,
 };
 
 export type UserInput = {
   trackSeeds: TrackSeed[];
-  audioFeatures: {
-    danceability?: number;
-    valence?: number;
-    energy?: number;
-    instrumentalness?: number;
-  };
+  audioFeatures: Partial<AudioFeatures>;
   playlistTracks: PlaylistTrack[];
   hasNewTrackSeeds: boolean;
 };
@@ -39,12 +34,7 @@ export type UserAction =
     }
   | {
       type: UserActionType.MODIFY_AUDIO_FEATURES;
-      payload: {
-        danceability: number;
-        valence: number;
-        energy: number;
-        instrumentalness: number;
-      };
+      payload: AudioFeatures;
     }
   | {
       type: UserActionType.UPDATE_PLAYLIST;

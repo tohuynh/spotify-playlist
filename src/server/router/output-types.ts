@@ -16,7 +16,7 @@ export const PlaylistTracksSchema = z.array(
     }),
     duration: z.number(),
     danceability: z.number().min(0).max(100).optional(),
-    instrumentalness: z.number().min(0).max(100).optional(),
+    tempo: z.number().optional(),
     valence: z.number().min(0).max(100).optional(),
     energy: z.number().min(0).max(100).optional(),
   })
@@ -30,5 +30,5 @@ export type PlaylistTrack = ArrayElement<
 
 export type AudioFeatures = Pick<
   PlaylistTrack,
-  "danceability" | "instrumentalness" | "valence" | "energy"
+  "danceability" | "tempo" | "valence" | "energy"
 >;

@@ -23,7 +23,7 @@ export default function ModifyPlaylist({
     e.preventDefault();
     const target = e.target as typeof e.target & {
       danceability: { value: string };
-      instrumentalness: { value: string };
+      tempo: { value: string };
       valence: { value: string };
       energy: { value: string };
     };
@@ -31,14 +31,14 @@ export default function ModifyPlaylist({
       type: UserActionType.MODIFY_AUDIO_FEATURES,
       payload: {
         danceability: parseInt(target.danceability.value, 10),
-        instrumentalness: parseInt(target.instrumentalness.value, 10),
+        tempo: parseInt(target.tempo.value, 10),
         valence: parseInt(target.valence.value, 10),
         energy: parseInt(target.energy.value, 10),
       },
     });
   };
 
-  const handleChange: ChangeEventHandler<HTMLFormElement> = (e) => {
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setAudioFeaturesForDisplay((prev) => {
       return {
         ...prev,
@@ -71,36 +71,7 @@ export default function ModifyPlaylist({
                 <form
                   className="grid grid-cols-[auto_1fr_auto] gap-2"
                   onSubmit={handleSubmit}
-                  onChange={handleChange}
                 >
-                  <label className="text-right" htmlFor="danceability">
-                    Relaxed
-                  </label>
-                  <input
-                    className="spotify-accent"
-                    type="range"
-                    id="danceability"
-                    name="danceability"
-                    min={0}
-                    max={100}
-                    value={audioFeaturesForDisplay.danceability || 0}
-                  />
-                  <label htmlFor="danceability">Danceable</label>
-
-                  <label className="text-right" htmlFor="valence">
-                    Negative
-                  </label>
-                  <input
-                    className="spotify-accent"
-                    type="range"
-                    id="valence"
-                    name="valence"
-                    min={0}
-                    max={100}
-                    value={audioFeaturesForDisplay.valence || 0}
-                  />
-                  <label htmlFor="valence">Positive</label>
-
                   <label className="text-right" htmlFor="energy">
                     Chill
                   </label>
@@ -112,23 +83,59 @@ export default function ModifyPlaylist({
                     min={0}
                     max={100}
                     value={audioFeaturesForDisplay.energy || 0}
+                    onChange={handleChange}
                   />
-                  <label htmlFor="valence">Intense</label>
+                  <label htmlFor="energy">Intense</label>
 
-                  <label className="text-right" htmlFor="instrumentalness">
-                    Vocal
+                  <label className="text-right" htmlFor="danceability">
+                    Unrhythmic
                   </label>
                   <input
                     className="spotify-accent"
                     type="range"
-                    id="instrumentalness"
-                    name="instrumentalness"
+                    id="danceability"
+                    name="danceability"
                     min={0}
                     max={100}
-                    value={audioFeaturesForDisplay.instrumentalness || 0}
+                    value={audioFeaturesForDisplay.danceability || 0}
+                    onChange={handleChange}
                   />
-                  <label htmlFor="instrumentalness">Instrumental</label>
-                  <div className="mt-4 col-span-full ">
+                  <label htmlFor="danceability">Danceable</label>
+
+                  <label
+                    title="sad, depressed, angry"
+                    className="text-right"
+                    htmlFor="valence"
+                  >
+                    Negative
+                  </label>
+                  <input
+                    className="spotify-accent"
+                    type="range"
+                    id="valence"
+                    name="valence"
+                    min={0}
+                    max={100}
+                    value={audioFeaturesForDisplay.valence || 0}
+                    onChange={handleChange}
+                  />
+                  <label title="happy, cheerful, euphoric" htmlFor="valence">
+                    Positive
+                  </label>
+                  <div className="mt-1 col-span-full">
+                    <label>
+                      Beats per minute (BPM):
+                      <input
+                        className="h-10 w-full p-3 mt-1 text-sm border-2 border-gray-200 rounded outline-none"
+                        type="number"
+                        name="tempo"
+                        min={0}
+                        value={audioFeaturesForDisplay.tempo || 0}
+                        onChange={handleChange}
+                      />
+                    </label>
+                  </div>
+                  <div className="mt-4 col-span-full">
                     <button
                       className="rounded-md border border-transparent bg-gray-300 px-4 py-2 text-base font-medium"
                       type="submit"
