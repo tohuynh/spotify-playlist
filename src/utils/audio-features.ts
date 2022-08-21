@@ -1,7 +1,7 @@
 import { PlaylistTrack } from "../server/router/output-types";
 
 function average(nums: number[]) {
-  const sum = nums.reduce((acc, curr) => acc + curr);
+  const sum = nums.reduce((acc, curr) => acc + curr, 0);
   return sum / nums.length;
 }
 
