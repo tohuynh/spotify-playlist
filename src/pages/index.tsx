@@ -43,7 +43,7 @@ const Home: NextPage = () => {
       </Head>
       <main className="min-h-screen bg-slate-100 text-slate-900">
         <AppBar />
-        <div className="p-4">{data ? <NewPlaylist /> : <Welcome />}</div>
+        {data ? <NewPlaylist /> : <Welcome />}
         <Toaster
           position="bottom-center"
           toastOptions={{

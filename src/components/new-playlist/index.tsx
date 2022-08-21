@@ -59,13 +59,13 @@ export default function NewPlaylist() {
     useState(false);
 
   return (
-    <div className="pb-20 lg:pb-0 lg:flex lg:flex-row lg:justify-start lg:gap-x-4">
+    <div className="pb-24 lg:pb-0 lg:flex lg:flex-row lg:justify-start lg:gap-x-4">
       <CreatePlaylistDialog
         isOpen={createPlaylistDialogIsOpen}
         setIsOpen={setCreatePlaylistDialogIsOpen}
         uris={userInput.playlistTracks.map((track) => track.id)}
       />
-      <div className="lg:basis-32 lg:pt-16 flex justify-center items-start">
+      <div className="lg:basis-36 lg:pt-16 flex justify-center items-start">
         <button
           className="z-50 fixed lg:sticky h-16 w-16 m-4 lg:m-0 bottom-0 right-0 lg:top-4 flex justify-center items-center rounded-2xl shadow-lg bg-spotify-green disabled:cursor-not-allowed"
           aria-label="New mixtape"
@@ -79,7 +79,7 @@ export default function NewPlaylist() {
           <PlusIcon className="h-6 w-6" aria-hidden />
         </button>
       </div>
-      <div className="lg:flex-1">
+      <div className="lg:flex-1 px-4 lg:px-0">
         <div className="flex flex-col gap-y-4 py-16 border-b-2">
           <SearchTracks
             selectedTracksNum={userInput.trackSeeds.length}
