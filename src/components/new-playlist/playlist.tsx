@@ -154,7 +154,7 @@ export default function Playlist({
         items={draggablePlaylistTracks}
         strategy={verticalListSortingStrategy}
       >
-        <ul className="flex flex-col gap-4 lg:py-8 lg:pr-8 my-1">
+        <ul className="flex flex-col gap-4 lg:pr-10">
           {draggablePlaylistTracks.map((track) => (
             <SortableItem
               key={track.id}
