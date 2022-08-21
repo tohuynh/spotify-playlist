@@ -24,7 +24,10 @@ export default function SearchTracks({
   );
 
   const handleSearch = useCallback(
-    debounce((q: string) => setQuery(q), 100),
+    debounce((q: string) => {
+      setSelected(undefined);
+      setQuery(q);
+    }, 100),
     []
   );
 
