@@ -158,8 +158,7 @@ export const spotifyRouter = createSpotifyRouter()
           danceability: Math.floor(
             audioFeaturesRes.audio_features[i].danceability * 100
           ),
-          tempo:
-            audioFeaturesRes.audio_features[i].tempo,
+          tempo: audioFeaturesRes.audio_features[i].tempo,
           valence: Math.floor(audioFeaturesRes.audio_features[i].valence * 100),
           energy: Math.floor(audioFeaturesRes.audio_features[i].energy * 100),
         };

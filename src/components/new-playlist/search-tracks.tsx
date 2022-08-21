@@ -45,7 +45,7 @@ export default function SearchTracks({
       disabled={selectedTracksNum === 5}
     >
       <div className="relative mx-auto w-full md:w-2/3 lg:w-1/2">
-        <div className="relative cursor-default overflow-hidden rounded-md bg-white shadow-md">
+        <div className="relative cursor-default overflow-hidden rounded-md bg-white">
           <Combobox.Input
             className="h-14 w-full py-2 px-10 lg:px-14 text-base lg:text-lg truncate disabled:cursor-not-allowed"
             displayValue={(track: TrackSeed) =>
@@ -75,7 +75,7 @@ export default function SearchTracks({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Combobox.Options className="z-10 absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 sm:text-sm lg:text-base shadow-lg">
+            <Combobox.Options className="z-10 absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 sm:text-sm lg:text-base shadow-md">
               {data?.map((track) => (
                 <Combobox.Option
                   key={track.id}

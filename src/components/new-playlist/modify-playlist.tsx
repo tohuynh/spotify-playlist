@@ -48,7 +48,7 @@ export default function ModifyPlaylist({
   };
   return (
     <div className="w-full pt-16">
-      <div className="mx-auto w-full md:w-2/3 lg:w-1/2 rounded-md bg-white shadow-md">
+      <div className="mx-auto w-full md:w-2/3 lg:w-1/2 rounded-md bg-white">
         <Disclosure>
           {({ open }) => (
             <>

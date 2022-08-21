@@ -41,7 +41,7 @@ export default function AddPlaylistTrack({
   return (
     <Combobox value={selected} onChange={onSelectTrack}>
       <div className="relative mt-4 mx-auto w-full md:w-2/3 lg:w-1/2">
-        <div className="relative cursor-default overflow-hidden rounded-md bg-white shadow-md">
+        <div className="relative cursor-default overflow-hidden rounded-md bg-white">
           <Combobox.Input
             className="h-14 w-full border-none py-2 px-10 lg:px-14 text-sm md:text-base truncate disabled:cursor-not-allowed"
             displayValue={(track: TrackSeed) =>
