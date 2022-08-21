@@ -75,7 +75,7 @@ export default function AudioPlayer({ url }: { url: string | null }) {
   }
 
   return (
-    <div className="relative">
+    <div className="relative text-slate-700">
       <audio
         ref={audioPlayerRef}
         src={url}

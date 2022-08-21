@@ -10,7 +10,7 @@ export default function AppBar() {
 
   return (
     <div className="px-4 md:px-8 xl:px-16 flex flex-row justify-between items-center h-16 shadow-md bg-white">
-      <h1 className="xl:text-2xl font-medium">
+      <h1 className="basis-3/4 text-lg lg:text-2xl truncate">
         {data ? `Hello, ${data.user?.name}` : "Hello, Guest"}
       </h1>
       <button
@@ -18,9 +18,9 @@ export default function AppBar() {
         onClick={data ? () => signOut() : () => signIn("spotify")}
       >
         {data ? (
-          <LogoutIcon className="h-6 w-6" aria-hidden />
+          <LogoutIcon className="h-5 w-5" aria-hidden />
         ) : (
-          <LoginIcon className="h-6 w-6" aria-hidden />
+          <LoginIcon className="h-5 w-5" aria-hidden />
         )}
       </button>
     </div>

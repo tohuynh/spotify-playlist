@@ -13,7 +13,7 @@ export default function TrackChips({
   dispatchUserAction,
 }: TrackChipsProps) {
   return (
-    <div className="flex flex-wrap md:justify-center gap-4 py-4 border-b-2">
+    <div className="flex flex-wrap md:justify-center gap-4">
       {tracks.map((track, i) => (
         <button
           key={track.id}

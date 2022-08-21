@@ -65,7 +65,7 @@ export default function NewPlaylist() {
         setIsOpen={setCreatePlaylistDialogIsOpen}
         uris={userInput.playlistTracks.map((track) => track.id)}
       />
-      <div className="lg:basis-32 flex justify-center items-start">
+      <div className="lg:basis-32 lg:pt-16 flex justify-center items-start">
         <button
           className="z-50 fixed lg:sticky h-16 w-16 m-4 lg:m-0 bottom-0 right-0 lg:top-4 flex justify-center items-center rounded-2xl shadow-lg bg-spotify-green disabled:cursor-not-allowed"
           aria-label="New mixtape"
@@ -80,23 +80,25 @@ export default function NewPlaylist() {
         </button>
       </div>
       <div className="lg:flex-1">
-        <SearchTracks
-          selectedTracksNum={userInput.trackSeeds.length}
-          dispatchUserAction={dispatchUserAction}
-        />
-        <TrackChips
-          dispatchUserAction={dispatchUserAction}
-          tracks={userInput.trackSeeds}
-        />
+        <div className="flex flex-col gap-y-4 py-16 border-b-2">
+          <SearchTracks
+            selectedTracksNum={userInput.trackSeeds.length}
+            dispatchUserAction={dispatchUserAction}
+          />
+          <TrackChips
+            dispatchUserAction={dispatchUserAction}
+            tracks={userInput.trackSeeds}
+          />
+        </div>
         {showModifyUi && (
-          <>
+          <div className="flex flex-col gap-y-4 py-16">
             <ModifyPlaylist
               audioFeaturesForDisplay={audioFeaturesForDisplay}
               setAudioFeaturesForDisplay={setAudioFeaturesForDisplay}
               dispatchUserAction={dispatchUserAction}
             />
             <AddPlaylistTrack dispatchUserAction={dispatchUserAction} />
-          </>
+          </div>
         )}
         <Playlist
           draggablePlaylistTracks={userInput.playlistTracks}

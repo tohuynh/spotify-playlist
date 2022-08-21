@@ -57,14 +57,14 @@ export function SortableItem({
 
   return (
     <li
-      className="bg-white shadow-sm hover:shadow-md rounded-md p-2"
+      className="bg-white hover:shadow-md rounded-md p-2"
       ref={setNodeRef}
       style={style}
     >
       <div className="grid grid-cols-[auto_1fr_auto_auto_auto] lg:grid-cols-[auto_1fr_1fr_auto_auto_auto] gap-x-2 lg:gap-x-8">
         <div className="flex justify-center items-center">
           <button
-            className="h-8 w-6 hover:bg-slate-200 rounded-md flex justify-center items-center"
+            className="h-8 w-6 hover:bg-gray-200 rounded-md flex justify-center items-center"
             title="Reorder"
             aria-label="Drag handle"
             {...listeners}
@@ -74,15 +74,15 @@ export function SortableItem({
           </button>
         </div>
         <div className="overflow-hidden">
-          <div className="text-sm md:text-lg truncate">{track.name}</div>
-          <div className="text-xs md:text-base truncate">
+          <div className="text-sm md:text-base truncate">{track.name}</div>
+          <div className="text-xs md:text-sm text-slate-500 truncate">
             {track.artists.join(", ")}
           </div>
         </div>
-        <div className="hidden lg:block text-lg truncate">
+        <div className="hidden lg:block text-base truncate">
           {track.albumName}
         </div>
-        <div className="text-sm md:text-lg flex justify-center items-center">
+        <div className="text-sm md:text-base flex justify-center items-center">
           {convertDurationToHMS(track.duration)}
         </div>
         <div className="flex justify-center items-center">
@@ -90,7 +90,7 @@ export function SortableItem({
         </div>
         <div className="flex justify-center items-center">
           <button
-            className="h-8 w-6 hover:bg-slate-200 rounded-md flex justify-center items-center"
+            className="h-8 w-6 hover:bg-gray-200 rounded-md flex justify-center items-center"
             title="Remove"
             aria-label="Remove"
             onClick={() =>
@@ -100,7 +100,7 @@ export function SortableItem({
               })
             }
           >
-            <TrashIcon className="h-4 w-4" aria-hidden />
+            <TrashIcon className="h-4 w-4 text-slate-700" aria-hidden />
           </button>
         </div>
       </div>
@@ -154,7 +154,7 @@ export default function Playlist({
         items={draggablePlaylistTracks}
         strategy={verticalListSortingStrategy}
       >
-        <ul className="mt-16 flex flex-col gap-4 lg:py-8 lg:pr-8 my-1">
+        <ul className="flex flex-col gap-4 lg:py-8 lg:pr-8 my-1">
           {draggablePlaylistTracks.map((track) => (
             <SortableItem
               key={track.id}
