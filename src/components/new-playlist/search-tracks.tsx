@@ -132,7 +132,7 @@ function OptionsPlaceHolder() {
   return (
     <>
       {Array.from({ length: 5 }).map((_, i) => (
-        <li key={i} className="h-10 pl-10 pr-2 py-3 ">
+        <li aria-hidden key={i} className="h-10 pl-10 pr-2 py-3 ">
           <div className={`${LENGTHS[i]} h-full bg-gray-200 animate-pulse`} />
         </li>
       ))}
