@@ -59,7 +59,7 @@ export default function NewPlaylist() {
     useState(false);
 
   return (
-    <div className="pb-24 lg:pb-0 lg:flex lg:flex-row lg:justify-start lg:gap-x-4">
+    <div className="pb-24 lg:flex lg:flex-row lg:justify-start lg:gap-x-4">
       <CreatePlaylistDialog
         isOpen={createPlaylistDialogIsOpen}
         setIsOpen={setCreatePlaylistDialogIsOpen}
