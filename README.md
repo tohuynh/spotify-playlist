@@ -196,7 +196,7 @@ Here are some resources that we commonly refer to:
     - [x] top right of container to search for songs and create playlist
   - [] chips and list of UI improvement
   - [] animate interactive elements(buttons), track list being change, track chips being changed
-  - [] equal padding on white elements
+  - [x] equal padding on white elements
   - [x] default value on modify mood slider not working
 - [x] html lang en
 - [x] custom tailwind color for spotify green

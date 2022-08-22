@@ -52,7 +52,7 @@ export default function ModifyPlaylist({
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="h-14 flex w-full justify-between items-center px-4 py-2 text-base md:text-lg">
+              <Disclosure.Button className="h-14 flex w-full justify-between items-center p-2 text-base md:text-lg">
                 <span className="text-base md:text-lg">
                   Modify mood of mixtape
                 </span>
