@@ -11,14 +11,7 @@ export const spotifyRouter = createSpotifyRouter()
       offset: z.number().min(0).max(1000),
       limit: z.number().min(0).max(50),
     }),
-    output: z.array(
-      z.object({
-        id: z.string(),
-        name: z.string(),
-        //albumName: z.string(),
-        artists: z.array(z.string()),
-      })
-    ),
+    output: PlaylistTracksSchema,
     async resolve({ ctx, input }) {
       let url = `${API_BASE_URL}/search?${new URLSearchParams({
         q: input.q,
@@ -41,38 +34,7 @@ export const spotifyRouter = createSpotifyRouter()
       return tracks.map((item: any) => {
         return {
           id: item.id,
-          name: item.name,
-          artists: item.artists.map((artist: any) => artist.name),
-        };
-      });
-    },
-  })
-  .query("searchForPlaylistTrack", {
-    input: z.object({
-      q: z.string(),
-      offset: z.number().min(0).max(1000),
-      limit: z.number().min(0).max(50),
-    }),
-    output: PlaylistTracksSchema,
-    async resolve({ ctx, input }) {
-      if (!input.q.trim()) {
-        return [];
-      }
-      let url = `${API_BASE_URL}/search?${new URLSearchParams({
-        q: input.q,
-        type: "track",
-        offset: `${input.offset}`,
-        limit: `${input.limit}`,
-      })}`;
-      const res = await fetch(url, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${ctx.session.accessToken}`,
-        },
-      }).then((res) => res.json());
-      return res.tracks.items.map((item: any) => {
-        return {
-          id: item.uri,
+          uri: item.uri,
           name: item.name,
           artists: item.artists.map((artist: any) => artist.name),
           previewUrl: item.preview_url,
@@ -148,7 +110,8 @@ export const spotifyRouter = createSpotifyRouter()
 
       return tracks.map((track: any, i: number) => {
         return {
-          id: track.uri,
+          id: track.id,
+          uri: track.uri,
           name: track.name,
           previewUrl: track.preview_url,
           artists: track.artists.map((artist: any) => artist.name),
