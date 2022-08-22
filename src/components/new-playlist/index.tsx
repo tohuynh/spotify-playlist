@@ -52,9 +52,8 @@ export default function NewPlaylist() {
     }
   );
 
-  const { data, status } = getRecommendationsQuery;
+  const { status } = getRecommendationsQuery;
   const isLoading = status === "loading";
-  const hasResults = status === "success" && data.length > 0;
   const showModifyUi = userInput.trackSeeds.length > 0;
 
   const [createPlaylistDialogIsOpen, setCreatePlaylistDialogIsOpen] =
@@ -102,7 +101,7 @@ export default function NewPlaylist() {
             <AddPlaylistTrack dispatchUserAction={dispatchUserAction} />
           </div>
         )}
-        {isLoading ? (
+        {isLoading && showModifyUi ? (
           <div className="flex justify-center py-8">
             <Spinner />
           </div>
