@@ -199,3 +199,4 @@ Here are some resources that we commonly refer to:
   - [] equal padding on white elements
   - [x] default value on modify mood slider not working
 - [x] html lang en
+- [x] custom tailwind color for spotify green
