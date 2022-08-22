@@ -53,7 +53,7 @@ export default function NewPlaylist() {
 
   const { status } = getRecommendationsQuery;
   const isLoading = status === "loading";
-  const showModifyUi = userInput.trackSeeds.length > 0;
+  const hasTrackSeeds = userInput.trackSeeds.length > 0;
 
   const [createPlaylistDialogIsOpen, setCreatePlaylistDialogIsOpen] =
     useState(false);
@@ -92,7 +92,7 @@ export default function NewPlaylist() {
             tracks={userInput.trackSeeds}
           />
         </div>
-        {showModifyUi && (
+        {hasTrackSeeds && (
           <div className="flex flex-col gap-y-4 py-16">
             <ModifyPlaylist
               audioFeaturesForDisplay={audioFeaturesForDisplay}
@@ -107,13 +107,15 @@ export default function NewPlaylist() {
             />
           </div>
         )}
-        {isLoading && showModifyUi ? (
+        {isLoading && hasTrackSeeds ? (
           <div className="flex justify-center py-8">
             <Spinner />
           </div>
         ) : (
           <Playlist
-            draggablePlaylistTracks={userInput.playlistTracks}
+            draggablePlaylistTracks={
+              hasTrackSeeds ? userInput.playlistTracks : []
+            }
             dispatchUserAction={dispatchUserAction}
           />
         )}
