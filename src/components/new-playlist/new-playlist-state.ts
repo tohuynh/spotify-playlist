@@ -1,8 +1,4 @@
-import {
-  AudioFeatures,
-  PlaylistTrack,
-  TrackSeed,
-} from "../../server/router/output-types";
+import { AudioFeatures, PlaylistTrack } from "../../server/router/output-types";
 
 export const INITIAL_AUDIO_FEATURES: Partial<AudioFeatures> = {
   danceability: undefined,
@@ -12,7 +8,7 @@ export const INITIAL_AUDIO_FEATURES: Partial<AudioFeatures> = {
 };
 
 export type UserInput = {
-  trackSeeds: TrackSeed[];
+  trackSeeds: PlaylistTrack[];
   audioFeatures: Partial<AudioFeatures>;
   playlistTracks: PlaylistTrack[];
   hasNewTrackSeeds: boolean;
@@ -30,7 +26,7 @@ export enum UserActionType {
 export type UserAction =
   | {
       type: UserActionType.SELECT_TRACK | UserActionType.UNSELECT_TRACK;
-      payload: TrackSeed;
+      payload: PlaylistTrack;
     }
   | {
       type: UserActionType.MODIFY_AUDIO_FEATURES;

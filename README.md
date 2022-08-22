@@ -171,8 +171,8 @@ Here are some resources that we commonly refer to:
   - [x] app bar with hello, user and sigin or sigout
   - [x] not signed -> show center sign in
   - [x] combox to search for tracks and select track
-    - [] figure searching rendering logic of resulsts, when to open list
-      - [] when adding on to q, data is loading again and is undefined and the list of tracks is not shown
+    - [x] figure searching rendering logic of resulsts, when to open list
+      - [x] when adding on to q, data is loading again and is undefined and the list of tracks is not shown
   - [x] on select track show Xable chip
     - [x] up to five chips
     - [] display list of tracks

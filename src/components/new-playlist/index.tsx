@@ -13,7 +13,6 @@ import {
   UserActionType,
   userInputReducer,
 } from "./new-playlist-state";
-import AddPlaylistTrack from "./add-playlist-track";
 import Spinner from "./spinner";
 
 export default function NewPlaylist() {
@@ -64,7 +63,7 @@ export default function NewPlaylist() {
       <CreatePlaylistDialog
         isOpen={createPlaylistDialogIsOpen}
         setIsOpen={setCreatePlaylistDialogIsOpen}
-        uris={userInput.playlistTracks.map((track) => track.id)}
+        uris={userInput.playlistTracks.map((track) => track.uri)}
       />
       <div className="lg:basis-36 lg:pt-16 flex justify-center items-start">
         <button
@@ -83,7 +82,9 @@ export default function NewPlaylist() {
       <div className="lg:flex-1 px-4 lg:px-0">
         <div className="flex flex-col gap-y-4 py-16 border-b-2">
           <SearchTracks
-            selectedTracksNum={userInput.trackSeeds.length}
+            placeholderText="Select up to 5 tracks to generate a mixtape"
+            disabled={userInput.trackSeeds.length === 5}
+            onSelectUserActionType={UserActionType.SELECT_TRACK}
             dispatchUserAction={dispatchUserAction}
           />
           <TrackChips
@@ -98,7 +99,12 @@ export default function NewPlaylist() {
               setAudioFeaturesForDisplay={setAudioFeaturesForDisplay}
               dispatchUserAction={dispatchUserAction}
             />
-            <AddPlaylistTrack dispatchUserAction={dispatchUserAction} />
+            <SearchTracks
+              placeholderText="Add track to mixtape"
+              disabled={false}
+              onSelectUserActionType={UserActionType.ADD_TRACK}
+              dispatchUserAction={dispatchUserAction}
+            />
           </div>
         )}
         {isLoading && showModifyUi ? (

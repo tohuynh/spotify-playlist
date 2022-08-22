@@ -5,6 +5,7 @@ import { inferQueryOutput } from "../../utils/trpc";
 export const PlaylistTracksSchema = z.array(
   z.object({
     id: z.string(),
+    uri: z.string(),
     name: z.string(),
     previewUrl: z.string().nullable(),
     artists: z.array(z.string()),
@@ -21,8 +22,6 @@ export const PlaylistTracksSchema = z.array(
     energy: z.number().min(0).max(100).optional(),
   })
 );
-
-export type TrackSeed = ArrayElement<inferQueryOutput<"spotify.search">>;
 
 export type PlaylistTrack = ArrayElement<
   inferQueryOutput<"spotify.getRecommendations">

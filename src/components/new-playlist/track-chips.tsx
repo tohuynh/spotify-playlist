@@ -1,10 +1,10 @@
 import { XIcon } from "@heroicons/react/outline";
 import { Dispatch } from "react";
-import { TrackSeed } from "../../server/router/output-types";
+import { PlaylistTrack } from "../../server/router/output-types";
 import { UserAction, UserActionType } from "./new-playlist-state";
 
 type TrackChipsProps = {
-  tracks: TrackSeed[];
+  tracks: PlaylistTrack[];
   dispatchUserAction: Dispatch<UserAction>;
 };
 
