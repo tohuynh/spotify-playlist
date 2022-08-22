@@ -56,11 +56,7 @@ export function SortableItem({
   };
 
   return (
-    <li
-      className="bg-white hover:shadow-md rounded-md p-2"
-      ref={setNodeRef}
-      style={style}
-    >
+    <li className="bg-white hover:shadow-md p-4" ref={setNodeRef} style={style}>
       <div className="grid grid-cols-[auto_1fr_auto_auto_auto] lg:grid-cols-[auto_1fr_1fr_auto_auto_auto] gap-x-2 lg:gap-x-8">
         <div className="flex justify-center items-center">
           <button
@@ -154,7 +150,7 @@ export default function Playlist({
         items={draggablePlaylistTracks}
         strategy={verticalListSortingStrategy}
       >
-        <ul className="flex flex-col gap-4 lg:pr-10">
+        <ul className="flex flex-col lg:pr-10 divide-y">
           {draggablePlaylistTracks.map((track) => (
             <SortableItem
               key={track.id}
