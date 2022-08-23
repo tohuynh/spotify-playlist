@@ -78,6 +78,7 @@ export function SortableItem({
           <div className="flex-shrink-0 hidden md:block">
             <Image
               layout="fixed"
+              alt={`Cover art of ${track.albumName}`}
               src={track.image.url}
               height={track.image.height}
               width={track.image.width}
