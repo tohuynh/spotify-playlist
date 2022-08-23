@@ -29,6 +29,7 @@ export const spotifyRouter = createSpotifyRouter()
           Authorization: `Bearer ${ctx.session.accessToken}`,
         },
       }).then((res) => res.json());
+      console.log("actually searched", input.q);
       return res.tracks.items.map((item: any) => {
         return {
           id: item.id,
