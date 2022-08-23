@@ -9,8 +9,8 @@ export default function AppBar() {
   }
 
   return (
-    <div className="px-4 md:px-8 xl:px-16 flex flex-row justify-between items-center h-16 bg-white border-b border-b-slate-100">
-      <h1 className="basis-3/4 text-lg lg:text-2xl truncate">
+    <div className="flex h-16 flex-row items-center justify-between border-b border-b-slate-100 bg-white px-4 md:px-8 xl:px-16">
+      <h1 className="basis-3/4 truncate text-lg lg:text-2xl">
         {data ? `Hello, ${data.user?.name}` : "Hello, Guest"}
       </h1>
       <button

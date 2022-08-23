@@ -84,7 +84,7 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
                     Name:
                     <input
                       required
-                      className="h-10 w-full p-3 mt-1 text-sm border-2 border-gray-200 rounded outline-none"
+                      className="mt-1 h-10 w-full rounded border-2 border-gray-200 p-3 text-sm outline-none"
                       type="text"
                       name="playlistName"
                     />
@@ -93,21 +93,21 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
                     Description:
                     <input
                       required
-                      className="h-10 w-full p-3 mt-1 text-sm border-2 border-gray-200 rounded outline-none"
+                      className="mt-1 h-10 w-full rounded border-2 border-gray-200 p-3 text-sm outline-none"
                       type="text"
                       name="playlistDescription"
                     />
                   </label>
-                  <label className="block text-md font-medium text-gray-700">
+                  <label className="text-md block font-medium text-gray-700">
                     <input
                       defaultChecked={true}
-                      className="h-4 w-4 mr-2 text-sm border-2 border-gray-200 rounded outline-none"
+                      className="mr-2 h-4 w-4 rounded border-2 border-gray-200 text-sm outline-none"
                       type="checkbox"
                       name="playlistIsPublic"
                     />
                     Is public?
                   </label>
-                  <div className="mt-4 flex justify-end items-center gap-x-4">
+                  <div className="mt-4 flex items-center justify-end gap-x-4">
                     <button
                       type="reset"
                       className="inline-flex justify-center rounded-md border border-transparent bg-gray-300 px-4 py-2 text-sm font-medium focus:outline-none"

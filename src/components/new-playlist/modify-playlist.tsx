@@ -48,11 +48,11 @@ export default function ModifyPlaylist({
   };
   return (
     <div className="w-full">
-      <div className="mx-auto w-full md:w-2/3 lg:w-1/2 rounded-md bg-white">
+      <div className="mx-auto w-full rounded-md bg-white md:w-2/3 lg:w-1/2">
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="h-14 flex w-full justify-between items-center p-2 text-base md:text-lg">
+              <Disclosure.Button className="flex h-14 w-full items-center justify-between p-2 text-base md:text-lg">
                 <span className="text-base md:text-lg">
                   Modify mood of mixtape
                 </span>
@@ -71,7 +71,7 @@ export default function ModifyPlaylist({
                 leaveFrom="transform scale-100 opacity-100"
                 leaveTo="transform scale-95 opacity-0"
               />
-              <Disclosure.Panel className="px-4 py-2 text-xs md:text-base text-slate-700">
+              <Disclosure.Panel className="px-4 py-2 text-xs text-slate-700 md:text-base">
                 <form
                   className="grid grid-cols-[auto_1fr_auto] gap-2"
                   onSubmit={handleSubmit}
@@ -123,11 +123,11 @@ export default function ModifyPlaylist({
                   <label title="happy, cheerful, euphoric" htmlFor="valence">
                     Positive
                   </label>
-                  <div className="mt-1 col-span-full">
+                  <div className="col-span-full mt-1">
                     <label>
                       Beats per minute (BPM):
                       <input
-                        className="h-10 w-full p-3 mt-1 text-sm border-2 border-gray-200 rounded outline-none"
+                        className="mt-1 h-10 w-full rounded border-2 border-gray-200 p-3 text-sm outline-none"
                         type="number"
                         name="tempo"
                         min={0}
@@ -136,9 +136,9 @@ export default function ModifyPlaylist({
                       />
                     </label>
                   </div>
-                  <div className="mt-4 col-span-full">
+                  <div className="col-span-full mt-4">
                     <button
-                      className="rounded-md border border-transparent text-slate-800 bg-slate-200 px-4 py-2 text-base font-medium"
+                      className="rounded-md border border-transparent bg-slate-200 px-4 py-2 text-base font-medium text-slate-800"
                       type="submit"
                     >
                       Modify

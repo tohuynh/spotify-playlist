@@ -65,9 +65,9 @@ export default function NewPlaylist() {
         setIsOpen={setCreatePlaylistDialogIsOpen}
         uris={userInput.playlistTracks.map((track) => track.uri)}
       />
-      <div className="lg:basis-36 lg:pt-16 flex justify-center items-start">
+      <div className="flex items-start justify-center lg:basis-36 lg:pt-16">
         <button
-          className="z-50 fixed lg:sticky h-16 w-16 m-4 lg:m-0 bottom-0 right-0 lg:top-4 flex justify-center items-center rounded-2xl shadow-lg bg-spotify-green disabled:cursor-not-allowed"
+          className="fixed bottom-0 right-0 z-50 m-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-spotify-green shadow-lg disabled:cursor-not-allowed lg:sticky lg:top-4 lg:m-0"
           aria-label="New mixtape"
           onClick={() => setCreatePlaylistDialogIsOpen(true)}
           disabled={
@@ -79,8 +79,8 @@ export default function NewPlaylist() {
           <PlusIcon className="h-6 w-6" aria-hidden />
         </button>
       </div>
-      <div className="lg:flex-1 px-4 lg:px-0">
-        <div className="flex flex-col gap-y-4 py-16 border-b-2">
+      <div className="px-4 lg:flex-1 lg:px-0">
+        <div className="flex flex-col gap-y-4 border-b-2 py-16">
           <SearchTracks
             placeholderText="Select up to 5 tracks to generate a mixtape"
             disabled={userInput.trackSeeds.length === 5}

@@ -2,12 +2,12 @@ import { signIn } from "next-auth/react";
 
 export default function Welcome() {
   return (
-    <div className="h-[calc(100vh-8rem)] box-border flex flex-col justify-center items-center px-4">
-      <h2 className="text-xl text-center">
+    <div className="box-border flex h-[calc(100vh-8rem)] flex-col items-center justify-center px-4">
+      <h2 className="text-center text-xl">
         Sign in with Spotify to create mixtapes.
       </h2>
       <button
-        className="mt-2 px-4 py-1 text-lg rounded-full flex justify-between items-center gap-x-3 text-spotify-green font-semibold"
+        className="mt-2 flex items-center justify-between gap-x-3 rounded-full px-4 py-1 text-lg font-semibold text-spotify-green"
         onClick={() => signIn("spotify")}
       >
         <svg

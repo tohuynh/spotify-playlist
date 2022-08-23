@@ -56,11 +56,11 @@ export function SortableItem({
   };
 
   return (
-    <li className="bg-white hover:shadow-md p-4" ref={setNodeRef} style={style}>
-      <div className="grid grid-cols-[auto_1fr_auto_auto_auto] lg:grid-cols-[auto_1fr_1fr_auto_auto_auto] gap-x-2 lg:gap-x-8">
-        <div className="flex justify-center items-center">
+    <li className="bg-white p-4 hover:shadow-md" ref={setNodeRef} style={style}>
+      <div className="grid grid-cols-[auto_1fr_auto_auto_auto] gap-x-2 lg:grid-cols-[auto_1fr_1fr_auto_auto_auto] lg:gap-x-8">
+        <div className="flex items-center justify-center">
           <button
-            className="h-8 w-6 hover:bg-gray-200 rounded-md flex justify-center items-center"
+            className="flex h-8 w-6 items-center justify-center rounded-md hover:bg-gray-200"
             title="Reorder"
             aria-label="Drag handle"
             {...listeners}
@@ -70,23 +70,23 @@ export function SortableItem({
           </button>
         </div>
         <div className="overflow-hidden">
-          <div className="text-sm md:text-base truncate">{track.name}</div>
-          <div className="text-xs md:text-sm text-slate-500 truncate">
+          <div className="truncate text-sm md:text-base">{track.name}</div>
+          <div className="truncate text-xs text-slate-500 md:text-sm">
             {track.artists.join(", ")}
           </div>
         </div>
-        <div className="hidden lg:block text-base truncate">
+        <div className="hidden truncate text-base lg:block">
           {track.albumName}
         </div>
-        <div className="text-sm md:text-base flex justify-center items-center">
+        <div className="flex items-center justify-center text-sm md:text-base">
           {convertDurationToHMS(track.duration)}
         </div>
-        <div className="flex justify-center items-center">
+        <div className="flex items-center justify-center">
           <AudioPlayer url={track.previewUrl} />
         </div>
-        <div className="flex justify-center items-center">
+        <div className="flex items-center justify-center">
           <button
-            className="h-8 w-6 hover:bg-gray-200 rounded-md flex justify-center items-center"
+            className="flex h-8 w-6 items-center justify-center rounded-md hover:bg-gray-200"
             title="Remove"
             aria-label="Remove"
             onClick={() =>
@@ -150,7 +150,7 @@ export default function Playlist({
         items={draggablePlaylistTracks}
         strategy={verticalListSortingStrategy}
       >
-        <ul className="flex flex-col lg:pr-10 divide-y">
+        <ul className="flex flex-col divide-y lg:pr-10">
           {draggablePlaylistTracks.map((track) => (
             <SortableItem
               key={track.id}

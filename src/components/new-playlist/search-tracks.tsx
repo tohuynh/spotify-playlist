@@ -51,7 +51,7 @@ export default function SearchTracks({
       <div className="relative mx-auto w-full md:w-2/3 lg:w-1/2">
         <div className="relative cursor-default overflow-hidden rounded-md bg-white">
           <Combobox.Input
-            className="h-14 w-full py-2 px-10 lg:px-14 text-base md:text-lg truncate disabled:cursor-not-allowed"
+            className="h-14 w-full truncate py-2 px-10 text-base disabled:cursor-not-allowed md:text-lg lg:px-14"
             displayValue={(track: PlaylistTrack) =>
               track ? `${track.name} • ${track.artists.join(", ")}` : ""
             }
@@ -61,13 +61,13 @@ export default function SearchTracks({
           />
           <div className="absolute inset-y-0 left-0 flex items-center px-2">
             <SearchIcon
-              className="h-5 w-5 lg:h-6 lg:w-6 text-slate-400"
+              className="h-5 w-5 text-slate-400 lg:h-6 lg:w-6"
               aria-hidden
             />
           </div>
           <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
             <SelectorIcon
-              className="h-5 w-5 lg:h-6 lg:w-6 text-slate-400"
+              className="h-5 w-5 text-slate-400 lg:h-6 lg:w-6"
               aria-hidden
             />
           </Combobox.Button>
@@ -81,7 +81,7 @@ export default function SearchTracks({
           <Combobox.Options
             className={`${
               (isLoading || (data || []).length > 0) && "py-2"
-            } z-10 absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white sm:text-sm lg:text-base shadow-md`}
+            } absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white shadow-md sm:text-sm lg:text-base`}
           >
             {isLoading ? (
               <OptionsPlaceHolder />
@@ -132,8 +132,8 @@ function OptionsPlaceHolder() {
   return (
     <>
       {Array.from({ length: 5 }).map((_, i) => (
-        <li aria-hidden key={i} className="h-10 pl-10 pr-2 py-3 ">
-          <div className={`${LENGTHS[i]} h-full bg-gray-200 animate-pulse`} />
+        <li aria-hidden key={i} className="h-10 py-3 pl-10 pr-2 ">
+          <div className={`${LENGTHS[i]} h-full animate-pulse bg-gray-200`} />
         </li>
       ))}
     </>

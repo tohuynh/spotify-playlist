@@ -51,7 +51,7 @@ export default function AudioPlayer({ url }: { url: string | null }) {
       <div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5 ml-3 mr-2"
+          className="ml-3 mr-2 h-5 w-5"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -84,7 +84,7 @@ export default function AudioPlayer({ url }: { url: string | null }) {
           handleUpdateCurrentTime(audioPlayerRef.current?.currentTime || 0)
         }
       />
-      <svg className="h-10 w-10 -z-10" aria-hidden>
+      <svg className="-z-10 h-10 w-10" aria-hidden>
         <circle
           className={isPlaying ? "text-gray-300" : "text-transparent"}
           strokeWidth="3"
