@@ -23,6 +23,7 @@ export const spotifyRouter = createSpotifyRouter()
       if (!input.q.trim()) {
         url = `${API_BASE_URL}/me/top/tracks?${new URLSearchParams({
           limit: `${input.limit}`,
+          time_range: "short_term",
         })}`;
       }
       const res = await fetch(url, {
