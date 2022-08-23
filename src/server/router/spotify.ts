@@ -21,10 +21,7 @@ export const spotifyRouter = createSpotifyRouter()
         limit: `${input.limit}`,
       })}`;
       if (!input.q.trim()) {
-        url = `${API_BASE_URL}/me/top/tracks?${new URLSearchParams({
-          limit: `${input.limit}`,
-          time_range: "short_term",
-        })}`;
+        return [];
       }
       const res = await fetch(url, {
         method: "GET",
@@ -32,8 +29,7 @@ export const spotifyRouter = createSpotifyRouter()
           Authorization: `Bearer ${ctx.session.accessToken}`,
         },
       }).then((res) => res.json());
-      const tracks = !input.q.trim() ? res.items : res.tracks.items;
-      return tracks.map((item: any) => {
+      return res.tracks.items.map((item: any) => {
         return {
           id: item.id,
           uri: item.uri,
