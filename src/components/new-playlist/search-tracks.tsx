@@ -54,7 +54,7 @@ export default function SearchTracks({
           <Combobox.Input
             className="h-14 w-full truncate py-2 px-10 text-base disabled:cursor-not-allowed md:text-lg lg:px-14"
             displayValue={(track: PlaylistTrack) =>
-              track ? `${track.name} • ${track.artists.join(", ")}` : ""
+              track ? `${track.name} • ${track.artists.join(", ")}` : query
             }
             onChange={(e) => handleSearch(e.target.value)}
             title={placeholderText}

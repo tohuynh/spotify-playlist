@@ -35,7 +35,7 @@ export default function NewPlaylist() {
       {
         ...userInput.audioFeatures,
         trackSeeds: userInput.trackSeeds.map((track) => track.id),
-        limit: 100,
+        limit: 15,
       },
     ],
     {
