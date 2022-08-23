@@ -18,7 +18,7 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
     const target = e.target as typeof e.target & {
       playlistName: { value: string };
       playlistDescription: { value: string };
-      playlistIsPublic: { checked: boolean };
+      //playlistIsPublic: { checked: boolean };
     };
     if (uris.length > 0) {
       createPlayList.mutate(
@@ -26,7 +26,7 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
           uris,
           name: target.playlistName.value,
           description: target.playlistDescription.value,
-          isPublic: target.playlistIsPublic.checked,
+          isPublic: true /* target.playlistIsPublic.checked */,
         },
         {
           onSuccess: (result) => {
@@ -99,7 +99,7 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
                       name="playlistDescription"
                     />
                   </label>
-                  <label className="text-md block font-medium text-gray-700">
+                  {/*  <label className="text-md block font-medium text-gray-700">
                     <input
                       defaultChecked={true}
                       className="mr-2 h-4 w-4 rounded border-2 border-gray-200 text-sm outline-none"
@@ -107,7 +107,7 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
                       name="playlistIsPublic"
                     />
                     Is public?
-                  </label>
+                  </label> */}
                   <div className="mt-4 flex items-center justify-end gap-x-4">
                     <button
                       type="reset"
