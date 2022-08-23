@@ -1,7 +1,7 @@
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, SearchIcon, SelectorIcon } from "@heroicons/react/solid";
 import debounce from "lodash.debounce";
-import { Dispatch, Fragment, useCallback, useState } from "react";
+import { Dispatch, Fragment, useMemo, useState } from "react";
 
 import { PlaylistTrack } from "../../server/router/output-types";
 import { trpc } from "../../utils/trpc";
@@ -32,11 +32,12 @@ export default function SearchTracks({
     }
   );
 
-  const handleSearch = useCallback(
-    debounce((q: string) => {
-      setSelected(undefined);
-      setQuery(q);
-    }, 100),
+  const handleSearch = useMemo(
+    () =>
+      debounce((q: string) => {
+        setSelected(undefined);
+        setQuery(q);
+      }, 100),
     []
   );
 

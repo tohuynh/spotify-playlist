@@ -1,5 +1,5 @@
 import debounce from "lodash.debounce";
-import { useCallback, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 const playIcon = (
   <svg
@@ -30,8 +30,8 @@ export default function AudioPlayer({ url }: { url: string | null }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
 
-  const handleUpdateCurrentTime = useCallback(
-    debounce((time: number) => setCurrentTime(time), 100),
+  const handleUpdateCurrentTime = useMemo(
+    () => debounce((time: number) => setCurrentTime(time), 100),
     []
   );
 
