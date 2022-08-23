@@ -1,7 +1,8 @@
 import * as trpc from "@trpc/server";
-import { createProtectedRouter } from "./protected-router";
-import { env } from "../../env/server.mjs";
 import { getToken } from "next-auth/jwt";
+
+import { env } from "../../env/server.mjs";
+import { createProtectedRouter } from "./protected-router";
 
 const SPOTIFY_ACCESS_TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
 const SPOTIFY_AUTHORIZATION = Buffer.from(

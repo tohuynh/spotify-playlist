@@ -1,11 +1,9 @@
-import { useReducer, useState } from "react";
-import { trpc } from "../../utils/trpc";
 import { PlusIcon } from "@heroicons/react/outline";
-import SearchTracks from "./search-tracks";
-import Playlist from "./playlist";
+import { useReducer, useState } from "react";
+
 import { AudioFeatures } from "../../server/router/output-types";
-import TrackChips from "./track-chips";
 import { calculateAverageAudioFeatures } from "../../utils/audio-features";
+import { trpc } from "../../utils/trpc";
 import CreatePlaylistDialog from "./create-playlist-dialog";
 import ModifyPlaylist from "./modify-playlist";
 import {
@@ -13,7 +11,10 @@ import {
   UserActionType,
   userInputReducer,
 } from "./new-playlist-state";
+import Playlist from "./playlist";
+import SearchTracks from "./search-tracks";
 import Spinner from "./spinner";
+import TrackChips from "./track-chips";
 
 export default function NewPlaylist() {
   const [userInput, dispatchUserAction] = useReducer(userInputReducer, {
@@ -34,7 +35,7 @@ export default function NewPlaylist() {
       {
         ...userInput.audioFeatures,
         trackSeeds: userInput.trackSeeds.map((track) => track.id),
-        limit: 20,
+        limit: 10,
       },
     ],
     {

@@ -1,31 +1,31 @@
-import { Dispatch } from "react";
 import {
   DndContext,
-  closestCenter,
+  DragEndEvent,
   KeyboardSensor,
   PointerSensor,
   TouchSensor,
+  closestCenter,
   useSensor,
   useSensors,
-  DragEndEvent,
 } from "@dnd-kit/core";
 import {
-  arrayMove,
+  restrictToParentElement,
+  restrictToVerticalAxis,
+} from "@dnd-kit/modifiers";
+import {
   SortableContext,
+  arrayMove,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import {
-  restrictToVerticalAxis,
-  restrictToParentElement,
-} from "@dnd-kit/modifiers";
-
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import AudioPlayer from "./audio-player";
-import { convertDurationToHMS } from "../../utils/convert-duration-to-hms";
-import { PlaylistTrack } from "../../server/router/output-types";
 import { TrashIcon } from "@heroicons/react/outline";
+import { Dispatch } from "react";
+
+import { PlaylistTrack } from "../../server/router/output-types";
+import { convertDurationToHMS } from "../../utils/convert-duration-to-hms";
+import AudioPlayer from "./audio-player";
 import { UserAction, UserActionType } from "./new-playlist-state";
 
 const dragHandle = (

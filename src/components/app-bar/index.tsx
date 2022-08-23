@@ -1,5 +1,5 @@
-import { signIn, signOut, useSession } from "next-auth/react";
 import { LoginIcon, LogoutIcon } from "@heroicons/react/outline";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function AppBar() {
   const { data, status } = useSession();

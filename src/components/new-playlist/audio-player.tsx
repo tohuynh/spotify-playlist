@@ -124,5 +124,3 @@ export default function AudioPlayer({ url }: { url: string | null }) {
 
 // r = (40px - (3 * 2)) / 2 | (w-10 - (strokeWidth * 2)) / 2
 const circumference = 17 * 2 * Math.PI;
-// todo: color animation
-//play/stop buttons has higher z index than combo box options

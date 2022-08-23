@@ -1,10 +1,11 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import AppBar from "../components/app-bar";
 import { useSession } from "next-auth/react";
+import Head from "next/head";
+import { Toaster } from "react-hot-toast";
+
+import AppBar from "../components/app-bar";
 import NewPlaylist from "../components/new-playlist";
 import Welcome from "../components/welcome";
-import { Toaster } from "react-hot-toast";
 
 const Home: NextPage = () => {
   const { data, status } = useSession();

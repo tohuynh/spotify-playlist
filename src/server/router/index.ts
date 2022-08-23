@@ -1,7 +1,7 @@
 // src/server/router/index.ts
-import { createRouter } from "./context";
 import superjson from "superjson";
 
+import { createRouter } from "./context";
 import { spotifyRouter } from "./spotify";
 
 export const appRouter = createRouter()

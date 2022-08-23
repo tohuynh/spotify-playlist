@@ -1,5 +1,6 @@
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import SpotifyProvider from "next-auth/providers/spotify";
+
 import { env } from "../../../env/server.mjs";
 
 export const authOptions: NextAuthOptions = {

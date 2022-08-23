@@ -1,7 +1,8 @@
-import { Dispatch, SetStateAction, Fragment, FormEventHandler } from "react";
-import { trpc } from "../../utils/trpc";
-import { Transition, Dialog } from "@headlessui/react";
+import { Dialog, Transition } from "@headlessui/react";
+import { Dispatch, FormEventHandler, Fragment, SetStateAction } from "react";
 import toast from "react-hot-toast";
+
+import { trpc } from "../../utils/trpc";
 
 type CreatePlaylistDialogProps = {
   isOpen: boolean;

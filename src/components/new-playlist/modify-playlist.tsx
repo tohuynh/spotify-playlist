@@ -1,11 +1,12 @@
+import { Disclosure, Transition } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/solid";
 import {
   ChangeEventHandler,
   Dispatch,
   FormEventHandler,
   SetStateAction,
 } from "react";
-import { ChevronDownIcon } from "@heroicons/react/solid";
-import { Transition, Disclosure } from "@headlessui/react";
+
 import { AudioFeatures } from "../../server/router/output-types";
 import { UserAction, UserActionType } from "./new-playlist-state";
 
