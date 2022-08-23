@@ -21,6 +21,7 @@ import {
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { TrashIcon } from "@heroicons/react/outline";
+import Image from "next/image";
 import { Dispatch } from "react";
 
 import { PlaylistTrack } from "../../server/router/output-types";
@@ -56,7 +57,11 @@ export function SortableItem({
   };
 
   return (
-    <li className="bg-white p-4 hover:shadow-md" ref={setNodeRef} style={style}>
+    <li
+      className="bg-white p-4 md:py-2 hover:shadow-md"
+      ref={setNodeRef}
+      style={style}
+    >
       <div className="grid grid-cols-[auto_1fr_auto_auto_auto] gap-x-2 lg:grid-cols-[auto_1fr_1fr_auto_auto_auto] lg:gap-x-8">
         <div className="flex items-center justify-center">
           <button
@@ -69,10 +74,20 @@ export function SortableItem({
             {dragHandle}
           </button>
         </div>
-        <div className="overflow-hidden">
-          <div className="truncate text-sm md:text-base">{track.name}</div>
-          <div className="truncate text-xs text-slate-500 md:text-sm">
-            {track.artists.join(", ")}
+        <div className="overflow-hidden flex items-center gap-x-1">
+          <div className="flex-shrink-0 hidden md:block">
+            <Image
+              layout="fixed"
+              src={track.image.url}
+              height={track.image.height}
+              width={track.image.width}
+            />
+          </div>
+          <div className="overflow-hidden">
+            <div className="truncate text-sm md:text-base">{track.name}</div>
+            <div className="truncate text-xs text-slate-500 md:text-sm">
+              {track.artists.join(", ")}
+            </div>
           </div>
         </div>
         <div className="hidden truncate text-base lg:block">
