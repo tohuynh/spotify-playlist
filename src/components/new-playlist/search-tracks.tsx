@@ -53,7 +53,7 @@ export default function SearchTracks({
       <div className="relative mx-auto w-full md:w-2/3 lg:w-1/2">
         <div className="relative cursor-default overflow-hidden rounded-md bg-white">
           <Combobox.Input
-            className="h-14 w-full truncate py-2 px-10 text-base disabled:cursor-not-allowed md:text-lg lg:px-14"
+            className="h-14 w-full truncate py-2 px-10 text-base disabled:cursor-not-allowed md:text-lg lg:px-14 outline-none"
             displayValue={(track: PlaylistTrack) =>
               track ? `${track.name} • ${track.artists.join(", ")}` : query
             }
