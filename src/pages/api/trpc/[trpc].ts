@@ -22,7 +22,6 @@ export default createNextApiHandler({
       return {
         headers: {
           "cache-control": `s-maxage=1, stale-while-revalidate=${ONE_DAY_IN_SECONDS}`,
-          "x-ssr": "1",
         },
       };
     }
