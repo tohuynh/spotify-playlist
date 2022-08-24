@@ -2,6 +2,7 @@ import {
   DndContext,
   DragEndEvent,
   KeyboardSensor,
+  MeasuringStrategy,
   PointerSensor,
   TouchSensor,
   closestCenter,
@@ -13,8 +14,10 @@ import {
   restrictToVerticalAxis,
 } from "@dnd-kit/modifiers";
 import {
+  AnimateLayoutChanges,
   SortableContext,
   arrayMove,
+  defaultAnimateLayoutChanges,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
@@ -38,6 +41,10 @@ const dragHandle = (
   </svg>
 );
 
+const animateLayoutChanges: AnimateLayoutChanges = (args) => {
+  return defaultAnimateLayoutChanges({ ...args, wasDragging: true });
+};
+
 type SortablePlaylistTrackProps = {
   id: string;
   track: PlaylistTrack;
@@ -48,8 +55,14 @@ export function SortableItem({
   track,
   dispatchUserAction,
 }: SortablePlaylistTrackProps) {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id, animateLayoutChanges });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -58,14 +71,18 @@ export function SortableItem({
 
   return (
     <li
-      className="bg-white p-4 md:py-2 hover:shadow-md"
+      className={`bg-white p-4 md:py-2 ${
+        isDragging ? "z-[1] shadow-lg" : "z-0"
+      }`}
       ref={setNodeRef}
       style={style}
     >
       <div className="grid grid-cols-[auto_1fr_auto_auto_auto] gap-x-2 lg:grid-cols-[auto_1fr_1fr_auto_auto_auto] lg:gap-x-8">
         <div className="flex items-center justify-center">
           <button
-            className="flex h-8 w-6 items-center justify-center rounded-md hover:bg-gray-200"
+            className={`flex h-8 w-6 items-center justify-center rounded-md hover:bg-gray-200 ${
+              isDragging ? "cursor-grabbing" : "cursor-grab"
+            }`}
             title="Reorder"
             aria-label="Drag handle"
             {...listeners}
@@ -120,6 +137,12 @@ export function SortableItem({
   );
 }
 
+const measuringConfig = {
+  droppable: {
+    strategy: MeasuringStrategy.Always,
+  },
+};
+
 type PlaylistProps = {
   draggablePlaylistTracks: PlaylistTrack[];
   dispatchUserAction: Dispatch<UserAction>;
@@ -157,6 +180,7 @@ export default function Playlist({
 
   return (
     <DndContext
+      measuring={measuringConfig}
       sensors={sensors}
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
