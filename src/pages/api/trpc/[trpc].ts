@@ -17,7 +17,7 @@ export default createNextApiHandler({
     const isQuery = type === "query";
 
     if (ctx?.res && allPublic && allOk && isQuery) {
-      // cache request for 1 day + revalidate once 30 minutes
+      // cache request for 1 day + revalidate every seconds
       const ONE_DAY_IN_SECONDS = 60 * 60 * 24;
       return {
         headers: {

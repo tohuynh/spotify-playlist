@@ -144,10 +144,12 @@ const measuringConfig = {
 };
 
 type PlaylistProps = {
+  isLoading: boolean;
   draggablePlaylistTracks: PlaylistTrack[];
   dispatchUserAction: Dispatch<UserAction>;
 };
 export default function Playlist({
+  isLoading,
   draggablePlaylistTracks,
   dispatchUserAction,
 }: PlaylistProps) {
@@ -190,7 +192,11 @@ export default function Playlist({
         items={draggablePlaylistTracks}
         strategy={verticalListSortingStrategy}
       >
-        <ul className="flex flex-col divide-y lg:pr-10">
+        <ul
+          className={`${
+            isLoading ? "blur-[2px]" : "blur-none"
+          } flex flex-col divide-y lg:pr-10`}
+        >
           {draggablePlaylistTracks.map((track) => (
             <SortableItem
               key={track.id}
