@@ -1,3 +1,4 @@
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { XIcon } from "@heroicons/react/outline";
 import { Dispatch } from "react";
 
@@ -13,8 +14,12 @@ export default function TrackChips({
   tracks,
   dispatchUserAction,
 }: TrackChipsProps) {
+  const [chipsRef] = useAutoAnimate<HTMLDivElement>();
   return (
-    <div className="flex flex-wrap gap-4 md:justify-center">
+    <div ref={chipsRef} className="flex flex-wrap gap-4 md:justify-center">
+      <div aria-hidden className="hidden md:block h-10 w-0 overflow-hidden">
+        Placeholder
+      </div>
       {tracks.map((track, i) => (
         <button
           key={track.id}

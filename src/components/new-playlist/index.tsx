@@ -106,20 +106,17 @@ export default function NewPlaylist() {
               onSelectUserActionType={UserActionType.ADD_TRACK}
               dispatchUserAction={dispatchUserAction}
             />
+            <div className="flex justify-center">
+              <Spinner isLoading={isLoading} />
+            </div>
           </div>
         )}
-        {isLoading && hasTrackSeeds ? (
-          <div className="flex justify-center py-8">
-            <Spinner />
-          </div>
-        ) : (
-          <Playlist
-            draggablePlaylistTracks={
-              hasTrackSeeds ? userInput.playlistTracks : []
-            }
-            dispatchUserAction={dispatchUserAction}
-          />
-        )}
+        <Playlist
+          draggablePlaylistTracks={
+            hasTrackSeeds ? userInput.playlistTracks : []
+          }
+          dispatchUserAction={dispatchUserAction}
+        />
       </div>
     </div>
   );
