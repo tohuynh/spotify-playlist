@@ -18,18 +18,14 @@ export default createNextApiHandler({
 
     if (ctx?.res && allPublic && allOk && isQuery) {
       // cache request for 1 day + revalidate once 30 minutes
-      // is fresh for 30 minutes. after 30 minutes it's stale, but is allowed to reuse stale response for 1 day, while revalidating the response in the background
       const ONE_DAY_IN_SECONDS = 60 * 60 * 24;
-      const THIRTY_MINUTES_IN_SECONDS = 30 * 60;
       return {
         headers: {
-          "cache-control": `s-maxage=${THIRTY_MINUTES_IN_SECONDS}, stale-while-revalidate=${ONE_DAY_IN_SECONDS}`,
+          "cache-control": `s-maxage=1, stale-while-revalidate=${ONE_DAY_IN_SECONDS}`,
+          "x-ssr": "1",
         },
       };
     }
     return {};
-  },
-  batching: {
-    enabled: false,
   },
 });
