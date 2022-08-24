@@ -15,7 +15,6 @@ export default createNextApiHandler({
     const allOk = errors.length === 0;
     // checking we're doing a query request
     const isQuery = type === "query";
-    //console.log("req", paths);
 
     if (ctx?.res && allPublic && allOk && isQuery) {
       // cache request for 1 day + revalidate once 30 minutes
@@ -29,5 +28,8 @@ export default createNextApiHandler({
       };
     }
     return {};
+  },
+  batching: {
+    enabled: false,
   },
 });
