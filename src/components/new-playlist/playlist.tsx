@@ -14,15 +14,14 @@ import {
   restrictToVerticalAxis,
 } from "@dnd-kit/modifiers";
 import {
-  AnimateLayoutChanges,
   SortableContext,
   arrayMove,
-  defaultAnimateLayoutChanges,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { TrashIcon } from "@heroicons/react/outline";
 import Image from "next/image";
 import { Dispatch } from "react";
@@ -41,10 +40,6 @@ const dragHandle = (
   </svg>
 );
 
-const animateLayoutChanges: AnimateLayoutChanges = (args) => {
-  return defaultAnimateLayoutChanges({ ...args, wasDragging: true });
-};
-
 type SortablePlaylistTrackProps = {
   id: string;
   track: PlaylistTrack;
@@ -62,7 +57,7 @@ export function SortableItem({
     transform,
     transition,
     isDragging,
-  } = useSortable({ id, animateLayoutChanges });
+  } = useSortable({ id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -137,12 +132,6 @@ export function SortableItem({
   );
 }
 
-const measuringConfig = {
-  droppable: {
-    strategy: MeasuringStrategy.Always,
-  },
-};
-
 type PlaylistProps = {
   isLoading: boolean;
   draggablePlaylistTracks: PlaylistTrack[];
@@ -161,6 +150,8 @@ export default function Playlist({
     useSensor(TouchSensor)
   );
 
+  const [listRef, enableAnimation] = useAutoAnimate<HTMLUListElement>();
+
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
 
@@ -176,15 +167,21 @@ export default function Playlist({
           type: UserActionType.UPDATE_PLAYLIST,
           payload: arrayMove(draggablePlaylistTracks, oldIndex, newIndex),
         });
+        //allow animation after arrayMove has happened
+        setTimeout(() => enableAnimation(true), 500);
       }
     }
   }
 
+  function handleDragStart() {
+    enableAnimation(false);
+  }
+
   return (
     <DndContext
-      measuring={measuringConfig}
       sensors={sensors}
       collisionDetection={closestCenter}
+      onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       modifiers={[restrictToParentElement, restrictToVerticalAxis]}
     >
@@ -196,6 +193,7 @@ export default function Playlist({
           className={`${
             isLoading ? "blur-[2px]" : "blur-none"
           } flex flex-col divide-y lg:pr-10`}
+          ref={listRef}
         >
           {draggablePlaylistTracks.map((track) => (
             <SortableItem
