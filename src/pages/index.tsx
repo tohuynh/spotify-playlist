@@ -14,7 +14,11 @@ const Home: NextPage = () => {
   return (
     <>
       <Layout title="Tiny Mixtapes" description="Create Spotify mixtapes">
-        {data ? <NewPlaylist /> : <Welcome />}
+        {data ? (
+          <NewPlaylist />
+        ) : (
+          <Welcome message=" Sign in with Spotify to create mixtapes." />
+        )}
       </Layout>
     </>
   );
