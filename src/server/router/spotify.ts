@@ -168,6 +168,12 @@ export const spotifyRouter = createSpotifyRouter()
         }),
       }).then((res) => res.json());
 
+      await ctx.prisma.playlist.create({
+        data: {
+          spotifyId: playlistId,
+        },
+      });
+
       return {
         name: input.name,
         url: `https://open.spotify.com/playlist/${playlistId}`,

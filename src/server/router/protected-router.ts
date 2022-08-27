@@ -16,6 +16,7 @@ export function createProtectedRouter() {
         // infers that `session` and `req` is non-nullable to downstream resolvers
         req: ctx.req,
         session: { ...ctx.session, user: ctx.session.user },
+        prisma: ctx.prisma,
       },
     });
   });
