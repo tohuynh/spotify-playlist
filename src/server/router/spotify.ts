@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { calculateAverageAudioFeatures } from "../../utils/audio-features";
 import { PlaylistTracksSchema } from "./output-types";
 import { createSpotifyRouter } from "./spotify-router";
 
@@ -125,6 +126,113 @@ export const spotifyRouter = createSpotifyRouter()
           energy: Math.floor(audioFeaturesRes.audio_features[i].energy * 100),
         };
       });
+    },
+  })
+  .query("getPlaylists", {
+    input: z.object({
+      limit: z.number().min(1).max(100).nullish(),
+      cursor: z.string().nullish(),
+    }),
+    output: z.object({
+      items: z.array(
+        z.object({
+          id: z.string(),
+          name: z.string(),
+          description: z.string(),
+          image: z.object({
+            url: z.string(),
+            height: z.number(),
+            width: z.number(),
+          }),
+          uri: z.string(),
+          audioFeatures: z.object({
+            danceability: z.number(),
+            energy: z.number(),
+            tempo: z.number(),
+            valence: z.number(),
+          }),
+        })
+      ),
+      total: z.number(),
+      nextCursor: z.string().optional(),
+    }),
+    async resolve({ ctx, input }) {
+      const limit = input.limit ?? 50;
+      const { cursor } = input;
+      const [total, items] = await Promise.all([
+        ctx.prisma.playlist.count(),
+        ctx.prisma.playlist.findMany({
+          take: limit + 1,
+          cursor: input.cursor
+            ? {
+                id: input.cursor,
+              }
+            : undefined,
+          orderBy: {
+            createdAt: "desc",
+          },
+        }),
+      ]);
+      let nextCursor: typeof cursor | undefined = undefined;
+      if (items.length > limit) {
+        const nextItem = items.pop();
+        nextCursor = nextItem!.id;
+      }
+
+      const spotifyPlaylists: any[] = await Promise.all(
+        items.map((playlist) =>
+          fetch(`${API_BASE_URL}/playlists/${playlist.spotifyId}`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${ctx.session.accessToken}`,
+            },
+          }).then((res) => res.json())
+        )
+      );
+
+      const audioFeatures: any[][] = await Promise.all(
+        spotifyPlaylists.map((playlist) => {
+          return Promise.all(
+            playlist.tracks.items.map((item: any) =>
+              fetch(`${API_BASE_URL}/audio-features/${item.track.id}`, {
+                method: "GET",
+                headers: {
+                  Authorization: `Bearer ${ctx.session.accessToken}`,
+                },
+              }).then((res) => res.json())
+            )
+          );
+        })
+      );
+
+      const averageAudioFeatures = audioFeatures.map((tracks: any[]) => {
+        return calculateAverageAudioFeatures(
+          tracks.map((track) => {
+            return {
+              danceability: track.danceability * 100,
+              energy: track.energy * 100,
+              tempo: track.tempo,
+              valence: track.valence * 100,
+            };
+          })
+        );
+      });
+
+      const playlists: any[] = spotifyPlaylists.map((playlist, i) => {
+        return {
+          id: playlist.id,
+          name: playlist.name,
+          description: playlist.description,
+          image: playlist.images[1],
+          uri: `https://open.spotify.com/playlist/${playlist.id}`,
+          audioFeatures: averageAudioFeatures[i],
+        };
+      });
+      return {
+        items: playlists,
+        total,
+        nextCursor,
+      };
     },
   })
   .mutation("createPlaylist", {
