@@ -1,5 +1,5 @@
 import { Disclosure, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/solid";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import {
   ChangeEventHandler,
   Dispatch,
@@ -60,7 +60,7 @@ export default function ModifyPlaylist({
                 <ChevronDownIcon
                   className={`${
                     open ? "rotate-180 transform" : ""
-                  } h-6 w-6 text-slate-400`}
+                  } h-5 w-5 text-slate-400`}
                 />
               </Disclosure.Button>
               <Transition

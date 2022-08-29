@@ -1,4 +1,7 @@
-import { LoginIcon, LogoutIcon } from "@heroicons/react/outline";
+import {
+  ArrowLeftOnRectangleIcon,
+  ArrowRightOnRectangleIcon,
+} from "@heroicons/react/24/outline";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function AppBar() {
@@ -18,9 +21,9 @@ export default function AppBar() {
         onClick={data ? () => signOut() : () => signIn("spotify")}
       >
         {data ? (
-          <LogoutIcon className="h-5 w-5" aria-hidden />
+          <ArrowRightOnRectangleIcon className="h-6 w-6" aria-hidden />
         ) : (
-          <LoginIcon className="h-5 w-5" aria-hidden />
+          <ArrowLeftOnRectangleIcon className="h-6 w-6" aria-hidden />
         )}
       </button>
     </div>

@@ -1,5 +1,5 @@
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { XIcon } from "@heroicons/react/outline";
+import { XMarkIcon } from "@heroicons/react/20/solid";
 import { Dispatch } from "react";
 
 import { PlaylistTrack } from "../../server/router/output-types";
@@ -35,7 +35,7 @@ export default function TrackChips({
             <span className="mr-1 font-light">{`${i + 1}. `}</span>
             <span>{track.name}</span>
           </span>
-          <XIcon className="h-4 w-4" />
+          <XMarkIcon className="h-5 w-5" />
         </button>
       ))}
     </div>

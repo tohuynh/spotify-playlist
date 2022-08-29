@@ -1,5 +1,9 @@
 import { Combobox, Transition } from "@headlessui/react";
-import { CheckIcon, SearchIcon, SelectorIcon } from "@heroicons/react/solid";
+import {
+  CheckIcon,
+  ChevronUpDownIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/20/solid";
 import debounce from "lodash.debounce";
 import { Dispatch, Fragment, useMemo, useState } from "react";
 
@@ -62,16 +66,13 @@ export default function SearchTracks({
             placeholder={placeholderText}
           />
           <div className="absolute inset-y-0 left-0 flex items-center px-2">
-            <SearchIcon
-              className="h-5 w-5 text-slate-400 lg:h-6 lg:w-6"
+            <MagnifyingGlassIcon
+              className="h-5 w-5 text-slate-400"
               aria-hidden
             />
           </div>
           <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-            <SelectorIcon
-              className="h-5 w-5 text-slate-400 lg:h-6 lg:w-6"
-              aria-hidden
-            />
+            <ChevronUpDownIcon className="h-5 w-5 text-slate-400" aria-hidden />
           </Combobox.Button>
         </div>
         <Transition
