@@ -113,9 +113,7 @@ export default function NewPlaylist() {
         )}
         <Playlist
           isLoading={isLoading}
-          draggablePlaylistTracks={
-            hasTrackSeeds ? userInput.playlistTracks : []
-          }
+          draggablePlaylistTracks={userInput.playlistTracks}
           dispatchUserAction={dispatchUserAction}
         />
       </div>
