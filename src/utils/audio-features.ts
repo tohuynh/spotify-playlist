@@ -1,11 +1,11 @@
-import { PlaylistTrack } from "../server/router/output-types";
+import { AudioFeatures } from "../server/router/output-types";
 
 function average(nums: number[]) {
   const sum = nums.reduce((acc, curr) => acc + curr, 0);
   return sum / nums.length;
 }
 
-export function calculateAverageAudioFeatures(tracks: PlaylistTrack[]) {
+export function calculateAverageAudioFeatures(tracks: AudioFeatures[]) {
   const danceability = Math.floor(
     average(tracks.map((track) => track.danceability || 0))
   );
