@@ -1,4 +1,4 @@
-import { PlusIcon } from "@heroicons/react/outline";
+import { PlusIcon } from "@heroicons/react/24/outline";
 import { useReducer, useState } from "react";
 
 import { AudioFeatures } from "../../server/router/output-types";
@@ -21,7 +21,7 @@ export default function NewPlaylist() {
     trackSeeds: [],
     audioFeatures: { ...INITIAL_AUDIO_FEATURES },
     playlistTracks: [],
-    hasNewTrackSeeds: true,
+    hasNewTrackSeeds: false,
   });
   const [audioFeaturesForDisplay, setAudioFeaturesForDisplay] = useState<
     Partial<AudioFeatures>
@@ -45,7 +45,7 @@ export default function NewPlaylist() {
           type: UserActionType.UPDATE_PLAYLIST,
           payload: [...result],
         });
-        if (result.length > 0 && userInput.hasNewTrackSeeds) {
+        if (userInput.hasNewTrackSeeds) {
           setAudioFeaturesForDisplay(calculateAverageAudioFeatures(result));
         }
       },
@@ -93,7 +93,7 @@ export default function NewPlaylist() {
             tracks={userInput.trackSeeds}
           />
         </div>
-        {hasTrackSeeds && (
+        {(hasTrackSeeds || userInput.hasNewTrackSeeds) && (
           <div className="flex flex-col gap-y-4 py-16">
             <ModifyPlaylist
               audioFeaturesForDisplay={audioFeaturesForDisplay}
