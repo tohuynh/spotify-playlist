@@ -67,12 +67,12 @@ export default function SearchTracks({
           />
           <div className="absolute inset-y-0 left-0 flex items-center px-2">
             <MagnifyingGlassIcon
-              className="h-5 w-5 text-slate-400"
+              className="h-5 w-5 text-zinc-400"
               aria-hidden
             />
           </div>
           <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-            <ChevronUpDownIcon className="h-5 w-5 text-slate-400" aria-hidden />
+            <ChevronUpDownIcon className="h-5 w-5 text-zinc-400" aria-hidden />
           </Combobox.Button>
         </div>
         <Transition
@@ -94,7 +94,7 @@ export default function SearchTracks({
                   <Combobox.Option
                     key={track.id}
                     className={({ active }) =>
-                      `relative cursor-default select-none py-2 pl-10 pr-4 text-slate-700 ${
+                      `relative cursor-default select-none py-2 pl-10 pr-4 text-zinc-700 ${
                         active ? "bg-gray-100" : "bg-white"
                       }`
                     }

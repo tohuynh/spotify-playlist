@@ -40,7 +40,7 @@ const Layout = ({ title, description, children }: LayoutProps) => {
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      <main className="min-h-screen bg-slate-100 text-slate-900">
+      <main className="min-h-screen bg-zinc-100 text-zinc-900">
         <AppBar />
         <Nav />
         <div className="md:ml-36">{children}</div>

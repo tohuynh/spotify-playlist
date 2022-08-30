@@ -98,7 +98,7 @@ export function SortableItem({
           </div>
           <div className="overflow-hidden">
             <div className="truncate text-sm md:text-base">{track.name}</div>
-            <div className="truncate text-xs text-slate-500 md:text-sm">
+            <div className="truncate text-xs text-zinc-500 md:text-sm">
               {track.artists.join(", ")}
             </div>
           </div>
@@ -124,7 +124,7 @@ export function SortableItem({
               })
             }
           >
-            <TrashIcon className="h-4 w-4 text-slate-700" aria-hidden />
+            <TrashIcon className="h-4 w-4 text-zinc-700" aria-hidden />
           </button>
         </div>
       </div>

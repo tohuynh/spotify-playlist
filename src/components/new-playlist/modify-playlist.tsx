@@ -60,7 +60,7 @@ export default function ModifyPlaylist({
                 <ChevronDownIcon
                   className={`${
                     open ? "rotate-180 transform" : ""
-                  } h-5 w-5 text-slate-400`}
+                  } h-5 w-5 text-zinc-400`}
                 />
               </Disclosure.Button>
               <Transition
@@ -72,7 +72,7 @@ export default function ModifyPlaylist({
                 leaveFrom="transform scale-100 opacity-100"
                 leaveTo="transform scale-95 opacity-0"
               />
-              <Disclosure.Panel className="px-4 py-2 text-xs text-slate-700 md:text-base">
+              <Disclosure.Panel className="px-4 py-2 text-xs text-zinc-700 md:text-base">
                 <form
                   className="grid grid-cols-[auto_1fr_auto] gap-2"
                   onSubmit={handleSubmit}
@@ -139,7 +139,7 @@ export default function ModifyPlaylist({
                   </div>
                   <div className="col-span-full mt-4">
                     <button
-                      className="rounded-md border border-transparent bg-slate-200 px-4 py-2 text-base font-medium text-slate-800"
+                      className="rounded-md border border-transparent bg-zinc-200 px-4 py-2 text-base font-medium text-zinc-800"
                       type="submit"
                     >
                       Modify
