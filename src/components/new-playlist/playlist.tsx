@@ -192,7 +192,7 @@ export default function Playlist({
         <ul
           className={`${
             isLoading ? "blur-[2px]" : "blur-none"
-          } flex flex-col divide-y lg:pr-10`}
+          } flex flex-col divide-y`}
           ref={listRef}
         >
           {draggablePlaylistTracks.map((track) => (

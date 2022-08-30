@@ -1,13 +1,17 @@
 type SpinnerProps = {
-  isLoading: boolean
-}
+  isLoading: boolean;
+};
 
-export default function Spinner({isLoading}: SpinnerProps) {
+export default function Spinner({ isLoading }: SpinnerProps) {
   return (
     <div role="status">
       <svg
         aria-hidden="true"
-        className={`h-10 w-10 animate-spin ${isLoading ? "fill-blue-600 text-gray-200": "fill-transparent text-transparent"}`}
+        className={`h-10 w-10 animate-spin ${
+          isLoading
+            ? "fill-blue-600 text-gray-200"
+            : "fill-transparent text-transparent"
+        }`}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

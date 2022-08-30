@@ -60,27 +60,25 @@ export default function NewPlaylist() {
     useState(false);
 
   return (
-    <div className="pb-24 lg:flex lg:flex-row lg:justify-start lg:gap-x-4">
+    <div className="pb-40 md:pb-0">
       <CreatePlaylistDialog
         isOpen={createPlaylistDialogIsOpen}
         setIsOpen={setCreatePlaylistDialogIsOpen}
         uris={userInput.playlistTracks.map((track) => track.uri)}
       />
-      <div className="flex items-start justify-center lg:basis-36 lg:pt-16">
-        <button
-          className="fixed bottom-0 right-0 z-50 m-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-spotify-green shadow-lg disabled:cursor-not-allowed lg:sticky lg:top-4 lg:m-0"
-          aria-label="New mixtape"
-          onClick={() => setCreatePlaylistDialogIsOpen(true)}
-          disabled={
-            getRecommendationsQuery.status === "error" ||
-            getRecommendationsQuery.status === "loading" ||
-            userInput.playlistTracks.length === 0
-          }
-        >
-          <PlusIcon className="h-6 w-6" aria-hidden />
-        </button>
-      </div>
-      <div className="px-4 lg:flex-1 lg:px-0">
+      <button
+        className="fixed bottom-16 right-0 z-50 m-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-spotify-green shadow-lg disabled:cursor-not-allowed md:top-20 md:left-10 md:m-0"
+        aria-label="New mixtape"
+        onClick={() => setCreatePlaylistDialogIsOpen(true)}
+        disabled={
+          getRecommendationsQuery.status === "error" ||
+          getRecommendationsQuery.status === "loading" ||
+          userInput.playlistTracks.length === 0
+        }
+      >
+        <PlusIcon className="h-6 w-6" aria-hidden />
+      </button>
+      <div className="px-4 md:px-10">
         <div className="flex flex-col gap-y-4 border-b-2 py-16">
           <SearchTracks
             placeholderText="Select up to 5 tracks to generate a mixtape"

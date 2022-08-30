@@ -3,13 +3,14 @@ import { ReactNode } from "react";
 import { Toaster } from "react-hot-toast";
 
 import AppBar from "../../components/app-bar";
+import Nav from "./nav";
 
 type LayoutProps = {
-  title: string
-  description: string
-  children: ReactNode
-}
-const Layout = ({title, description, children}: LayoutProps) => {
+  title: string;
+  description: string;
+  children: ReactNode;
+};
+const Layout = ({ title, description, children }: LayoutProps) => {
   return (
     <>
       <Head>
@@ -41,7 +42,8 @@ const Layout = ({title, description, children}: LayoutProps) => {
       </Head>
       <main className="min-h-screen bg-slate-100 text-slate-900">
         <AppBar />
-        {children}
+        <Nav />
+        <div className="md:ml-36">{children}</div>
         <Toaster
           position="bottom-center"
           toastOptions={{
