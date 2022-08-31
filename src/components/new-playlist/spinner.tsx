@@ -9,7 +9,7 @@ export default function Spinner({ isLoading }: SpinnerProps) {
         aria-hidden="true"
         className={`h-10 w-10 animate-spin ${
           isLoading
-            ? "fill-blue-600 text-gray-200"
+            ? "fill-spotify-green text-gray-200"
             : "fill-transparent text-transparent"
         }`}
         viewBox="0 0 100 101"
