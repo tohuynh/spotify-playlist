@@ -86,8 +86,8 @@ export function SortableItem({
             {dragHandle}
           </button>
         </div>
-        <div className="overflow-hidden flex items-center gap-x-1">
-          <div className="flex-shrink-0 hidden md:block">
+        <div className="flex items-center gap-x-1 overflow-hidden">
+          <div className="hidden flex-shrink-0 md:block">
             <Image
               layout="fixed"
               alt={`Cover art of ${track.albumName}`}

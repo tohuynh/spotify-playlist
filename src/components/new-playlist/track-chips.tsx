@@ -17,7 +17,7 @@ export default function TrackChips({
   const [chipsRef] = useAutoAnimate<HTMLDivElement>();
   return (
     <div ref={chipsRef} className="flex flex-wrap gap-4 md:justify-center">
-      <div aria-hidden className="hidden md:block h-10 w-0 overflow-hidden">
+      <div aria-hidden className="hidden h-10 w-0 overflow-hidden md:block">
         Placeholder
       </div>
       {tracks.map((track, i) => (

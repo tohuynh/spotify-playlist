@@ -21,7 +21,7 @@ function NavItem({ label, icon, isCurrent, href }: NavItemProps) {
           <div
             className={`${
               isCurrent && "bg-gray-200"
-            } h-8 w-14 rounded-full flex justify-center items-center`}
+            } flex h-8 w-14 items-center justify-center rounded-full`}
           >
             {icon}
           </div>
@@ -54,8 +54,8 @@ export default function Nav() {
   const { pathname } = useRouter();
   console.log(pathname);
   return (
-    <nav className="bg-zinc-50 fixed bottom-0 h-16 w-full md:w-36 md:h-full md:border-t-0 flex flex-row justify-center items-center md:flex-col">
-      <ul className="w-full md:w-auto flex flex-row justify-evenly items-center md:flex-col gap-10">
+    <nav className="fixed bottom-0 flex h-16 w-full flex-row items-center justify-center bg-zinc-50 md:h-full md:w-36 md:flex-col md:border-t-0">
+      <ul className="flex w-full flex-row items-center justify-evenly gap-10 md:w-auto md:flex-col">
         {NAVS.map((nav) => (
           <NavItem key={nav.href} {...nav} isCurrent={pathname === nav.href} />
         ))}
