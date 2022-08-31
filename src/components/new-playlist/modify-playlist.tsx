@@ -11,11 +11,13 @@ import { AudioFeatures } from "../../server/router/output-types";
 import { UserAction, UserActionType } from "./new-playlist-state";
 
 type ModifyPlaylistProps = {
+  disabled: boolean;
   audioFeaturesForDisplay: Partial<AudioFeatures>;
   setAudioFeaturesForDisplay: Dispatch<SetStateAction<Partial<AudioFeatures>>>;
   dispatchUserAction: Dispatch<UserAction>;
 };
 export default function ModifyPlaylist({
+  disabled,
   audioFeaturesForDisplay,
   setAudioFeaturesForDisplay,
   dispatchUserAction,
@@ -73,81 +75,83 @@ export default function ModifyPlaylist({
                 leaveTo="transform scale-95 opacity-0"
               />
               <Disclosure.Panel className="px-4 py-2 text-xs text-zinc-700 md:text-base">
-                <form
-                  className="grid grid-cols-[auto_1fr_auto] gap-2"
-                  onSubmit={handleSubmit}
-                >
-                  <label className="text-right" htmlFor="energy">
-                    Chill
-                  </label>
-                  <input
-                    className="accent-spotify-green"
-                    type="range"
-                    id="energy"
-                    name="energy"
-                    min={0}
-                    max={100}
-                    value={audioFeaturesForDisplay.energy || 0}
-                    onChange={handleChange}
-                  />
-                  <label htmlFor="energy">Intense</label>
-
-                  <label className="text-right" htmlFor="danceability">
-                    Unrhythmic
-                  </label>
-                  <input
-                    className="accent-spotify-green"
-                    type="range"
-                    id="danceability"
-                    name="danceability"
-                    min={0}
-                    max={100}
-                    value={audioFeaturesForDisplay.danceability || 0}
-                    onChange={handleChange}
-                  />
-                  <label htmlFor="danceability">Danceable</label>
-
-                  <label
-                    title="sad, depressed, angry"
-                    className="text-right"
-                    htmlFor="valence"
+                <form onSubmit={handleSubmit}>
+                  <fieldset
+                    className="group grid grid-cols-[auto_1fr_auto] gap-2"
+                    disabled={disabled}
                   >
-                    Negative
-                  </label>
-                  <input
-                    className="accent-spotify-green"
-                    type="range"
-                    id="valence"
-                    name="valence"
-                    min={0}
-                    max={100}
-                    value={audioFeaturesForDisplay.valence || 0}
-                    onChange={handleChange}
-                  />
-                  <label title="happy, cheerful, euphoric" htmlFor="valence">
-                    Positive
-                  </label>
-                  <div className="col-span-full mt-1">
-                    <label>
-                      Beats per minute (BPM):
-                      <input
-                        className="mt-1 h-10 w-full rounded border-2 border-gray-200 p-3 text-sm outline-none"
-                        type="number"
-                        name="tempo"
-                        min={0}
-                        value={audioFeaturesForDisplay.tempo || 0}
-                        onChange={handleChange}
-                      />
+                    <label className="text-right" htmlFor="energy">
+                      Chill
                     </label>
-                  </div>
-                  <div className="col-span-full mt-4">
-                    <button
-                      className="rounded-md border border-transparent bg-zinc-200 px-4 py-2 text-base font-medium text-zinc-800"
-                      type="submit"
+                    <input
+                      className="accent-spotify-green group-disabled:cursor-not-allowed"
+                      type="range"
+                      id="energy"
+                      name="energy"
+                      min={0}
+                      max={100}
+                      value={audioFeaturesForDisplay.energy || 0}
+                      onChange={handleChange}
+                    />
+                    <label htmlFor="energy">Intense</label>
+
+                    <label className="text-right" htmlFor="danceability">
+                      Unrhythmic
+                    </label>
+                    <input
+                      className="accent-spotify-green group-disabled:cursor-not-allowed"
+                      type="range"
+                      id="danceability"
+                      name="danceability"
+                      min={0}
+                      max={100}
+                      value={audioFeaturesForDisplay.danceability || 0}
+                      onChange={handleChange}
+                    />
+                    <label htmlFor="danceability">Danceable</label>
+
+                    <label
+                      title="sad, depressed, angry"
+                      className="text-right"
+                      htmlFor="valence"
                     >
-                      Modify
-                    </button>
-                  </div>
+                      Negative
+                    </label>
+                    <input
+                      className="accent-spotify-green group-disabled:cursor-not-allowed"
+                      type="range"
+                      id="valence"
+                      name="valence"
+                      min={0}
+                      max={100}
+                      value={audioFeaturesForDisplay.valence || 0}
+                      onChange={handleChange}
+                    />
+                    <label title="happy, cheerful, euphoric" htmlFor="valence">
+                      Positive
+                    </label>
+                    <div className="col-span-full mt-1">
+                      <label>
+                        Beats per minute (BPM):
+                        <input
+                          className="mt-1 h-10 w-full rounded border-2 border-gray-200 p-3 text-sm outline-none group-disabled:cursor-not-allowed"
+                          type="number"
+                          name="tempo"
+                          min={0}
+                          value={audioFeaturesForDisplay.tempo || 0}
+                          onChange={handleChange}
+                        />
+                      </label>
+                    </div>
+                    <div className="col-span-full mt-4">
+                      <button
+                        className="rounded-md border border-transparent bg-zinc-200 px-4 py-2 text-base font-medium text-zinc-800 group-disabled:cursor-not-allowed"
+                        type="submit"
+                      >
+                        Modify
+                      </button>
+                    </div>
+                  </fieldset>
                 </form>
               </Disclosure.Panel>
             </>
