@@ -1,3 +1,4 @@
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -36,66 +37,121 @@ const Playlists: NextPage = () => {
         },
       }
     );
+  const [listRef] = useAutoAnimate<HTMLDivElement>();
 
   useEffect(() => {
-    function onScroll(e: Event) {
-      console.log(e);
+    function onScroll() {
+      const documentElement = document.documentElement;
+      if (
+        documentElement.offsetHeight + documentElement.scrollTop >=
+          documentElement.scrollHeight &&
+        hasNextPage &&
+        !isFetching &&
+        !isFetchingNextPage
+      ) {
+        fetchNextPage();
+      }
     }
-    window.addEventListener("scroll", onScroll);
 
-    return () => window.removeEventListener("scroll", onScroll);
-  });
+    document.addEventListener("scroll", onScroll);
+
+    return () => document.removeEventListener("scroll", onScroll);
+  }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
 
   if (status === "loading") {
     return null;
   }
 
   return (
-    <>
-      <Layout title="Tiny Mixtapes" description="Create Spotify mixtapes">
-        {sessionData ? (
-          <>
-            {isFetching && !isFetchingNextPage && (
-              <div className="flex justify-center">
-                <Spinner isLoading={true} />
-              </div>
-            )}
-            <div className="grid grid-cols-4">
-              {playlists.map((playlist) => {
-                return (
-                  <div key={playlist.id} className="border border-red-900">
+    <Layout title="Tiny Mixtapes" description="Discover Spotify mixtapes">
+      {sessionData ? (
+        <>
+          <div className="flex justify-center py-4">
+            <Spinner isLoading={isFetching && !isFetchingNextPage} />
+          </div>
+          <div
+            ref={listRef}
+            className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4"
+          >
+            {playlists.map((playlist) => {
+              return (
+                <div className="bg-white" key={playlist.id}>
+                  <div className="relative aspect-video w-full">
                     <Image
                       alt={`Covert of ${playlist.name}`}
                       src={playlist.image.url}
-                      layout="fixed"
-                      height={playlist.image.height}
-                      width={playlist.image.width}
+                      layout="fill"
                     />
+                  </div>
+                  <div className="p-4 pt-2">
                     <a
-                      className="block font-semibold text-2xl underline underline-offset-4 truncate"
+                      className="block truncate text-lg font-semibold underline underline-offset-4 md:text-2xl"
                       target="_blank"
                       rel="noopener noreferrer"
                       href={playlist.uri}
                     >
                       {playlist.name}
                     </a>
-                    <div className="text-zinc-500 text-lg truncate">
+                    <div className="truncate text-sm text-zinc-500 md:text-base">
                       {playlist.description}
                     </div>
-                    <pre>{JSON.stringify(playlist.audioFeatures, null, 4)}</pre>
+                    <div className="mt-4 grid grid-cols-1 gap-1">
+                      <label className="block">
+                        Intensity:
+                        <input
+                          readOnly
+                          className="w-full accent-spotify-green"
+                          type="range"
+                          min={0}
+                          max={100}
+                          value={playlist.audioFeatures.energy}
+                        />
+                      </label>
+                      <label className="block">
+                        Danceability:
+                        <input
+                          readOnly
+                          className="w-full accent-spotify-green"
+                          type="range"
+                          min={0}
+                          max={100}
+                          value={playlist.audioFeatures.danceability}
+                        />
+                      </label>
+                      <label className="block">
+                        Positivity:
+                        <input
+                          readOnly
+                          className="w-full accent-spotify-green"
+                          type="range"
+                          min={0}
+                          max={100}
+                          value={playlist.audioFeatures.valence}
+                        />
+                      </label>
+                      <label className="block">
+                        Beats per minute (BPM):
+                        <input
+                          readOnly
+                          className="w-full"
+                          type="number"
+                          value={playlist.audioFeatures.tempo}
+                        />
+                      </label>
+                    </div>
                   </div>
-                );
-              })}
-            </div>
-            <button disabled={!hasNextPage} onClick={() => fetchNextPage()}>
-              Fetch
-            </button>
-          </>
-        ) : (
-          <Welcome />
-        )}
-      </Layout>
-    </>
+                </div>
+              );
+            })}
+          </div>
+          <button disabled={!hasNextPage} onClick={() => fetchNextPage()}>
+            Fetch
+          </button>
+        </>
+      ) : (
+        <Welcome />
+      )}
+    </Layout>
   );
 };
 
