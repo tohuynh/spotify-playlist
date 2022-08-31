@@ -79,7 +79,7 @@ const Playlists: NextPage = () => {
                     >
                       {playlist.name}
                     </a>
-                    <div className="text-slate-500 text-lg truncate">
+                    <div className="text-zinc-500 text-lg truncate">
                       {playlist.description}
                     </div>
                     <pre>{JSON.stringify(playlist.audioFeatures, null, 4)}</pre>
@@ -92,7 +92,7 @@ const Playlists: NextPage = () => {
             </button>
           </>
         ) : (
-          <Welcome message="Sign in with Spotify to view mixtapes." />
+          <Welcome />
         )}
       </Layout>
     </>
@@ -100,10 +100,3 @@ const Playlists: NextPage = () => {
 };
 
 export default Playlists;
-
-//TODO
-//ask to login because require access token to retreive playlists
-//router to get playlists from prisma
-//use spotify api to create playlist
-//use infinite query
-//link to playlists page
