@@ -1,7 +1,8 @@
 # Tiny Mixtape
 
 - Create Spotify playlists by seeding the process with a few songs.
-- Target a mood for the mixtape by modify Spotify audio features: energy, danceability , valence, tempo.
+- Target a mood for the mixtape by modifying Spotify audio features: energy, danceability , valence, tempo.
+- Discover mixtapes created by other users.
 
 ## Create T3 App
 
