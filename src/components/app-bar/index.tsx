@@ -14,7 +14,7 @@ export default function AppBar() {
   }
 
   return (
-    <div className="flex h-16 flex-row items-center justify-between bg-gray-50 px-4 md:pr-8 md:pl-44 xl:pr-16 xl:pl-52">
+    <div className="flex h-16 flex-row items-center justify-between bg-zinc-100 px-4 md:pr-8 md:pl-44 xl:pr-16 xl:pl-52">
       <h1 className="basis-3/4 truncate text-lg lg:text-2xl">
         {data ? `Hello, ${data.user?.name}` : "Hello, Guest"}
       </h1>
