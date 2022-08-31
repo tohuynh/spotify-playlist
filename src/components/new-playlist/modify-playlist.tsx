@@ -84,7 +84,7 @@ export default function ModifyPlaylist({
                       Chill
                     </label>
                     <input
-                      className="accent-spotify-green group-disabled:cursor-not-allowed"
+                      className="accent-spotify-green outline-none group-disabled:cursor-not-allowed"
                       type="range"
                       id="energy"
                       name="energy"
@@ -99,7 +99,7 @@ export default function ModifyPlaylist({
                       Unrhythmic
                     </label>
                     <input
-                      className="accent-spotify-green group-disabled:cursor-not-allowed"
+                      className="accent-spotify-green outline-none group-disabled:cursor-not-allowed"
                       type="range"
                       id="danceability"
                       name="danceability"
@@ -118,7 +118,7 @@ export default function ModifyPlaylist({
                       Negative
                     </label>
                     <input
-                      className="accent-spotify-green group-disabled:cursor-not-allowed"
+                      className="accent-spotify-green outline-none group-disabled:cursor-not-allowed"
                       type="range"
                       id="valence"
                       name="valence"
