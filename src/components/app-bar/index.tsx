@@ -13,10 +13,8 @@ export default function AppBar() {
     return null;
   }
 
-  //TODO: distinguish on md visually distinguish between app bar and nav
-
   return (
-    <div className="flex h-16 flex-row items-center justify-between bg-white px-4 md:px-8 md:ml-36 xl:px-16">
+    <div className="flex h-16 flex-row items-center justify-between bg-gray-50 px-4 md:pr-8 md:pl-44 xl:pr-16 xl:pl-52">
       <h1 className="basis-3/4 truncate text-lg lg:text-2xl">
         {data ? `Hello, ${data.user?.name}` : "Hello, Guest"}
       </h1>
