@@ -60,7 +60,7 @@ export default function NewPlaylist() {
     useState(false);
 
   return (
-    <div className="pb-40 md:pb-0">
+    <>
       <CreatePlaylistDialog
         isOpen={createPlaylistDialogIsOpen}
         setIsOpen={setCreatePlaylistDialogIsOpen}
@@ -78,43 +78,42 @@ export default function NewPlaylist() {
       >
         <PlusIcon className="h-6 w-6" aria-hidden />
       </button>
-      <div className="px-4 md:px-10">
-        <div className="flex flex-col gap-y-4 border-b-2 py-16">
-          <SearchTracks
-            placeholderText="Select up to 5 tracks to generate a mixtape"
-            disabled={userInput.trackSeeds.length === 5}
-            onSelectUserActionType={UserActionType.SELECT_TRACK}
-            dispatchUserAction={dispatchUserAction}
-          />
-          <TrackChips
-            dispatchUserAction={dispatchUserAction}
-            tracks={userInput.trackSeeds}
-          />
-        </div>
-        {(hasTrackSeeds || userInput.hasNewTrackSeeds) && (
-          <div className="flex flex-col gap-y-4 py-16">
-            <ModifyPlaylist
-              audioFeaturesForDisplay={audioFeaturesForDisplay}
-              setAudioFeaturesForDisplay={setAudioFeaturesForDisplay}
-              dispatchUserAction={dispatchUserAction}
-            />
-            <SearchTracks
-              placeholderText="Add track to mixtape"
-              disabled={false}
-              onSelectUserActionType={UserActionType.ADD_TRACK}
-              dispatchUserAction={dispatchUserAction}
-            />
-            <div className="flex justify-center">
-              <Spinner isLoading={isLoading} />
-            </div>
-          </div>
-        )}
-        <Playlist
-          isLoading={isLoading}
-          draggablePlaylistTracks={userInput.playlistTracks}
+      <div className="flex flex-col gap-y-4 border-b-2 py-16">
+        <SearchTracks
+          placeholderText="Select up to 5 tracks to generate a mixtape"
+          disabled={userInput.trackSeeds.length === 5}
+          onSelectUserActionType={UserActionType.SELECT_TRACK}
           dispatchUserAction={dispatchUserAction}
         />
+        <TrackChips
+          dispatchUserAction={dispatchUserAction}
+          tracks={userInput.trackSeeds}
+        />
       </div>
-    </div>
+      {(hasTrackSeeds || userInput.hasNewTrackSeeds) && (
+        <div className="flex flex-col gap-y-4 py-16">
+          <ModifyPlaylist
+            disabled={userInput.trackSeeds.length === 0}
+            audioFeaturesForDisplay={audioFeaturesForDisplay}
+            setAudioFeaturesForDisplay={setAudioFeaturesForDisplay}
+            dispatchUserAction={dispatchUserAction}
+          />
+          <SearchTracks
+            placeholderText="Add track to mixtape"
+            disabled={false}
+            onSelectUserActionType={UserActionType.ADD_TRACK}
+            dispatchUserAction={dispatchUserAction}
+          />
+          <div className="flex justify-center">
+            <Spinner isLoading={isLoading} />
+          </div>
+        </div>
+      )}
+      <Playlist
+        isLoading={isLoading}
+        draggablePlaylistTracks={userInput.playlistTracks}
+        dispatchUserAction={dispatchUserAction}
+      />
+    </>
   );
 }

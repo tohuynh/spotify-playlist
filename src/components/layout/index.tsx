@@ -43,7 +43,7 @@ const Layout = ({ title, description, children }: LayoutProps) => {
       <main className="min-h-screen bg-zinc-100 text-zinc-900">
         <AppBar />
         <Nav />
-        <div className="md:ml-36">{children}</div>
+        <div className="md:ml-36 px-4 pb-40 md:px-10 md:pb-10">{children}</div>
         <Toaster
           position="bottom-center"
           toastOptions={{
