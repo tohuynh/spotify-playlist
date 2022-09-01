@@ -1,6 +1,8 @@
 import { z } from "zod";
 
+import { range } from "../../utils/array";
 import { calculateAverageAudioFeatures } from "../../utils/audio-features";
+import { sequentialFetch } from "../../utils/fetch";
 import { PlaylistTracksSchema } from "./output-types";
 import { createSpotifyRouter } from "./spotify-router";
 
@@ -30,7 +32,7 @@ export const spotifyRouter = createSpotifyRouter()
           Authorization: `Bearer ${ctx.session.accessToken}`,
         },
       }).then((res) => res.json());
-      console.log("actually searched", input.q);
+
       return res.tracks.items.map((item: any) => {
         return {
           id: item.id,
@@ -186,33 +188,52 @@ export const spotifyRouter = createSpotifyRouter()
         )
       );
 
+      const MAX_ITEMS_PER_REQUEST = 100;
+      //list of list of {audio_feautures: [{energy, etc}]}
       const audioFeatures: any[][] = await Promise.all(
         spotifyPlaylists.map((playlist) => {
-          return Promise.all(
-            playlist.tracks.items.map((item: any) =>
-              fetch(`${API_BASE_URL}/audio-features/${item.track.id}`, {
+          const indices = range(
+            0,
+            playlist.tracks.items.length - 1,
+            MAX_ITEMS_PER_REQUEST
+          );
+          const configs = indices.map((index) => {
+            return {
+              url: `${API_BASE_URL}/audio-features?${new URLSearchParams({
+                ids: playlist.tracks.items
+                  .slice(index, index + MAX_ITEMS_PER_REQUEST)
+                  .map((item: any) => item.track.id)
+                  .join(","),
+              })}`,
+              init: {
                 method: "GET",
                 headers: {
                   Authorization: `Bearer ${ctx.session.accessToken}`,
                 },
-              }).then((res) => res.json())
-            )
-          );
+              },
+            };
+          });
+          return sequentialFetch(configs);
         })
       );
 
-      const averageAudioFeatures = audioFeatures.map((tracks: any[]) => {
-        return calculateAverageAudioFeatures(
-          tracks.map((track) => {
-            return {
-              danceability: track.danceability * 100,
-              energy: track.energy * 100,
-              tempo: track.tempo,
-              valence: track.valence * 100,
-            };
-          })
-        );
-      });
+      const averageAudioFeatures = audioFeatures.map(
+        (audioFeaturesForPlaylist: any[]) => {
+          const audioFeaturesForTracksOfPlaylist = audioFeaturesForPlaylist
+            .map((af) => af.audio_features)
+            .flat();
+          return calculateAverageAudioFeatures(
+            audioFeaturesForTracksOfPlaylist.map((track) => {
+              return {
+                danceability: track.danceability * 100,
+                energy: track.energy * 100,
+                tempo: track.tempo,
+                valence: track.valence * 100,
+              };
+            })
+          );
+        }
+      );
 
       const playlists: any[] = spotifyPlaylists.map((playlist, i) => {
         return {
@@ -259,17 +280,28 @@ export const spotifyRouter = createSpotifyRouter()
       ).then((res) => res.json());
       const playlistId = createPlaylistRes.id;
 
-      await fetch(`${API_BASE_URL}/playlists/${playlistId}/tracks`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${ctx.session.accessToken}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          position: 0,
-          uris: input.uris,
-        }),
-      }).then((res) => res.json());
+      const MAX_ITEMS_PER_REQUEST = 100;
+      const positions = range(0, input.uris.length - 1, MAX_ITEMS_PER_REQUEST);
+      const configs = positions.map((position) => {
+        return {
+          url: `${API_BASE_URL}/playlists/${playlistId}/tracks`,
+          init: {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${ctx.session.accessToken}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              position,
+              uris: input.uris.slice(
+                position,
+                position + MAX_ITEMS_PER_REQUEST
+              ),
+            }),
+          },
+        };
+      });
+      await sequentialFetch(configs);
 
       await ctx.prisma.playlist.create({
         data: {
