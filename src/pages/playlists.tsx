@@ -59,7 +59,7 @@ const Playlists: NextPage = () => {
           </div>
           <ul
             ref={listRef}
-            className="grid grid-cols-1 gap-20 md:grid-cols-2 xl:grid-cols-4"
+            className="grid grid-cols-1 gap-20 md:grid-cols-2 2xl:grid-cols-4"
           >
             {data?.pages.map((page, i) => {
               return (
@@ -75,7 +75,7 @@ const Playlists: NextPage = () => {
                             layout="fill"
                           />
                         </div>
-                        <div className="p-4 pt-2">
+                        <div className="p-4">
                           <a
                             className="block truncate text-lg font-semibold underline underline-offset-4 md:text-2xl"
                             target="_blank"
@@ -87,41 +87,53 @@ const Playlists: NextPage = () => {
                           <div className="truncate text-sm text-zinc-500 md:text-base">
                             {playlist.description}
                           </div>
-                          <div className="mt-4 grid grid-cols-1 gap-1">
-                            <label className="block">
+                          <div className="mt-4 grid grid-cols-[auto_1fr] gap-x-2 gap-y-1">
+                            <label
+                              className="text-sm text-zinc-700"
+                              htmlFor="energy"
+                            >
                               Intensity:
-                              <input
-                                readOnly
-                                className="w-full accent-spotify-green outline-none"
-                                type="range"
-                                min={0}
-                                max={100}
-                                value={playlist.audioFeatures.energy}
-                              />
                             </label>
-                            <label className="block">
+                            <input
+                              readOnly
+                              className="w-full accent-spotify-green"
+                              id="energy"
+                              type="range"
+                              min={0}
+                              max={100}
+                              value={playlist.audioFeatures.energy}
+                            />
+                            <label
+                              className="text-sm text-zinc-700"
+                              htmlFor="danceability"
+                            >
                               Danceability:
-                              <input
-                                readOnly
-                                className="w-full accent-spotify-green outline-none"
-                                type="range"
-                                min={0}
-                                max={100}
-                                value={playlist.audioFeatures.danceability}
-                              />
                             </label>
-                            <label className="block">
+                            <input
+                              readOnly
+                              className="w-full accent-spotify-green outline-none"
+                              id="danceability"
+                              type="range"
+                              min={0}
+                              max={100}
+                              value={playlist.audioFeatures.danceability}
+                            />
+                            <label
+                              className="text-sm text-zinc-700"
+                              htmlFor="valence"
+                            >
                               Positivity:
-                              <input
-                                readOnly
-                                className="w-full accent-spotify-green outline-none"
-                                type="range"
-                                min={0}
-                                max={100}
-                                value={playlist.audioFeatures.valence}
-                              />
                             </label>
-                            <div>
+                            <input
+                              readOnly
+                              className="w-full accent-spotify-green outline-none"
+                              id="valence"
+                              type="range"
+                              min={0}
+                              max={100}
+                              value={playlist.audioFeatures.valence}
+                            />
+                            <div className="col-span-full text-sm text-zinc-700">
                               {`Beats per minute: ${playlist.audioFeatures.tempo}`}
                             </div>
                           </div>
