@@ -48,6 +48,10 @@ const Layout = ({ title, description, children }: LayoutProps) => {
           position="bottom-center"
           toastOptions={{
             duration: 3000,
+            style: {
+              maxWidth: "450px",
+              wordBreak: "break-all",
+            },
             success: {
               iconTheme: {
                 primary: "#1db954",
