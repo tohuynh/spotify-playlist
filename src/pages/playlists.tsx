@@ -19,13 +19,15 @@ const Playlists: NextPage = () => {
       [
         "spotify.getPlaylists",
         {
-          limit: 1,
+          limit: 5,
         },
       ],
       {
         getNextPageParam: (lastPage) => lastPage.nextCursor,
         refetchOnWindowFocus: false,
         onSuccess: (data) => {
+          console.log(playlists);
+          console.log(data);
           const lastPage = data.pages.at(-1);
           if (lastPage && playlists.length < lastPage.total) {
             if (data.pages.length == 1) {
@@ -41,10 +43,9 @@ const Playlists: NextPage = () => {
 
   useEffect(() => {
     function onScroll() {
-      const documentElement = document.documentElement;
       if (
-        documentElement.offsetHeight + documentElement.scrollTop >=
-          documentElement.scrollHeight &&
+        window.innerHeight + Math.ceil(window.pageYOffset) >=
+          document.body.offsetHeight &&
         hasNextPage &&
         !isFetching &&
         !isFetchingNextPage
@@ -53,9 +54,9 @@ const Playlists: NextPage = () => {
       }
     }
 
-    document.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll);
 
-    return () => document.removeEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
 
   if (status === "loading") {
@@ -100,7 +101,7 @@ const Playlists: NextPage = () => {
                         Intensity:
                         <input
                           readOnly
-                          className="w-full accent-spotify-green"
+                          className="w-full accent-spotify-green outline-none"
                           type="range"
                           min={0}
                           max={100}
@@ -111,7 +112,7 @@ const Playlists: NextPage = () => {
                         Danceability:
                         <input
                           readOnly
-                          className="w-full accent-spotify-green"
+                          className="w-full accent-spotify-green outline-none"
                           type="range"
                           min={0}
                           max={100}
@@ -122,31 +123,22 @@ const Playlists: NextPage = () => {
                         Positivity:
                         <input
                           readOnly
-                          className="w-full accent-spotify-green"
+                          className="w-full accent-spotify-green outline-none"
                           type="range"
                           min={0}
                           max={100}
                           value={playlist.audioFeatures.valence}
                         />
                       </label>
-                      <label className="block">
-                        Beats per minute (BPM):
-                        <input
-                          readOnly
-                          className="w-full"
-                          type="number"
-                          value={playlist.audioFeatures.tempo}
-                        />
-                      </label>
+                      <div>
+                        {`Beats per minute: ${playlist.audioFeatures.tempo}`}
+                      </div>
                     </div>
                   </div>
                 </div>
               );
             })}
           </div>
-          <button disabled={!hasNextPage} onClick={() => fetchNextPage()}>
-            Fetch
-          </button>
         </>
       ) : (
         <Welcome />
