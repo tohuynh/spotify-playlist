@@ -71,30 +71,27 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                <Dialog.Title
-                  as="h3"
-                  className="text-lg font-medium leading-6 text-gray-900"
-                >
+                <Dialog.Title as="h3" className="text-xl font-medium">
                   New mixtape
                 </Dialog.Title>
                 <form
                   className="mt-2 flex flex-col gap-y-3"
                   onSubmit={onSubmit}
                 >
-                  <label className="block text-xs font-medium text-gray-500">
+                  <label className="block font-medium text-zinc-600">
                     Name:
                     <input
                       required
-                      className="mt-1 h-10 w-full rounded border-2 border-gray-200 p-3 text-sm outline-none"
+                      className="mt-1 h-10 w-full rounded border-2 border-gray-200 p-3 outline-none"
                       type="text"
                       name="playlistName"
                     />
                   </label>
-                  <label className="block text-xs font-medium text-gray-500">
+                  <label className="block font-medium text-zinc-600">
                     Description:
                     <input
                       required
-                      className="mt-1 h-10 w-full rounded border-2 border-gray-200 p-3 text-sm outline-none"
+                      className="mt-1 h-10 w-full rounded border-2 border-gray-200 p-3 outline-none"
                       type="text"
                       name="playlistDescription"
                     />
@@ -108,17 +105,17 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
                     />
                     Is public?
                   </label> */}
-                  <div className="mt-4 flex items-center justify-end gap-x-4">
+                  <div className="mt-4 flex items-center justify-end gap-x-4 font-medium text-zinc-800">
                     <button
                       type="reset"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-gray-300 px-4 py-2 text-sm font-medium focus:outline-none"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-gray-300 px-4 py-2 focus:outline-none"
                       onClick={() => setIsOpen(false)}
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-spotify-green px-4 py-2 text-sm font-medium focus:outline-none"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-spotify-green px-4 py-2 focus:outline-none"
                     >
                       Create
                     </button>
