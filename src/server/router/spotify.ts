@@ -33,6 +33,10 @@ export const spotifyRouter = createSpotifyRouter()
         },
       }).then((res) => res.json());
 
+      if (!res) {
+        return [];
+      }
+
       return res.tracks.items.map((item: any) => {
         return {
           id: item.id,
