@@ -1,14 +1,22 @@
 type SpinnerProps = {
-  isLoading: boolean;
+  status: "idle" | "loading" | "success" | "error";
+  heightClass?: string;
+  widthClass?: string;
 };
 
-export default function Spinner({ isLoading }: SpinnerProps) {
+export default function Spinner({
+  status,
+  heightClass,
+  widthClass,
+}: SpinnerProps) {
   return (
     <div role="status">
       <svg
         aria-hidden="true"
-        className={`h-10 w-10 animate-spin ${
-          isLoading
+        className={`${heightClass ?? "h-10"} ${
+          widthClass ?? "w-10"
+        } animate-spin ${
+          status === "loading"
             ? "fill-spotify-green text-gray-200"
             : "fill-transparent text-transparent"
         }`}
@@ -25,7 +33,9 @@ export default function Spinner({ isLoading }: SpinnerProps) {
           fill="currentFill"
         />
       </svg>
-      <span className="sr-only">Loading...</span>
+      <span className="sr-only" aria-live="polite">
+        {status}
+      </span>
     </div>
   );
 }

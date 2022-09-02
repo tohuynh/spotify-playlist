@@ -105,7 +105,7 @@ export default function NewPlaylist() {
             dispatchUserAction={dispatchUserAction}
           />
           <div className="flex justify-center">
-            <Spinner isLoading={isLoading} />
+            <Spinner status={status} />
           </div>
         </div>
       )}

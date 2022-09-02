@@ -13,19 +13,25 @@ type Playlists = inferQueryOutput<"spotify.getPlaylists">["items"];
 
 const Playlists: NextPage = () => {
   const { data: sessionData, status } = useSession();
-  const { data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } =
-    trpc.useInfiniteQuery(
-      [
-        "spotify.getPlaylists",
-        {
-          limit: 20,
-        },
-      ],
+  const {
+    data,
+    status: getPlaylistsStatus,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+  } = trpc.useInfiniteQuery(
+    [
+      "spotify.getPlaylists",
       {
-        getNextPageParam: (lastPage) => lastPage.nextCursor,
-        refetchOnWindowFocus: false,
-      }
-    );
+        limit: 20,
+      },
+    ],
+    {
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
+      refetchOnWindowFocus: false,
+    }
+  );
   const playlists = data?.pages.reduce((acc, curr) => {
     return [...acc, ...curr.items];
   }, [] as Playlists);
@@ -58,11 +64,7 @@ const Playlists: NextPage = () => {
       {sessionData ? (
         <>
           <div className="flex justify-center py-4">
-            <Spinner
-              isLoading={
-                isFetching && !isFetchingNextPage && data?.pages.length === 0
-              }
-            />
+            <Spinner status={getPlaylistsStatus} />
           </div>
           <ul
             ref={listRef}
