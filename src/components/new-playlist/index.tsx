@@ -29,7 +29,7 @@ export default function NewPlaylist() {
     ...INITIAL_AUDIO_FEATURES,
   });
 
-  const getRecommendationsQuery = trpc.useQuery(
+  const { status } = trpc.useQuery(
     [
       "spotify.getRecommendations",
       {
@@ -40,6 +40,7 @@ export default function NewPlaylist() {
     ],
     {
       refetchOnWindowFocus: false,
+      cacheTime: 0 /**don't cache recommendations */,
       onSuccess: (result) => {
         dispatchUserAction({
           type: UserActionType.UPDATE_PLAYLIST,
@@ -52,7 +53,6 @@ export default function NewPlaylist() {
     }
   );
 
-  const { status } = getRecommendationsQuery;
   const isLoading = status === "loading";
   const hasTrackSeeds = userInput.trackSeeds.length > 0;
 
@@ -71,8 +71,7 @@ export default function NewPlaylist() {
         aria-label="New mixtape"
         onClick={() => setCreatePlaylistDialogIsOpen(true)}
         disabled={
-          getRecommendationsQuery.status === "error" ||
-          getRecommendationsQuery.status === "loading" ||
+          ["error", "loading"].includes(status) ||
           userInput.playlistTracks.length === 0
         }
       >
