@@ -4,6 +4,7 @@ import { useReducer, useState } from "react";
 import { AudioFeatures } from "../../server/router/output-types";
 import { calculateAverageAudioFeatures } from "../../utils/audio-features";
 import { trpc } from "../../utils/trpc";
+import Spinner from "../spinner";
 import CreatePlaylistDialog from "./create-playlist-dialog";
 import ModifyPlaylist from "./modify-playlist";
 import {
@@ -13,7 +14,6 @@ import {
 } from "./new-playlist-state";
 import Playlist from "./playlist";
 import SearchTracks from "./search-tracks";
-import Spinner from "./spinner";
 import TrackChips from "./track-chips";
 
 export default function NewPlaylist() {

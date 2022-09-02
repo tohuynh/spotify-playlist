@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Fragment, useEffect, useState } from "react";
 
 import Layout from "../components/layout";
-import Spinner from "../components/new-playlist/spinner";
+import Spinner from "../components/spinner";
 import Welcome from "../components/welcome";
 import { inferQueryOutput, trpc } from "../utils/trpc";
 

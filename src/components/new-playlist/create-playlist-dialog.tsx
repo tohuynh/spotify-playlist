@@ -3,7 +3,7 @@ import { Dispatch, FormEventHandler, Fragment, SetStateAction } from "react";
 import toast from "react-hot-toast";
 
 import { trpc } from "../../utils/trpc";
-import Spinner from "./spinner";
+import Spinner from "../spinner";
 
 type CreatePlaylistDialogProps = {
   isOpen: boolean;
