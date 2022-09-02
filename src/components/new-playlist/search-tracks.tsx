@@ -29,10 +29,11 @@ export default function SearchTracks({
     undefined
   );
   const [query, setQuery] = useState("");
-  const searchQuery = trpc.useQuery(
+  const { data, isLoading } = trpc.useQuery(
     ["spotify.search", { q: query, offset: 0, limit: 5 }],
     {
       refetchOnWindowFocus: false,
+      staleTime: 5 * 60 * 1000 /**5 mins */,
     }
   );
 
@@ -49,8 +50,6 @@ export default function SearchTracks({
     dispatchUserAction({ type: onSelectUserActionType, payload: track });
     setSelected(track);
   };
-
-  const { data, isLoading } = searchQuery;
 
   return (
     <Combobox value={selected} onChange={onSelectTrack} disabled={disabled}>
