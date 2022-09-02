@@ -1,3 +1,4 @@
+import * as trpc from "@trpc/server";
 import { z } from "zod";
 
 import { range } from "../../utils/array";
@@ -5,6 +6,7 @@ import { calculateAverageAudioFeatures } from "../../utils/audio-features";
 import { sequentialFetch } from "../../utils/fetch";
 import { PlaylistTracksSchema } from "./output-types";
 import { createSpotifyRouter } from "./spotify-router";
+import { TRPC_ERROR_CODE_KEY_BY_HTTP_STATUS } from "./trpc-utils";
 
 const API_BASE_URL = "https://api.spotify.com/v1";
 
@@ -281,8 +283,18 @@ export const spotifyRouter = createSpotifyRouter()
             description: input.description,
           }),
         }
-      ).then((res) => res.json());
-      const playlistId = createPlaylistRes.id;
+      );
+      const createPlaylistJson = await createPlaylistRes.json();
+      const playlistId = createPlaylistJson.id;
+
+      if (!createPlaylistRes.ok) {
+        throw new trpc.TRPCError({
+          code:
+            TRPC_ERROR_CODE_KEY_BY_HTTP_STATUS.get(createPlaylistRes.status) ??
+            "INTERNAL_SERVER_ERROR",
+          message: `${createPlaylistRes.statusText}! ${createPlaylistJson.error.message}`,
+        });
+      }
 
       const MAX_ITEMS_PER_REQUEST = 100;
       const positions = range(0, input.uris.length - 1, MAX_ITEMS_PER_REQUEST);

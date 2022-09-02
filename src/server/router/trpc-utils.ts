@@ -1,0 +1,18 @@
+import { TRPC_ERROR_CODE_KEY } from "@trpc/server/rpc";
+
+export const TRPC_ERROR_CODE_KEY_BY_HTTP_STATUS = new Map<
+  number,
+  TRPC_ERROR_CODE_KEY
+>([
+  [400, "BAD_REQUEST"],
+  [401, "UNAUTHORIZED"],
+  [403, "FORBIDDEN"],
+  [404, "NOT_FOUND"],
+  [408, "TIMEOUT"],
+  [409, "CONFLICT"],
+  [412, "PRECONDITION_FAILED"],
+  [413, "PAYLOAD_TOO_LARGE"],
+  [405, "METHOD_NOT_SUPPORTED"],
+  [499, "CLIENT_CLOSED_REQUEST"],
+  [500, "INTERNAL_SERVER_ERROR"],
+]);
