@@ -14,5 +14,6 @@ datasource db {
 model Playlist {
   id        String   @id @default(cuid())
   spotifyId String
+  createdBy String
   createdAt DateTime @default(now())
 }

@@ -376,6 +376,7 @@ export const spotifyRouter = createSpotifyRouter()
         await ctx.prisma.playlist.create({
           data: {
             spotifyId: playlistId,
+            createdBy: ctx.session.user.id,
           },
         });
       } catch (e) {
