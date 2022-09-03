@@ -11,7 +11,7 @@ import { inferQueryOutput, trpc } from "../utils/trpc";
 
 type Playlists = inferQueryOutput<"spotify.getPlaylists">["items"];
 
-const PLAYLIST_BATCH_NUM = 5;
+const PLAYLIST_BATCH_NUM = 20;
 
 const Playlists: NextPage = () => {
   const { data: sessionData, status } = useSession();
@@ -57,10 +57,6 @@ const Playlists: NextPage = () => {
 
     return () => window.removeEventListener("scroll", onScroll);
   }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
-
-  const visiblePlaylistCount = data?.pages.reduce((sum, page) => {
-    return sum + page.items.length;
-  }, 0);
 
   if (status === "loading") {
     return null;
@@ -160,7 +156,7 @@ const Playlists: NextPage = () => {
           <Status
             isVisible={true}
             status={getPlaylistsStatus}
-            successMessage={`Fetched ${visiblePlaylistCount} of ${
+            successMessage={`Fetched ${playlists?.length} of ${
               data?.pages.at(0)?.total
             } playlists`}
             errorMessage={error?.message}
