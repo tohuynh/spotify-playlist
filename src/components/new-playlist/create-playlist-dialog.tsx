@@ -13,7 +13,9 @@ type CreatePlaylistDialogProps = {
 
 export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
   const { isOpen, setIsOpen, uris } = props;
-  const { mutate, status } = trpc.useMutation(["spotify.createPlaylist"]);
+  const { mutate, status, error, isError } = trpc.useMutation([
+    "spotify.createPlaylist",
+  ]);
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const target = e.target as typeof e.target & {
@@ -33,9 +35,6 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
           onSuccess: (result) => {
             setIsOpen(false);
             toast.success(`Created mixtape ${result.name}!`);
-          },
-          onError: (error) => {
-            toast.error(error.message);
           },
         }
       );
@@ -106,6 +105,9 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
                     />
                     Is public?
                   </label> */}
+                  {isError && (
+                    <div className="mt-1 text-red-600">{error.message}</div>
+                  )}
                   <div className="mt-4 flex items-center justify-end gap-x-4 font-medium text-zinc-800">
                     <button
                       type="reset"
