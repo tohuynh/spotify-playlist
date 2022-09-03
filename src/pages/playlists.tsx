@@ -2,14 +2,16 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import Layout from "../components/layout";
-import Spinner from "../components/spinner";
+import Status from "../components/status";
 import Welcome from "../components/welcome";
 import { inferQueryOutput, trpc } from "../utils/trpc";
 
 type Playlists = inferQueryOutput<"spotify.getPlaylists">["items"];
+
+const PLAYLIST_BATCH_NUM = 5;
 
 const Playlists: NextPage = () => {
   const { data: sessionData, status } = useSession();
@@ -20,11 +22,12 @@ const Playlists: NextPage = () => {
     hasNextPage,
     isFetching,
     isFetchingNextPage,
+    error,
   } = trpc.useInfiniteQuery(
     [
       "spotify.getPlaylists",
       {
-        limit: 20,
+        limit: PLAYLIST_BATCH_NUM,
       },
     ],
     {
@@ -55,6 +58,10 @@ const Playlists: NextPage = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
 
+  const visiblePlaylistCount = data?.pages.reduce((sum, page) => {
+    return sum + page.items.length;
+  }, 0);
+
   if (status === "loading") {
     return null;
   }
@@ -63,12 +70,9 @@ const Playlists: NextPage = () => {
     <Layout title="Tiny Mixtapes" description="Discover Spotify mixtapes">
       {sessionData ? (
         <>
-          <div className="flex justify-center py-4">
-            <Spinner status={getPlaylistsStatus} />
-          </div>
           <ul
             ref={listRef}
-            className="grid grid-cols-1 gap-20 md:grid-cols-2 2xl:grid-cols-4"
+            className="grid grid-cols-1 gap-20 pt-6 pb-4 md:grid-cols-2 2xl:grid-cols-4"
           >
             {playlists?.map((playlist) => {
               const hasAudioFeatures = Object.values(
@@ -153,6 +157,14 @@ const Playlists: NextPage = () => {
               );
             })}
           </ul>
+          <Status
+            isVisible={true}
+            status={getPlaylistsStatus}
+            successMessage={`Fetched ${visiblePlaylistCount} of ${
+              data?.pages.at(0)?.total
+            } playlists`}
+            errorMessage={error?.message}
+          />
         </>
       ) : (
         <Welcome />

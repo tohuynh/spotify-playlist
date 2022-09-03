@@ -8,6 +8,7 @@ type StatusProps = {
   status: "idle" | "loading" | "success" | "error";
   heightClass?: string;
   widthClass?: string;
+  successMessage?: string;
   errorMessage?: string;
 };
 
@@ -16,11 +17,12 @@ export default function Status({
   status,
   heightClass = "h-10",
   widthClass = "w-10",
+  successMessage,
   errorMessage,
 }: StatusProps) {
   const loader = (
     <svg
-      aria-hidden
+      aria-label={status}
       className={`${heightClass} ${widthClass} animate-spin ${
         status === "loading"
           ? "fill-blue-600 text-gray-200"
@@ -41,35 +43,39 @@ export default function Status({
     </svg>
   );
 
-  const icon =
-    status === "success" ? (
-      <CheckCircleIcon
-        aria-hidden
-        className={`${heightClass} ${widthClass} text-spotify-green`}
-      />
-    ) : status === "error" ? (
-      <ExclamationCircleIcon
-        aria-hidden
-        className={`${heightClass} ${widthClass} text-red-600`}
-      />
-    ) : (
-      loader
-    );
+  const isSuccess = status === "success";
+  const isError = status === "error";
+
+  const icon = isSuccess ? (
+    <CheckCircleIcon
+      aria-label={status}
+      className={`${heightClass} ${widthClass} text-spotify-green`}
+    />
+  ) : isError ? (
+    <ExclamationCircleIcon
+      aria-label={status}
+      className={`${heightClass} ${widthClass} text-red-600`}
+    />
+  ) : (
+    loader
+  );
+
   return (
     <div
       role="status"
+      aria-live="polite"
       className={`${
         isVisible ? "opacity-100" : "opacity-0"
       } inline-flex items-center justify-center gap-2`}
     >
       {icon}
-      <span className="sr-only" aria-live="polite">
-        {status === "error" ? `${status}! ${errorMessage}` : status}
-      </span>
-      {status === "error" && (
-        <span aria-hidden className="flex-1 break-all text-zinc-700">
-          {errorMessage}
+      {isSuccess && (
+        <span className="flex-1 break-all text-zinc-700">
+          {successMessage}{" "}
         </span>
+      )}
+      {isError && (
+        <span className="flex-1 break-all text-zinc-700">{errorMessage}</span>
       )}
     </div>
   );

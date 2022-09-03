@@ -194,22 +194,26 @@ export const spotifyRouter = createSpotifyRouter()
           }),
         })
       ),
+      total: z.number(),
       nextCursor: z.string().optional(),
     }),
     async resolve({ ctx, input }) {
       const limit = input.limit ?? 50;
       const { cursor } = input;
-      const items = await ctx.prisma.playlist.findMany({
-        take: limit + 1,
-        cursor: input.cursor
-          ? {
-              id: input.cursor,
-            }
-          : undefined,
-        orderBy: {
-          createdAt: "desc",
-        },
-      });
+      const [total, items] = await Promise.all([
+        ctx.prisma.playlist.count(),
+        ctx.prisma.playlist.findMany({
+          take: limit + 1,
+          cursor: input.cursor
+            ? {
+                id: input.cursor,
+              }
+            : undefined,
+          orderBy: {
+            createdAt: "desc",
+          },
+        }),
+      ]);
       let nextCursor: typeof cursor | undefined = undefined;
       if (items.length > limit) {
         const nextItem = items.pop();
@@ -286,6 +290,7 @@ export const spotifyRouter = createSpotifyRouter()
       });
       return {
         items: playlists,
+        total,
         nextCursor,
       };
     },
