@@ -46,6 +46,13 @@ export const spotifyRouter = createSpotifyRouter()
         });
       }
 
+      if (res.tracks.items.length === 0) {
+        throw new trpc.TRPCError({
+          code: "NOT_FOUND",
+          message: "No tracks found",
+        });
+      }
+
       return res.tracks.items.map((item: any) => {
         return {
           id: item.id,
