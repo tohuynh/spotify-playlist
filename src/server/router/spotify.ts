@@ -1,6 +1,7 @@
 import * as trpc from "@trpc/server";
 import { z } from "zod";
 
+import { INITIAL_AUDIO_FEATURES } from "../../components/new-playlist/new-playlist-state";
 import { range } from "../../utils/array";
 import { calculateAverageAudioFeatures } from "../../utils/audio-features";
 import { sequentialFetch } from "../../utils/fetch";
@@ -226,7 +227,7 @@ export const spotifyRouter = createSpotifyRouter()
       const averageAudioFeatures = audioFeatures.map(
         (audioFeaturesForPlaylist: any[]) => {
           const audioFeaturesForTracksOfPlaylist = audioFeaturesForPlaylist
-            .map((af) => af.audio_features)
+            .map((af) => af.audio_features ?? INITIAL_AUDIO_FEATURES)
             .flat();
           return calculateAverageAudioFeatures(
             audioFeaturesForTracksOfPlaylist.map((track) => {
