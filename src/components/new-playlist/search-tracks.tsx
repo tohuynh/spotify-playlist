@@ -9,6 +9,7 @@ import { Dispatch, Fragment, useMemo, useState } from "react";
 
 import { PlaylistTrack } from "../../server/router/output-types";
 import { trpc } from "../../utils/trpc";
+import Status from "../status";
 import { UserAction, UserActionType } from "./new-playlist-state";
 
 type Props = {
@@ -29,12 +30,14 @@ export default function SearchTracks({
     undefined
   );
   const [query, setQuery] = useState("");
-  const { data, isLoading, isFetching, error, isError, isSuccess } =
-    trpc.useQuery(["spotify.search", { q: query, offset: 0, limit: 5 }], {
+  const { data, status, error, isSuccess } = trpc.useQuery(
+    ["spotify.search", { q: query, offset: 0, limit: 5 }],
+    {
       refetchOnWindowFocus: false,
       staleTime: 5 * 60 * 1000 /**5 mins */,
       retry: false,
-    });
+    }
+  );
 
   const handleSearch = useMemo(
     () =>
@@ -81,22 +84,12 @@ export default function SearchTracks({
         >
           <Combobox.Options
             className={`${
-              (isLoading || (data || []).length > 0) && "py-2"
+              query.trim().length === 0 ? "py-0" : "py-2"
             } absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white shadow-md sm:text-sm lg:text-base`}
           >
-            {isError && (
-              <li className="py-2 pl-10 pr-4 font-medium text-red-600">
-                {error.message}
-              </li>
-            )}
-            {isSuccess && data.length === 0 && query.trim().length > 0 && (
-              <li className="py-2 pl-10 pr-4 text-zinc-700">No tracks found</li>
-            )}
-            {isFetching ? (
-              <OptionsPlaceHolder />
-            ) : (
+            {isSuccess ? (
               <>
-                {data?.map((track) => (
+                {data.map((track) => (
                   <Combobox.Option
                     key={track.id}
                     className={({ active }) =>
@@ -127,24 +120,20 @@ export default function SearchTracks({
                   </Combobox.Option>
                 ))}
               </>
+            ) : (
+              <li className="pl-10 pr-4">
+                <Status
+                  isVisible={!isSuccess}
+                  status={status}
+                  heightClass="w-5"
+                  widthClass="w-5"
+                  errorMessage={error?.message}
+                />
+              </li>
             )}
           </Combobox.Options>
         </Transition>
       </div>
     </Combobox>
-  );
-}
-
-const LENGTHS = ["w-11/12", "w-1/3", "w-1/6", "w-1/2", "w-5/6"];
-
-function OptionsPlaceHolder() {
-  return (
-    <>
-      {Array.from({ length: 5 }).map((_, i) => (
-        <li aria-hidden key={i} className="h-10 py-3 pl-10 pr-2 ">
-          <div className={`${LENGTHS[i]} h-full animate-pulse bg-gray-200`} />
-        </li>
-      ))}
-    </>
   );
 }
