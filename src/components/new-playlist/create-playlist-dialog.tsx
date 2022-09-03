@@ -2,8 +2,8 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Dispatch, FormEventHandler, Fragment, SetStateAction } from "react";
 import toast from "react-hot-toast";
 
+import Status from "../../components/status";
 import { trpc } from "../../utils/trpc";
-import Spinner from "../spinner";
 
 type CreatePlaylistDialogProps = {
   isOpen: boolean;
@@ -13,9 +13,17 @@ type CreatePlaylistDialogProps = {
 
 export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
   const { isOpen, setIsOpen, uris } = props;
-  const { mutate, status, error, isError } = trpc.useMutation([
-    "spotify.createPlaylist",
-  ]);
+  const { mutate, status, error, reset, isLoading } = trpc.useMutation(
+    ["spotify.createPlaylist"],
+    {
+      retry: false,
+      onSuccess: (result) => {
+        setIsOpen(false);
+        reset();
+        toast.success(`Created mixtape ${result.name}!`);
+      },
+    }
+  );
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const target = e.target as typeof e.target & {
@@ -24,30 +32,23 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
       //playlistIsPublic: { checked: boolean };
     };
     if (uris.length > 0) {
-      mutate(
-        {
-          uris,
-          name: target.playlistName.value,
-          description: target.playlistDescription.value,
-          isPublic: true /* target.playlistIsPublic.checked */,
-        },
-        {
-          onSuccess: (result) => {
-            setIsOpen(false);
-            toast.success(`Created mixtape ${result.name}!`);
-          },
-        }
-      );
+      mutate({
+        uris,
+        name: target.playlistName.value,
+        description: target.playlistDescription.value,
+        isPublic: true /* target.playlistIsPublic.checked */,
+      });
     }
+  };
+
+  const onClose = () => {
+    reset();
+    setIsOpen(false);
   };
 
   return (
     <Transition show={isOpen} as={Fragment}>
-      <Dialog
-        as="div"
-        className="relative z-10"
-        onClose={() => setIsOpen(false)}
-      >
+      <Dialog as="div" className="relative z-10" onClose={() => {}}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -105,29 +106,30 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
                     />
                     Is public?
                   </label> */}
-                  {isError && (
-                    <div className="mt-1 text-red-600">{error.message}</div>
-                  )}
+                  <div className="mt-1">
+                    <Status
+                      isVisible={true}
+                      status={status}
+                      heightClass="h-5"
+                      widthClass="w-5"
+                      errorMessage={error?.message}
+                    />
+                  </div>
                   <div className="mt-4 flex items-center justify-end gap-x-4 font-medium text-zinc-800">
                     <button
+                      disabled={isLoading}
                       type="reset"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-zinc-200 px-4 py-2 focus:outline-none"
-                      onClick={() => setIsOpen(false)}
+                      className="inline-flex justify-center rounded-md border border-transparent bg-zinc-200 px-4 py-2 focus:outline-none disabled:cursor-not-allowed"
+                      onClick={onClose}
                     >
                       Cancel
                     </button>
                     <button
+                      disabled={isLoading}
                       type="submit"
-                      className="inline-flex items-center justify-center gap-1 rounded-md border border-transparent bg-zinc-200 px-4 py-2 font-semibold text-spotify-green focus:outline-none"
+                      className="inline-flex items-center justify-center gap-1 rounded-md border border-transparent bg-spotify-green px-4 py-2 font-semibold focus:outline-none disabled:cursor-not-allowed"
                     >
-                      <span>Create</span>
-                      {status !== "idle" && (
-                        <Spinner
-                          heightClass="h-4"
-                          widthClass="w-4"
-                          status={status}
-                        />
-                      )}
+                      Create
                     </button>
                   </div>
                 </form>

@@ -67,7 +67,7 @@ export default function Status({
         {status === "error" ? `${status}! ${errorMessage}` : status}
       </span>
       {status === "error" && (
-        <span aria-hidden className="flex-1 break-all">
+        <span aria-hidden className="flex-1 break-all text-zinc-700">
           {errorMessage}
         </span>
       )}
