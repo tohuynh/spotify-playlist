@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import * as trpc from "@trpc/server";
 import { z } from "zod";
 
@@ -287,6 +288,7 @@ export const spotifyRouter = createSpotifyRouter()
       );
       const createPlaylistJson = await createPlaylistRes.json();
       const playlistId = createPlaylistJson.id;
+      const playlistUrl = `https://open.spotify.com/playlist/${playlistId}`;
 
       if (!createPlaylistRes.ok) {
         throw new trpc.TRPCError({
@@ -318,17 +320,41 @@ export const spotifyRouter = createSpotifyRouter()
           },
         };
       });
-      await sequentialFetch(configs);
+      const addTracksToPlaylistJson = await sequentialFetch(configs);
+      const addTracksToPlaylistErrors = addTracksToPlaylistJson.filter(
+        (json) => json.error
+      );
+      if (addTracksToPlaylistErrors.length > 0) {
+        throw new trpc.TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: `Some tracks were not added to the playlist on Spotify. Visit ${playlistUrl} to manually add the tracks.`,
+          cause: new AggregateError(
+            addTracksToPlaylistErrors.map(
+              (json) => new Error(`${json.error.status}! ${json.error.message}`)
+            )
+          ),
+        });
+      }
 
-      await ctx.prisma.playlist.create({
-        data: {
-          spotifyId: playlistId,
-        },
-      });
+      try {
+        await ctx.prisma.playlist.create({
+          data: {
+            spotifyId: playlistId,
+          },
+        });
+      } catch (e) {
+        if (e instanceof Prisma.PrismaClientKnownRequestError) {
+          throw new trpc.TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: `Unable to save playlist ${input.name} to the database, but the it's available at ${playlistUrl}.`,
+            cause: e,
+          });
+        }
+      }
 
       return {
         name: input.name,
-        url: `https://open.spotify.com/playlist/${playlistId}`,
+        url: playlistUrl,
       };
     },
   });

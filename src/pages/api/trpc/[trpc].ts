@@ -28,6 +28,6 @@ export default createNextApiHandler({
     return {};
   },
   onError({ error }) {
-    console.error('Error:', error);
+    console.error("Error:", error);
   },
 });
