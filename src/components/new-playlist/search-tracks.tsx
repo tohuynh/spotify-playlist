@@ -35,7 +35,6 @@ export default function SearchTracks({
       staleTime: 5 * 60 * 1000 /**5 mins */,
       retry: false,
     });
-  console.log("sear", isLoading, isError, error);
 
   const handleSearch = useMemo(
     () =>
@@ -86,7 +85,9 @@ export default function SearchTracks({
             } absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white shadow-md sm:text-sm lg:text-base`}
           >
             {isError && (
-              <li className="py-2 pl-10 pr-4 text-red-600">{error.message}</li>
+              <li className="py-2 pl-10 pr-4 font-medium text-red-600">
+                {error.message}
+              </li>
             )}
             {isSuccess && data.length === 0 && query.trim().length > 0 && (
               <li className="py-2 pl-10 pr-4 text-zinc-700">No tracks found</li>
