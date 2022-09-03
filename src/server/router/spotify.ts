@@ -37,8 +37,13 @@ export const spotifyRouter = createSpotifyRouter()
         },
       }).then((res) => res.json());
 
-      if (!res) {
-        return [];
+      if (res.error) {
+        throw new trpc.TRPCError({
+          code:
+            TRPC_ERROR_CODE_KEY_BY_HTTP_STATUS.get(res.error.status) ??
+            "INTERNAL_SERVER_ERROR",
+          message: `${res.error.status}! ${res.error.message}`,
+        });
       }
 
       return res.tracks.items.map((item: any) => {
@@ -100,6 +105,15 @@ export const spotifyRouter = createSpotifyRouter()
         }
       ).then((res) => res.json());
 
+      if (res.error) {
+        throw new trpc.TRPCError({
+          code:
+            TRPC_ERROR_CODE_KEY_BY_HTTP_STATUS.get(res.error.status) ??
+            "INTERNAL_SERVER_ERROR",
+          message: `${res.error.status}! ${res.error.message}`,
+        });
+      }
+
       //get only previewable tracks
       const tracks = res.tracks
         .filter((track: any) => track.preview_url)
@@ -117,8 +131,23 @@ export const spotifyRouter = createSpotifyRouter()
           },
         }
       ).then((res) => res.json());
+      const hasAudioFeatures = !audioFeaturesRes.error;
 
       return tracks.map((track: any, i: number) => {
+        const audioFeatures = hasAudioFeatures
+          ? {
+              danceability: Math.floor(
+                audioFeaturesRes.audio_features[i].danceability * 100
+              ),
+              tempo: audioFeaturesRes.audio_features[i].tempo,
+              valence: Math.floor(
+                audioFeaturesRes.audio_features[i].valence * 100
+              ),
+              energy: Math.floor(
+                audioFeaturesRes.audio_features[i].energy * 100
+              ),
+            }
+          : INITIAL_AUDIO_FEATURES;
         return {
           id: track.id,
           uri: track.uri,
@@ -128,12 +157,7 @@ export const spotifyRouter = createSpotifyRouter()
           albumName: track.album.name,
           image: track.album.images.at(-1),
           duration: track.duration_ms,
-          danceability: Math.floor(
-            audioFeaturesRes.audio_features[i].danceability * 100
-          ),
-          tempo: audioFeaturesRes.audio_features[i].tempo,
-          valence: Math.floor(audioFeaturesRes.audio_features[i].valence * 100),
-          energy: Math.floor(audioFeaturesRes.audio_features[i].energy * 100),
+          ...audioFeatures,
         };
       });
     },
@@ -285,19 +309,19 @@ export const spotifyRouter = createSpotifyRouter()
             description: input.description,
           }),
         }
-      );
-      const createPlaylistJson = await createPlaylistRes.json();
-      const playlistId = createPlaylistJson.id;
-      const playlistUrl = `https://open.spotify.com/playlist/${playlistId}`;
-
-      if (!createPlaylistRes.ok) {
+      ).then((res) => res.json());
+      if (createPlaylistRes.error) {
         throw new trpc.TRPCError({
           code:
-            TRPC_ERROR_CODE_KEY_BY_HTTP_STATUS.get(createPlaylistRes.status) ??
-            "INTERNAL_SERVER_ERROR",
-          message: `${createPlaylistRes.statusText}! ${createPlaylistJson.error.message}`,
+            TRPC_ERROR_CODE_KEY_BY_HTTP_STATUS.get(
+              createPlaylistRes.error.status
+            ) ?? "INTERNAL_SERVER_ERROR",
+          message: `${createPlaylistRes.error.status}! ${createPlaylistRes.error.message}`,
         });
       }
+
+      const playlistId = createPlaylistRes.id;
+      const playlistUrl = `https://open.spotify.com/playlist/${playlistId}`;
 
       const MAX_ITEMS_PER_REQUEST = 100;
       const positions = range(0, input.uris.length - 1, MAX_ITEMS_PER_REQUEST);
