@@ -4,7 +4,7 @@ import { useReducer, useState } from "react";
 import { AudioFeatures } from "../../server/router/output-types";
 import { calculateAverageAudioFeatures } from "../../utils/audio-features";
 import { trpc } from "../../utils/trpc";
-import Spinner from "../spinner";
+import Status from "../status";
 import CreatePlaylistDialog from "./create-playlist-dialog";
 import ModifyPlaylist from "./modify-playlist";
 import {
@@ -29,7 +29,7 @@ export default function NewPlaylist() {
     ...INITIAL_AUDIO_FEATURES,
   });
 
-  const { status } = trpc.useQuery(
+  const { status, error, isFetching } = trpc.useQuery(
     [
       "spotify.getRecommendations",
       {
@@ -39,8 +39,8 @@ export default function NewPlaylist() {
       },
     ],
     {
+      retry: false,
       refetchOnWindowFocus: false,
-      cacheTime: 0 /**don't cache recommendations */,
       onSuccess: (result) => {
         dispatchUserAction({
           type: UserActionType.UPDATE_PLAYLIST,
@@ -53,7 +53,6 @@ export default function NewPlaylist() {
     }
   );
 
-  const isLoading = status === "loading";
   const hasTrackSeeds = userInput.trackSeeds.length > 0;
 
   const [createPlaylistDialogIsOpen, setCreatePlaylistDialogIsOpen] =
@@ -78,19 +77,21 @@ export default function NewPlaylist() {
         <PlusIcon className="h-6 w-6" aria-hidden />
       </button>
       <div className="flex flex-col gap-y-4 border-b-2 py-16">
-        <SearchTracks
-          placeholderText="Select up to 5 tracks to generate a mixtape"
-          disabled={userInput.trackSeeds.length === 5}
-          onSelectUserActionType={UserActionType.SELECT_TRACK}
-          dispatchUserAction={dispatchUserAction}
-        />
+        <div className="mx-auto w-full md:w-2/3 lg:w-1/2">
+          <SearchTracks
+            placeholderText="Select up to 5 tracks to generate a mixtape"
+            disabled={userInput.trackSeeds.length === 5}
+            onSelectUserActionType={UserActionType.SELECT_TRACK}
+            dispatchUserAction={dispatchUserAction}
+          />
+        </div>
         <TrackChips
           dispatchUserAction={dispatchUserAction}
           tracks={userInput.trackSeeds}
         />
       </div>
       {(hasTrackSeeds || userInput.hasNewTrackSeeds) && (
-        <div className="flex flex-col gap-y-4 py-16">
+        <div className="mx-auto flex w-full flex-col gap-y-4 py-16 md:w-2/3 lg:w-1/2">
           <ModifyPlaylist
             disabled={userInput.trackSeeds.length === 0}
             audioFeaturesForDisplay={audioFeaturesForDisplay}
@@ -104,12 +105,16 @@ export default function NewPlaylist() {
             dispatchUserAction={dispatchUserAction}
           />
           <div className="flex justify-center">
-            <Spinner status={status} />
+            <Status
+              isVisible={hasTrackSeeds}
+              status={status}
+              errorMessage={error?.message}
+            />
           </div>
         </div>
       )}
       <Playlist
-        isLoading={isLoading}
+        isFetching={isFetching}
         draggablePlaylistTracks={userInput.playlistTracks}
         dispatchUserAction={dispatchUserAction}
       />

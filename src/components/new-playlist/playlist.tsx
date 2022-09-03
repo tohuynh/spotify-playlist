@@ -133,12 +133,12 @@ export function SortableItem({
 }
 
 type PlaylistProps = {
-  isLoading: boolean;
+  isFetching: boolean;
   draggablePlaylistTracks: PlaylistTrack[];
   dispatchUserAction: Dispatch<UserAction>;
 };
 export default function Playlist({
-  isLoading,
+  isFetching,
   draggablePlaylistTracks,
   dispatchUserAction,
 }: PlaylistProps) {
@@ -191,7 +191,7 @@ export default function Playlist({
       >
         <ul
           className={`${
-            isLoading ? "blur-[2px]" : "blur-none"
+            isFetching ? "blur-[2px]" : "blur-none"
           } flex flex-col divide-y`}
           ref={listRef}
         >
