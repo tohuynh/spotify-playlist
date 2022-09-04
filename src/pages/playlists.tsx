@@ -53,7 +53,7 @@ const Playlists: NextPage = () => {
     function onScroll() {
       if (
         window.innerHeight + Math.ceil(window.pageYOffset) >=
-          document.body.offsetHeight &&
+          document.body.offsetHeight - 100 &&
         hasNextPage &&
         !isFetching &&
         !isFetchingNextPage
