@@ -2,7 +2,7 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useEffect } from "react";
+import { ChangeEventHandler, useEffect, useState } from "react";
 
 import Layout from "../components/layout";
 import Status from "../components/status";
@@ -15,6 +15,7 @@ const PLAYLIST_BATCH_NUM = 20;
 
 const Playlists: NextPage = () => {
   const { data: sessionData, status } = useSession();
+  const [isCreatorOnly, setIsCreatorOnly] = useState(false);
   const {
     data,
     status: getPlaylistsStatus,
@@ -23,11 +24,13 @@ const Playlists: NextPage = () => {
     isFetching,
     isFetchingNextPage,
     error,
+    refetch,
   } = trpc.useInfiniteQuery(
     [
       "spotify.getPlaylists",
       {
         limit: PLAYLIST_BATCH_NUM,
+        isCreatorOnly,
       },
     ],
     {
@@ -38,7 +41,13 @@ const Playlists: NextPage = () => {
   const playlists = data?.pages.reduce((acc, curr) => {
     return [...acc, ...curr.items];
   }, [] as Playlists);
+  const totalCount = data?.pages[0]?.total;
   const [listRef] = useAutoAnimate<HTMLUListElement>();
+
+  const onToggleIsCreatorOnly: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setIsCreatorOnly(e.target.checked);
+    refetch();
+  };
 
   useEffect(() => {
     function onScroll() {
@@ -65,10 +74,19 @@ const Playlists: NextPage = () => {
   return (
     <Layout title="Tiny Mixtapes" description="Discover Spotify mixtapes">
       {sessionData ? (
-        <>
+        <div className="flex flex-col gap-4 pt-6">
+          <label className="text-lg text-zinc-800">
+            <input
+              className="mr-2 h-5 w-5 accent-spotify-green outline-none"
+              type="checkbox"
+              checked={isCreatorOnly}
+              onChange={onToggleIsCreatorOnly}
+            />
+            Show only my mixtapes
+          </label>
           <ul
             ref={listRef}
-            className="grid grid-cols-1 gap-20 pt-6 pb-4 md:grid-cols-2 2xl:grid-cols-4"
+            className="grid grid-cols-1 gap-20 md:grid-cols-2 2xl:grid-cols-4"
           >
             {playlists?.map((playlist) => {
               const hasAudioFeatures = Object.values(
@@ -156,12 +174,14 @@ const Playlists: NextPage = () => {
           <Status
             isVisible={true}
             status={getPlaylistsStatus}
-            successMessage={`Fetched ${playlists?.length} of ${
-              data?.pages.at(0)?.total
-            } playlists`}
+            successMessage={
+              totalCount === 0
+                ? "No mixtapes found"
+                : `Fetched ${playlists?.length} of ${totalCount} mixtapes`
+            }
             errorMessage={error?.message}
           />
-        </>
+        </div>
       ) : (
         <Welcome />
       )}

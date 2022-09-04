@@ -173,6 +173,7 @@ export const spotifyRouter = createSpotifyRouter()
     input: z.object({
       limit: z.number().min(1).max(100).nullish(),
       cursor: z.string().nullish(),
+      isCreatorOnly: z.boolean(),
     }),
     output: z.object({
       items: z.array(
@@ -201,7 +202,11 @@ export const spotifyRouter = createSpotifyRouter()
       const limit = input.limit ?? 50;
       const { cursor } = input;
       const [total, items] = await Promise.all([
-        ctx.prisma.playlist.count(),
+        ctx.prisma.playlist.count({
+          where: input.isCreatorOnly
+            ? { createdBy: { equals: ctx.session.user.id } }
+            : undefined,
+        }),
         ctx.prisma.playlist.findMany({
           take: limit + 1,
           cursor: input.cursor
@@ -212,6 +217,9 @@ export const spotifyRouter = createSpotifyRouter()
           orderBy: {
             createdAt: "desc",
           },
+          where: input.isCreatorOnly
+            ? { createdBy: { equals: ctx.session.user.id } }
+            : undefined,
         }),
       ]);
       let nextCursor: typeof cursor | undefined = undefined;
