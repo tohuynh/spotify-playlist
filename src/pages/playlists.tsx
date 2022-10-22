@@ -134,53 +134,47 @@ const Playlists: NextPage = () => {
                       {playlist.description}
                     </div>
                     {hasAudioFeatures && (
-                      <div className="mt-4 grid grid-cols-[auto_1fr] gap-x-2 gap-y-1">
+                      <div className="mt-4 grid grid-cols-[auto_1fr] items-center gap-x-2 gap-y-1">
                         <label
-                          className="text-sm text-zinc-700"
+                          className="text-xs text-zinc-700 sm:text-sm"
                           htmlFor="energy"
                         >
                           Intensity:
                         </label>
-                        <input
-                          readOnly
-                          className="accent-spotify-green"
+                        <meter
+                          className="h-2"
                           id="energy"
-                          type="range"
                           min={0}
                           max={100}
                           value={playlist.audioFeatures.energy}
                         />
                         <label
-                          className="text-sm text-zinc-700"
+                          className="text-xs text-zinc-700 sm:text-sm"
                           htmlFor="danceability"
                         >
                           Danceability:
                         </label>
-                        <input
-                          readOnly
-                          className="accent-spotify-green outline-none"
+                        <meter
+                          className="h-2"
                           id="danceability"
-                          type="range"
                           min={0}
                           max={100}
                           value={playlist.audioFeatures.danceability}
                         />
                         <label
-                          className="text-sm text-zinc-700"
+                          className="text-xs text-zinc-700 sm:text-sm"
                           htmlFor="valence"
                         >
                           Positivity:
                         </label>
-                        <input
-                          readOnly
-                          className="accent-spotify-green outline-none"
+                        <meter
+                          className="h-2"
                           id="valence"
-                          type="range"
                           min={0}
                           max={100}
                           value={playlist.audioFeatures.valence}
                         />
-                        <div className="col-span-full text-sm text-zinc-700">
+                        <div className="col-span-full text-xs text-zinc-700 sm:text-sm">
                           {`Beats per minute: ${playlist.audioFeatures.tempo}`}
                         </div>
                       </div>
