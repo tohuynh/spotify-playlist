@@ -115,7 +115,7 @@ export function SortableItem({
               width={track.image.width}
             />
           </div>
-          <div className="overflow-hidden">
+          <div className="overflow-hidden p-1">
             <a
               className="block truncate text-sm font-semibold text-blue-700 md:text-base"
               href={`https://open.spotify.com/track/${track.id}`}
