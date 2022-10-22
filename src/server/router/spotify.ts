@@ -84,7 +84,7 @@ export const spotifyRouter = createSpotifyRouter()
 
       const searchParams = new URLSearchParams({
         seed_tracks: input.trackSeeds.join(","),
-        limit: `${100}`,
+        limit: `${input.limit}`,
       });
       if (input.danceability !== undefined) {
         searchParams.append(
@@ -121,15 +121,10 @@ export const spotifyRouter = createSpotifyRouter()
         });
       }
 
-      //get only previewable tracks
-      const tracks = res.tracks
-        .filter((track: any) => track.preview_url)
-        .slice(0, input.limit);
-
       //get audio features of each track
       const audioFeaturesRes = await fetch(
         `${API_BASE_URL}/audio-features?${new URLSearchParams({
-          ids: tracks.map((track: any) => track.id).join(","),
+          ids: res.tracks.map((track: any) => track.id).join(","),
         })}`,
         {
           method: "GET",
@@ -140,7 +135,7 @@ export const spotifyRouter = createSpotifyRouter()
       ).then((res) => res.json());
       const hasAudioFeatures = !audioFeaturesRes.error;
 
-      return tracks.map((track: any, i: number) => {
+      return res.tracks.map((track: any, i: number) => {
         const audioFeatures = hasAudioFeatures
           ? {
               danceability: Math.floor(
