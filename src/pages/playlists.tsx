@@ -106,7 +106,7 @@ const Playlists: NextPage = () => {
                     <span className="absolute top-6 right-0">
                       <svg
                         aria-hidden
-                        className="h-4 w-4"
+                        className="h-5 w-5"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 1333.33 1333.3"
                         shapeRendering="geometricPrecision"
