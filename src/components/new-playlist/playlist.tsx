@@ -117,7 +117,7 @@ export function SortableItem({
           </div>
           <div className="overflow-hidden">
             <a
-              className="block truncate text-sm font-semibold text-blue-900 underline md:text-base"
+              className="block truncate text-sm font-semibold text-blue-700 underline md:text-base"
               href={`https://open.spotify.com/track/${track.id}`}
               target="_blank"
               rel="noopener noreferrer"
