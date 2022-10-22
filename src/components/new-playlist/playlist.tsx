@@ -97,7 +97,14 @@ export function SortableItem({
             />
           </div>
           <div className="overflow-hidden">
-            <div className="truncate text-sm md:text-base">{track.name}</div>
+            <a
+              className="truncate text-sm font-semibold text-blue-900 underline md:text-base"
+              href={`https://open.spotify.com/track/${track.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {track.name}
+            </a>
             <div className="truncate text-xs text-zinc-500 md:text-sm">
               {track.artists.join(", ")}
             </div>
