@@ -1,4 +1,4 @@
-import debounce from "lodash.debounce";
+import throttle from "lodash.throttle";
 import { useMemo, useRef, useState } from "react";
 
 const playIcon = (
@@ -31,7 +31,14 @@ export default function AudioPlayer({ url }: { url: string | null }) {
   const [currentTime, setCurrentTime] = useState(0);
 
   const handleUpdateCurrentTime = useMemo(
-    () => debounce((time: number) => setCurrentTime(time), 100),
+    () =>
+      throttle(
+        (time: number) => {
+          setCurrentTime(time);
+        },
+        100,
+        { trailing: false }
+      ),
     []
   );
 
