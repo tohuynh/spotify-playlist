@@ -127,10 +127,14 @@ const Playlists: NextPage = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       href={playlist.uri}
+                      title={playlist.name}
                     >
                       {playlist.name}
                     </a>
-                    <div className="truncate text-sm text-zinc-500 md:text-base">
+                    <div
+                      className="truncate text-sm text-zinc-500 md:text-base"
+                      title={playlist.description}
+                    >
                       {playlist.description}
                     </div>
                     {hasAudioFeatures && (

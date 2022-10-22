@@ -125,12 +125,18 @@ export function SortableItem({
             >
               {track.name}
             </a>
-            <div className="truncate text-xs text-zinc-500 md:text-sm">
+            <div
+              className="truncate text-xs text-zinc-500 md:text-sm"
+              title={track.artists.join(", ")}
+            >
               {track.artists.join(", ")}
             </div>
           </div>
         </div>
-        <div className="hidden truncate text-base lg:block">
+        <div
+          className="hidden truncate text-base lg:block"
+          title={track.albumName}
+        >
           {track.albumName}
         </div>
         <div className="flex items-center justify-center text-sm md:text-base">
