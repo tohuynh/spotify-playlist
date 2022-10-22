@@ -121,6 +121,7 @@ export function SortableItem({
               href={`https://open.spotify.com/track/${track.id}`}
               target="_blank"
               rel="noopener noreferrer"
+              title={track.name}
             >
               {track.name}
             </a>
