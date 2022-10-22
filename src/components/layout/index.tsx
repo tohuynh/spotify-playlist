@@ -54,7 +54,7 @@ const Layout = ({ title, description, children }: LayoutProps) => {
             },
             success: {
               iconTheme: {
-                primary: "#1db954",
+                primary: "#16a34a",
                 secondary: "#ffffff",
               },
             },
