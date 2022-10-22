@@ -83,7 +83,7 @@ export default function ModifyPlaylist({
                     Chill
                   </label>
                   <input
-                    className="outline-none group-disabled:cursor-not-allowed"
+                    className="group-disabled:cursor-not-allowed"
                     type="range"
                     id="energy"
                     name="energy"
@@ -98,7 +98,7 @@ export default function ModifyPlaylist({
                     Unrhythmic
                   </label>
                   <input
-                    className="outline-none group-disabled:cursor-not-allowed"
+                    className="group-disabled:cursor-not-allowed"
                     type="range"
                     id="danceability"
                     name="danceability"
@@ -117,7 +117,7 @@ export default function ModifyPlaylist({
                     Negative
                   </label>
                   <input
-                    className="outline-none group-disabled:cursor-not-allowed"
+                    className="group-disabled:cursor-not-allowed"
                     type="range"
                     id="valence"
                     name="valence"
@@ -133,7 +133,7 @@ export default function ModifyPlaylist({
                     <label>
                       Beats per minute (BPM):
                       <input
-                        className="mt-1 h-10 w-full rounded border-2 border-gray-200 p-3 text-sm outline-none group-disabled:cursor-not-allowed"
+                        className="mt-1 h-10 w-full rounded border-2 border-gray-200 p-3 text-sm group-disabled:cursor-not-allowed"
                         type="number"
                         name="tempo"
                         min={0}

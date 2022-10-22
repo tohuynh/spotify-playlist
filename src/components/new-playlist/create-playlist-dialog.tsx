@@ -83,7 +83,7 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
                     Name:
                     <input
                       required
-                      className="mt-1 h-10 w-full rounded border-2 border-gray-200 p-3 outline-none"
+                      className="mt-1 h-10 w-full rounded border-2 border-gray-200 p-3"
                       type="text"
                       name="playlistName"
                     />
@@ -92,7 +92,7 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
                     Description:
                     <input
                       required
-                      className="mt-1 h-10 w-full rounded border-2 border-gray-200 p-3 outline-none"
+                      className="mt-1 h-10 w-full rounded border-2 border-gray-200 p-3"
                       type="text"
                       name="playlistDescription"
                     />
@@ -100,7 +100,7 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
                   {/*  <label className="text-md block font-medium text-gray-700">
                     <input
                       defaultChecked={true}
-                      className="mr-2 h-4 w-4 rounded border-2 border-gray-200 text-sm outline-none"
+                      className="mr-2 h-4 w-4 rounded border-2 border-gray-200 text-sm"
                       type="checkbox"
                       name="playlistIsPublic"
                     />
@@ -119,7 +119,7 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
                     <button
                       disabled={isLoading}
                       type="reset"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-zinc-200 px-4 py-2 focus:outline-none disabled:cursor-not-allowed"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-zinc-200 px-4 py-2 disabled:cursor-not-allowed"
                       onClick={onClose}
                     >
                       Cancel
@@ -127,7 +127,7 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
                     <button
                       disabled={isLoading}
                       type="submit"
-                      className="inline-flex items-center justify-center gap-1 rounded-md border border-transparent bg-zinc-200 px-4 py-2 font-semibold text-spotify-green focus:outline-none disabled:cursor-not-allowed"
+                      className="inline-flex items-center justify-center gap-1 rounded-md border border-transparent bg-zinc-200 px-4 py-2 font-semibold text-spotify-green disabled:cursor-not-allowed"
                     >
                       <svg
                         aria-hidden
