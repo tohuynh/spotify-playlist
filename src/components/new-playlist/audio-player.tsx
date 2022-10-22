@@ -110,7 +110,7 @@ export default function AudioPlayer({ url }: { url: string | null }) {
           cy={center}
         />
         <circle
-          className={isPlaying ? "text-spotify-green" : "text-transparent"}
+          className={isPlaying ? "text-green-600" : "text-transparent"}
           strokeWidth={strokeWidth}
           strokeDasharray={circumference}
           strokeDashoffset={

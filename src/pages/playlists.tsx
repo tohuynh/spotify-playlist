@@ -77,7 +77,7 @@ const Playlists: NextPage = () => {
         <div className="flex flex-col gap-4 pt-6">
           <label className="text-lg text-zinc-800">
             <input
-              className="mr-2 h-5 w-5 accent-spotify-green outline-none"
+              className="mr-2 h-5 w-5 outline-none"
               type="checkbox"
               checked={isCreatorOnly}
               onChange={onToggleIsCreatorOnly}

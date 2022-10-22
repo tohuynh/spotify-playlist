@@ -49,7 +49,7 @@ export default function Status({
   const icon = isSuccess ? (
     <CheckCircleIcon
       aria-label={status}
-      className={`${heightClass} ${widthClass} text-spotify-green`}
+      className={`${heightClass} ${widthClass} text-green-600`}
     />
   ) : isError ? (
     <ExclamationCircleIcon

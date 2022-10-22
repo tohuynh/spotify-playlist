@@ -110,7 +110,7 @@ export default function SearchTracks({
                         </span>
                         {selected && (
                           <span
-                            className={`absolute inset-y-0 left-0 flex items-center pl-3 text-spotify-green`}
+                            className={`absolute inset-y-0 left-0 flex items-center pl-3 text-green-600`}
                           >
                             <CheckIcon className="h-5 w-5" aria-hidden="true" />
                           </span>
