@@ -35,7 +35,12 @@ export default function AudioPlayer({ url }: { url: string | null }) {
     []
   );
 
-  const onClick = () => {
+  const onEnded = () => {
+    setCurrentTime(0);
+    setIsPlaying(false);
+  };
+
+  const onTogglePlay = () => {
     if (audioPlayerRef.current) {
       if (isPlaying) {
         audioPlayerRef.current.pause();
@@ -79,24 +84,27 @@ export default function AudioPlayer({ url }: { url: string | null }) {
       <audio
         ref={audioPlayerRef}
         src={url}
-        onEnded={() => setIsPlaying(false)}
+        onEnded={onEnded}
         onTimeUpdate={() =>
           handleUpdateCurrentTime(audioPlayerRef.current?.currentTime || 0)
         }
       />
-      <svg className="-z-10 h-10 w-10" aria-hidden>
+      <svg
+        className="-z-10 flex h-10 w-10 items-center justify-center"
+        aria-hidden
+      >
         <circle
           className={isPlaying ? "text-gray-300" : "text-transparent"}
-          strokeWidth="3"
+          strokeWidth={strokeWidth}
           stroke="currentColor"
           fill="transparent"
-          r="17"
-          cx="20"
-          cy="20"
+          r={radius}
+          cx={center}
+          cy={center}
         />
         <circle
           className={isPlaying ? "text-spotify-green" : "text-transparent"}
-          strokeWidth="3"
+          strokeWidth={strokeWidth}
           strokeDasharray={circumference}
           strokeDashoffset={
             circumference -
@@ -106,15 +114,15 @@ export default function AudioPlayer({ url }: { url: string | null }) {
           strokeLinecap="round"
           stroke="currentColor"
           fill="transparent"
-          r="17"
-          cx="20"
-          cy="20"
+          r={radius}
+          cx={center}
+          cy={center}
         />
       </svg>
       <button
-        className="absolute inset-y-0 ml-[10.5px]"
+        className="absolute top-0 flex h-10 w-10 items-center justify-center"
         aria-label={`${isPlaying ? "Pause" : "Play"} track`}
-        onClick={onClick}
+        onClick={onTogglePlay}
       >
         {isPlaying ? stopIcon : playIcon}
       </button>
@@ -122,5 +130,8 @@ export default function AudioPlayer({ url }: { url: string | null }) {
   );
 }
 
-// r = (40px - (3 * 2)) / 2 | (w-10 - (strokeWidth * 2)) / 2
-const circumference = 17 * 2 * Math.PI;
+// r = (45px - (3 * 2)) / 2 | (w-10 - (strokeWidth * 2)) / 2
+const strokeWidth = 3;
+const radius = (45 - strokeWidth * 2) / 2;
+const center = 45 / 2;
+const circumference = radius * 2 * Math.PI;
