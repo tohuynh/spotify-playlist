@@ -66,7 +66,7 @@ export default function NewPlaylist() {
         uris={userInput.playlistTracks.map((track) => track.uri)}
       />
       <button
-        className="fixed bottom-16 right-0 z-50 m-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-green-600 shadow-lg disabled:cursor-not-allowed md:top-20 md:left-10 md:m-0"
+        className="fixed bottom-16 right-0 z-50 m-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-spotify-green shadow-lg disabled:cursor-not-allowed md:top-20 md:left-10 md:m-0"
         aria-label="New mixtape"
         onClick={() => setCreatePlaylistDialogIsOpen(true)}
         disabled={
