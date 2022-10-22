@@ -7,7 +7,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Layout
-        title="Tiny Mixtapes"
+        title="Tiny Mixtape"
         description="Discover and Create Spotify Mixtapes"
       >
         <Welcome />

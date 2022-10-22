@@ -13,7 +13,7 @@ const CreatePlaylist: NextPage = () => {
 
   return (
     <>
-      <Layout title="Tiny Mixtapes" description="Create Spotify mixtapes">
+      <Layout title="Tiny Mixtape" description="Create Spotify mixtapes">
         {data ? <NewPlaylist /> : <Welcome />}
       </Layout>
     </>

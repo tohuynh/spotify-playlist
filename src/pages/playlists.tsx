@@ -72,7 +72,7 @@ const Playlists: NextPage = () => {
   }
 
   return (
-    <Layout title="Tiny Mixtapes" description="Discover Spotify mixtapes">
+    <Layout title="Tiny Mixtape" description="Discover Spotify mixtapes">
       {sessionData ? (
         <div className="flex flex-col gap-4 pt-6">
           <label className="text-lg text-zinc-800">
