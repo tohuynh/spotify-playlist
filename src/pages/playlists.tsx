@@ -123,7 +123,7 @@ const Playlists: NextPage = () => {
                       </svg>
                     </span>
                     <a
-                      className="block truncate text-lg font-semibold text-blue-700 underline underline-offset-4 md:text-2xl"
+                      className="block truncate text-lg font-semibold text-blue-700 md:text-2xl"
                       target="_blank"
                       rel="noopener noreferrer"
                       href={playlist.uri}
