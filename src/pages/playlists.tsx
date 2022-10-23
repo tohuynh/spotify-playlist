@@ -104,7 +104,7 @@ const Playlists: NextPage = () => {
                   </div>
                   <div className="p-4">
                     <a
-                      className="block truncate px-1 text-lg font-semibold text-blue-700 underline md:text-2xl"
+                      className="block truncate px-1 text-lg font-semibold text-blue-700 underline underline-offset-2 md:text-2xl"
                       target="_blank"
                       rel="noopener noreferrer"
                       href={playlist.uri}
