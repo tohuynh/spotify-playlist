@@ -87,7 +87,7 @@ const Playlists: NextPage = () => {
           </label>
           <ul
             ref={listRef}
-            className="grid grid-cols-1 gap-20 md:grid-cols-2 2xl:grid-cols-4"
+            className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-10 2xl:grid-cols-4 2xl:gap-14"
           >
             {playlists?.map((playlist) => {
               const hasAudioFeatures = Object.values(
