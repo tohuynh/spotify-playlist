@@ -128,7 +128,7 @@ const Playlists: NextPage = () => {
                           Intensity:
                         </label>
                         <meter
-                          className="h-2"
+                          className="h-2 w-full"
                           id="energy"
                           min={0}
                           max={100}
@@ -141,7 +141,7 @@ const Playlists: NextPage = () => {
                           Danceability:
                         </label>
                         <meter
-                          className="h-2"
+                          className="h-2 w-full"
                           id="danceability"
                           min={0}
                           max={100}
@@ -154,7 +154,7 @@ const Playlists: NextPage = () => {
                           Positivity:
                         </label>
                         <meter
-                          className="h-2"
+                          className="h-2 w-full"
                           id="valence"
                           min={0}
                           max={100}
