@@ -1,16 +1,16 @@
 type SpotifyIconProps = {
-  heightClass: string;
-  widthClass: string;
+  heightClass?: string;
+  widthClass?: string;
 };
 
 export default function SpotifyIcon({
-  heightClass,
-  widthClass,
+  heightClass = "h-auto",
+  widthClass = "w-auto",
 }: SpotifyIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={`${heightClass} ${widthClass}`}
+      className={`${heightClass} ${widthClass} rounded-full bg-white`}
       version="1.1"
       viewBox="0 0 168 168"
     >
