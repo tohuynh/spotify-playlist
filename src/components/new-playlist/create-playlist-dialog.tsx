@@ -128,9 +128,9 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
                     <button
                       disabled={isLoading}
                       type="submit"
-                      className="inline-flex items-center justify-center gap-1 rounded-md border border-transparent bg-zinc-200 px-4 py-2 font-semibold text-spotify-green disabled:cursor-not-allowed"
+                      className="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-zinc-200 px-4 py-2 font-semibold text-spotify-green disabled:cursor-not-allowed"
                     >
-                      <SpotifyIcon heightClass="h-4" widthClass="w-4" />
+                      <SpotifyIcon heightClass="h-5" widthClass="w-5" />
                       <span>Save on Spotify</span>
                     </button>
                   </div>

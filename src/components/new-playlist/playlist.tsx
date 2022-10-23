@@ -66,15 +66,12 @@ export function SortableItem({
 
   return (
     <li
-      className={`relative bg-white p-4 md:py-2 ${
+      className={`bg-white p-4 md:py-2 ${
         isDragging ? "z-[1] shadow-lg" : "z-0"
       }`}
       ref={setNodeRef}
       style={style}
     >
-      <span className="absolute top-0 -left-2">
-        <SpotifyIcon heightClass="h-5" widthClass="w-5" />
-      </span>
       <div className="grid grid-cols-[auto_1fr_auto_auto_auto] gap-x-2 lg:grid-cols-[auto_1fr_1fr_auto_auto_auto] lg:gap-x-8">
         <div className="flex items-center justify-center">
           <button
@@ -90,6 +87,9 @@ export function SortableItem({
           </button>
         </div>
         <div className="flex items-center gap-x-1 overflow-hidden">
+          <div className="pr-1">
+            <SpotifyIcon heightClass="h-5" widthClass="w-5" />
+          </div>
           <div className="hidden flex-shrink-0 md:block">
             <Image
               layout="fixed"
