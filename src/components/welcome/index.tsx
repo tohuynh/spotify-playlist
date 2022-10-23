@@ -23,7 +23,7 @@ export default function Welcome() {
         >
           <SpotifyLogo heightClass="h-8" widthClass="w-8" />
           <span className="text-lg font-semibold text-spotify-green">
-            Sign in with Spotify
+            Sign in with Spotify to get started
           </span>
         </button>
       )}
