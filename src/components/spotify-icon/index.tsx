@@ -1,12 +1,12 @@
-type SpotifyLogoProps = {
+type SpotifyIconProps = {
   heightClass: string;
   widthClass: string;
 };
 
-export default function SpotifyLogo({
+export default function SpotifyIcon({
   heightClass,
   widthClass,
-}: SpotifyLogoProps) {
+}: SpotifyIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -2,7 +2,6 @@ import {
   DndContext,
   DragEndEvent,
   KeyboardSensor,
-  MeasuringStrategy,
   PointerSensor,
   TouchSensor,
   closestCenter,
@@ -28,7 +27,7 @@ import { Dispatch } from "react";
 
 import { PlaylistTrack } from "../../server/router/output-types";
 import { convertDurationToHMS } from "../../utils/convert-duration-to-hms";
-import SpotifyLogo from "../spotify-logo";
+import SpotifyIcon from "../spotify-icon";
 import AudioPlayer from "./audio-player";
 import { UserAction, UserActionType } from "./new-playlist-state";
 
@@ -74,7 +73,7 @@ export function SortableItem({
       style={style}
     >
       <span className="absolute top-0 -left-2">
-        <SpotifyLogo heightClass="h-5" widthClass="w-5" />
+        <SpotifyIcon heightClass="h-5" widthClass="w-5" />
       </span>
       <div className="grid grid-cols-[auto_1fr_auto_auto_auto] gap-x-2 lg:grid-cols-[auto_1fr_1fr_auto_auto_auto] lg:gap-x-8">
         <div className="flex items-center justify-center">

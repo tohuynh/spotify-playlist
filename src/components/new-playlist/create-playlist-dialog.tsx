@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 
 import Status from "../../components/status";
 import { trpc } from "../../utils/trpc";
-import SpotifyLogo from "../spotify-logo";
+import SpotifyIcon from "../spotify-icon";
 
 type CreatePlaylistDialogProps = {
   isOpen: boolean;
@@ -130,7 +130,7 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
                       type="submit"
                       className="inline-flex items-center justify-center gap-1 rounded-md border border-transparent bg-zinc-200 px-4 py-2 font-semibold text-spotify-green disabled:cursor-not-allowed"
                     >
-                      <SpotifyLogo heightClass="h-4" widthClass="w-4" />
+                      <SpotifyIcon heightClass="h-4" widthClass="w-4" />
                       <span>Save on Spotify</span>
                     </button>
                   </div>

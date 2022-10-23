@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ChangeEventHandler, useEffect, useState } from "react";
 
 import Layout from "../components/layout";
-import SpotifyLogo from "../components/spotify-logo";
+import SpotifyIcon from "../components/spotify-icon";
 import Status from "../components/status";
 import Welcome from "../components/welcome";
 import { inferQueryOutput, trpc } from "../utils/trpc";
@@ -167,7 +167,7 @@ const Playlists: NextPage = () => {
                     )}
                     <div className="grid justify-end">
                       <span className="pt-2">
-                        <SpotifyLogo heightClass="h-5" widthClass="w-5" />
+                        <SpotifyIcon heightClass="h-5" widthClass="w-5" />
                       </span>
                     </div>
                   </div>

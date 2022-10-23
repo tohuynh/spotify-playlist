@@ -1,7 +1,7 @@
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-import SpotifyLogo from "../spotify-logo";
+import SpotifyIcon from "../spotify-icon";
 
 export default function Welcome() {
   const { pathname } = useRouter();
@@ -21,7 +21,7 @@ export default function Welcome() {
             })
           }
         >
-          <SpotifyLogo heightClass="h-8" widthClass="w-8" />
+          <SpotifyIcon heightClass="h-8" widthClass="w-8" />
           <span className="text-lg font-semibold text-spotify-green">
             Sign in with Spotify to get started
           </span>
