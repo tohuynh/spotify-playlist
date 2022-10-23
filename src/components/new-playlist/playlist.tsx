@@ -72,7 +72,7 @@ export function SortableItem({
       ref={setNodeRef}
       style={style}
     >
-      <div className="grid grid-cols-[auto_1fr_auto_auto_auto] gap-x-2 lg:grid-cols-[auto_1fr_1fr_auto_auto_auto] lg:gap-x-8">
+      <div className="grid grid-cols-[auto_1fr_auto] gap-x-2 md:grid-cols-[auto_1fr_1fr_auto_auto_auto] lg:gap-x-4">
         <div className="flex items-center justify-center">
           <button
             className={`flex h-8 w-6 items-center justify-center rounded-md hover:bg-gray-200 ${
@@ -87,7 +87,7 @@ export function SortableItem({
           </button>
         </div>
         <div className="flex items-center gap-x-1 overflow-hidden">
-          <div className="pr-1">
+          <div className="md:mr-1">
             <SpotifyIcon heightClass="h-5" widthClass="w-5" />
           </div>
           <div className="hidden flex-shrink-0 md:block">
@@ -118,15 +118,15 @@ export function SortableItem({
           </div>
         </div>
         <div
-          className="hidden truncate text-base lg:block"
+          className="hidden truncate text-base md:block"
           title={track.albumName}
         >
           {track.albumName}
         </div>
-        <div className="flex items-center justify-center text-sm md:text-base">
+        <div className="hidden text-sm md:flex md:items-center md:justify-center md:text-base">
           {convertDurationToHMS(track.duration)}
         </div>
-        <div className="flex items-center justify-center">
+        <div className="hidden md:flex md:items-center md:justify-center">
           <AudioPlayer url={track.previewUrl} />
         </div>
         <div className="flex items-center justify-center">
