@@ -71,7 +71,7 @@ export default function Status({
       {icon}
       {isSuccess && (
         <span className="flex-1 break-all text-zinc-700">
-          {successMessage}{" "}
+          {successMessage}
         </span>
       )}
       {isError && (
