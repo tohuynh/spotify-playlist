@@ -66,9 +66,9 @@ export function SortableItem({
 
   return (
     <li
-      className={`bg-white p-4 md:py-2 ${
+      className={`bg-white p-2 md:py-2 ${
         isDragging ? "z-[1] shadow-lg" : "z-0"
-      }`}
+      } md:p-4`}
       ref={setNodeRef}
       style={style}
     >
