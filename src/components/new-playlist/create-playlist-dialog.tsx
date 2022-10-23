@@ -116,11 +116,11 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
                       errorMessage={error?.message}
                     />
                   </div>
-                  <div className="mt-4 flex items-center justify-end gap-x-4 font-medium text-zinc-800">
+                  <div className="mt-4 flex flex-col items-center justify-start gap-4 font-medium text-zinc-800 md:flex-row md:justify-end">
                     <button
                       disabled={isLoading}
                       type="reset"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-zinc-200 px-4 py-2 disabled:cursor-not-allowed"
+                      className="inline-flex w-full justify-center rounded-md border border-transparent bg-zinc-200 px-4 py-2 disabled:cursor-not-allowed md:w-auto"
                       onClick={onClose}
                     >
                       Cancel
@@ -128,7 +128,7 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
                     <button
                       disabled={isLoading}
                       type="submit"
-                      className="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-zinc-200 px-4 py-2 font-semibold text-spotify-green disabled:cursor-not-allowed"
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-md border border-transparent bg-zinc-200 px-4 py-2 font-semibold text-spotify-green disabled:cursor-not-allowed md:w-auto"
                     >
                       <SpotifyIcon heightClass="h-5" widthClass="w-5" />
                       <span>Save on Spotify</span>
