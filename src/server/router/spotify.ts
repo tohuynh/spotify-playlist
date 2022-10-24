@@ -303,7 +303,7 @@ export const spotifyRouter = createSpotifyRouter()
       uris: z.array(z.string()).min(1),
       name: z.string(),
       isPublic: z.boolean(),
-      description: z.string().optional(),
+      description: z.string(),
     }),
     output: z.object({
       name: z.string(),
