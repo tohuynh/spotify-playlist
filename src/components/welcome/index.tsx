@@ -44,7 +44,7 @@ export default function Welcome() {
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href="https://github.com/tohuynh/spotify-playlist"
+            href="https://github.com/tohuynh/tiny-mixtape"
           >
             <svg
               viewBox="0 0 24 24"
