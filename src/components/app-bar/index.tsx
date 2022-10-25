@@ -25,7 +25,7 @@ export default function AppBar() {
             ? () => signOut()
             : () =>
                 signIn("spotify", {
-                  callbackUrl: pathname === "/" ? "/create-playlist" : pathname,
+                  callbackUrl: pathname === "/" ? "/create-mixtape" : pathname,
                 })
         }
       >

@@ -17,7 +17,7 @@ export default function Welcome() {
           className="mt-2 flex items-center justify-between gap-x-4 rounded-full p-4"
           onClick={() =>
             signIn("spotify", {
-              callbackUrl: pathname === "/" ? "/create-playlist" : pathname,
+              callbackUrl: pathname === "/" ? "/create-mixtape" : pathname,
             })
           }
         >

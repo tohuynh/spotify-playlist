@@ -39,12 +39,12 @@ const NAVS = [
     icon: <HomeIcon className=" h-5 w-5" />,
   },
   {
-    href: "/playlists",
+    href: "/mixtapes",
     label: "Discover",
     icon: <MusicalNoteIcon className=" h-5 w-5" />,
   },
   {
-    href: "/create-playlist",
+    href: "/create-mixtape",
     label: "Create",
     icon: <PlusIcon className=" h-5 w-5" />,
   },
