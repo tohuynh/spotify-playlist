@@ -95,7 +95,7 @@ const Playlists: NextPage = () => {
               ).every((val) => val !== 0);
               return (
                 <li className="rounded-md bg-white" key={playlist.id}>
-                  <div className="relative aspect-video w-full">
+                  <div className="relative aspect-square w-full">
                     <Image
                       className="rounded-t-md"
                       alt={`Cover art of ${playlist.name}`}
