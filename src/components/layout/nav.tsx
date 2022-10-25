@@ -18,14 +18,14 @@ function NavItem({ label, icon, isCurrent, href }: NavItemProps) {
     <li>
       <Link href={href}>
         <a className="flex flex-col items-center">
-          <div
+          <span
             className={`${
-              isCurrent && "bg-gray-200"
-            } flex h-8 w-14 items-center justify-center rounded-full`}
+              isCurrent ? "bg-gray-200" : "bg-transparent"
+            } inline-block flex h-8 w-14 items-center justify-center rounded-full`}
           >
             {icon}
-          </div>
-          <div className="text-base font-medium">{label}</div>
+          </span>
+          <span className="text-base font-medium">{label}</span>
         </a>
       </Link>
     </li>
