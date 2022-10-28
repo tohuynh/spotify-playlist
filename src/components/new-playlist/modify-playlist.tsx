@@ -54,7 +54,7 @@ export default function ModifyPlaylist({
       <Disclosure>
         {({ open }) => (
           <>
-            <Disclosure.Button className="flex h-14 w-full items-center justify-between p-2 text-base md:text-lg">
+            <Disclosure.Button className="flex h-14 w-full items-center justify-between rounded-md p-2 text-base md:text-lg">
               <span className="text-base md:text-lg">
                 Modify mood of mixtape
               </span>
