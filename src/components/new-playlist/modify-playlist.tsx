@@ -76,7 +76,7 @@ export default function ModifyPlaylist({
             <Disclosure.Panel className="px-4 py-2 text-xs text-zinc-700 md:text-base">
               <form onSubmit={handleSubmit}>
                 <fieldset
-                  className="group grid grid-cols-[auto_1fr_auto] gap-2"
+                  className="group grid grid-cols-[auto_minmax(0,1fr)_auto] gap-2"
                   disabled={disabled}
                 >
                   <label className="text-right" htmlFor="energy">
