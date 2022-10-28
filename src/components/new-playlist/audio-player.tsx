@@ -34,7 +34,9 @@ export default function AudioPlayer({ url }: { url: string | null }) {
     () =>
       throttle(
         (time: number) => {
-          setCurrentTime(time);
+          setCurrentTime(
+            (time / (audioPlayerRef.current?.duration || 30)) * 100
+          );
         },
         100,
         { trailing: false }
@@ -87,7 +89,7 @@ export default function AudioPlayer({ url }: { url: string | null }) {
   }
 
   return (
-    <div className="relative text-zinc-700">
+    <div className="flex flex-col items-end justify-center text-zinc-700">
       <audio
         ref={audioPlayerRef}
         src={url}
@@ -96,49 +98,27 @@ export default function AudioPlayer({ url }: { url: string | null }) {
           handleUpdateCurrentTime(audioPlayerRef.current?.currentTime || 0)
         }
       />
-      <svg
-        className="-z-10 flex h-10 w-10 items-center justify-center"
-        aria-hidden
-      >
-        <circle
-          className={isPlaying ? "text-gray-300" : "text-transparent"}
-          strokeWidth={strokeWidth}
-          stroke="currentColor"
-          fill="transparent"
-          r={radius}
-          cx={center}
-          cy={center}
-        />
-        <circle
-          className={isPlaying ? "text-green-600" : "text-transparent"}
-          strokeWidth={strokeWidth}
-          strokeDasharray={circumference}
-          strokeDashoffset={
-            circumference -
-            (currentTime / (audioPlayerRef.current?.duration || 30)) *
-              circumference
-          }
-          strokeLinecap="round"
-          stroke="currentColor"
-          fill="transparent"
-          r={radius}
-          cx={center}
-          cy={center}
-        />
-      </svg>
       <button
-        className="absolute top-0 flex h-10 w-10 items-center justify-center"
+        className="flex w-10 items-center justify-center"
         aria-label={`${isPlaying ? "Pause" : "Play"} track`}
         onClick={onTogglePlay}
       >
         {isPlaying ? stopIcon : playIcon}
       </button>
+      {isPlaying && (
+        <>
+          <label className="sr-only" htmlFor="current-time">
+            Current time
+          </label>
+          <meter
+            id="current-time"
+            className="h-2 w-10"
+            min={0}
+            max={100}
+            value={currentTime}
+          />
+        </>
+      )}
     </div>
   );
 }
-
-// r = (45px - (3 * 2)) / 2 | (w-10 - (strokeWidth * 2)) / 2
-const strokeWidth = 3;
-const radius = (45 - strokeWidth * 2) / 2;
-const center = 45 / 2;
-const circumference = radius * 2 * Math.PI;
