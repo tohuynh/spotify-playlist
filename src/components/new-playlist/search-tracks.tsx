@@ -56,7 +56,7 @@ export default function SearchTracks({
   return (
     <Combobox value={selected} onChange={onSelectTrack} disabled={disabled}>
       <div className="relative">
-        <div className="relative cursor-default overflow-hidden rounded-md bg-white p-[2px]">
+        <div className="relative cursor-default rounded-md bg-white">
           <Combobox.Input
             className="h-14 w-full truncate rounded-md py-2 px-10 text-base disabled:cursor-not-allowed md:text-lg lg:px-14"
             displayValue={(track: PlaylistTrack) =>
