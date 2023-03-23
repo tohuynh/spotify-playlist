@@ -35,7 +35,7 @@ export default function TrackChips({
             <span className="mr-1 font-light">{`${i + 1}. `}</span>
             <span>{track.name}</span>
           </span>
-          <XMarkIcon className="h-5 w-5" />
+          <XMarkIcon className="h-4 w-4" />
         </button>
       ))}
     </div>

@@ -61,7 +61,7 @@ export default function ModifyPlaylist({
               <ChevronDownIcon
                 className={`${
                   open ? "rotate-180 transform" : ""
-                } h-5 w-5 text-zinc-400`}
+                } h-4 w-4 text-zinc-400`}
               />
             </Disclosure.Button>
             <Transition
