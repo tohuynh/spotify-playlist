@@ -58,7 +58,7 @@ export default function SearchTracks({
       <div className="relative">
         <div className="relative cursor-default rounded-md bg-white">
           <Combobox.Input
-            className="h-14 w-full truncate rounded-md py-2 px-10 text-base disabled:cursor-not-allowed md:text-lg lg:px-14"
+            className="h-14 w-full truncate rounded-md px-9 text-base disabled:cursor-not-allowed md:text-lg lg:px-14"
             displayValue={(track: PlaylistTrack) =>
               track ? `${track.name} • ${track.artists.join(", ")}` : query
             }
@@ -66,13 +66,13 @@ export default function SearchTracks({
             title={placeholderText}
             placeholder={placeholderText}
           />
-          <div className="absolute inset-y-0 left-0 flex items-center px-2">
+          <div className="absolute inset-y-0 left-0 flex items-center px-4">
             <MagnifyingGlassIcon
               className="h-5 w-5 text-zinc-400"
               aria-hidden
             />
           </div>
-          <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+          <Combobox.Button className="absolute inset-y-0 right-0 flex items-center px-4">
             <ChevronUpDownIcon className="h-5 w-5 text-zinc-400" aria-hidden />
           </Combobox.Button>
         </div>
