@@ -57,7 +57,7 @@ const NAVS = [
 export default function Nav() {
   const { pathname } = useRouter();
   return (
-    <nav className="fixed bottom-0 flex h-16 w-full flex-row items-center justify-center border border-t border-neutral-400/10 bg-default md:h-full md:w-36 md:flex-col md:border-t-0 md:border-r">
+    <nav className="fixed bottom-0 z-10 flex h-16 w-full flex-row items-center justify-center border border-t border-neutral-400/10 bg-default md:h-full md:w-36 md:flex-col md:border-t-0 md:border-r">
       <ul className="flex w-full flex-row items-center justify-evenly gap-10 md:w-auto md:flex-col">
         {NAVS.map((nav) => (
           <NavItem key={nav.href} {...nav} isCurrent={pathname === nav.href} />
