@@ -19,7 +19,7 @@ function NavItem({ label, icon, isCurrent, href }: NavItemProps) {
       <Link href={href}>
         <a
           className={`flex flex-col items-center ${
-            isCurrent ? "" : "text-foreground/70"
+            isCurrent ? "" : "text-foreground/80"
           }`}
         >
           <span

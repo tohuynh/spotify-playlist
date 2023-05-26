@@ -31,12 +31,12 @@ export default function AppBar() {
       >
         {data ? (
           <ArrowRightOnRectangleIcon
-            className="h-6 w-6 text-foreground/80"
+            className="h-6 w-6 text-foreground/90"
             aria-hidden
           />
         ) : (
           <ArrowLeftOnRectangleIcon
-            className="h-6 w-6 text-foreground/80"
+            className="h-6 w-6 text-foreground/90"
             aria-hidden
           />
         )}

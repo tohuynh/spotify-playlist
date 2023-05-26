@@ -80,7 +80,7 @@ export function SortableItem({
       <div className="grid grid-cols-[auto_1fr_auto] gap-x-2 md:grid-cols-[auto_1fr_1fr_auto_auto_auto] lg:gap-x-4">
         <div className="flex items-center justify-center">
           <button
-            className={`flex h-8 w-6 items-center justify-center rounded-md text-foreground/60 hover:bg-foreground/10 ${
+            className={`flex h-8 w-6 items-center justify-center rounded-md text-foreground/70 hover:bg-foreground/10 ${
               isDragging ? "cursor-grabbing" : "cursor-grab"
             }`}
             title="Reorder"
@@ -112,7 +112,7 @@ export function SortableItem({
               {track.name}
             </a>
             <div
-              className="truncate text-xs text-foreground/50 md:text-sm"
+              className="truncate text-xs text-foreground/60 md:text-sm"
               title={track.artists.join(", ")}
             >
               {track.artists.join(", ")}
@@ -120,12 +120,12 @@ export function SortableItem({
           </div>
         </div>
         <div
-          className="hidden truncate text-base text-foreground/80 md:block"
+          className="hidden truncate text-base text-foreground/90 md:block"
           title={track.albumName}
         >
           {track.albumName}
         </div>
-        <div className="hidden text-sm text-foreground/60 md:flex md:items-center md:justify-center md:text-base">
+        <div className="hidden text-sm text-foreground/70 md:flex md:items-center md:justify-center md:text-base">
           {convertDurationToHMS(track.duration)}
         </div>
         <div className="hidden md:flex md:items-center md:justify-center">
@@ -133,7 +133,7 @@ export function SortableItem({
         </div>
         <div className="flex items-center justify-center">
           <button
-            className="flex h-8 w-6 items-center justify-center rounded-md text-foreground/60 hover:bg-foreground/10"
+            className="flex h-8 w-6 items-center justify-center rounded-md text-foreground/70 hover:bg-foreground/10"
             title="Remove"
             aria-label="Remove"
             onClick={() =>

@@ -74,7 +74,7 @@ export default function AudioPlayer({ url }: { url: string | null }) {
 
   if (url === null) {
     return (
-      <div className="text-foreground/60">
+      <div className="text-foreground/70">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="ml-3 mr-2 h-5 w-5"
@@ -111,7 +111,7 @@ export default function AudioPlayer({ url }: { url: string | null }) {
         }
       />
       <button
-        className="flex w-10 items-center justify-center p-1 text-foreground/60"
+        className="flex w-10 items-center justify-center p-1 text-foreground/70"
         aria-label={`${isPlaying ? "Pause" : "Play"} track`}
         onClick={onTogglePlay}
       >

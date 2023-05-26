@@ -114,7 +114,7 @@ const Playlists: NextPage = () => {
                       {playlist.name}
                     </a>
                     <div
-                      className="truncate text-sm text-foreground/50 md:text-base"
+                      className="truncate text-sm text-foreground/60 md:text-base"
                       title={playlist.description}
                     >
                       {playlist.description}
