@@ -49,7 +49,7 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
 
   return (
     <Transition show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={() => {}}>
+      <Dialog as="div" className="relative z-50" onClose={() => {}}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -61,18 +61,18 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
         >
           <div className="fixed inset-0 bg-foreground/10" />
         </Transition.Child>
-        <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
+        <div className="fixed inset-0">
+          <div className="flex min-h-full w-full flex-col items-center justify-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
+              enterFrom="opacity-0 translate-y-3"
+              enterTo="opacity-100 translate-y-0"
               leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
+              leaveFrom="opacity-100 translate-y-0"
+              leaveTo="opacity-0 translate-y-3"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-md bg-default p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="h-screen w-full transform overflow-y-auto rounded-md bg-default p-6 shadow-xl transition-all md:h-min md:max-w-md">
                 <Dialog.Title as="h3" className="text-xl font-semibold">
                   New mixtape
                 </Dialog.Title>
