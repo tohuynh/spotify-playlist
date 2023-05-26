@@ -94,7 +94,10 @@ const Playlists: NextPage = () => {
                 playlist.audioFeatures
               ).every((val) => val !== 0);
               return (
-                <li className="rounded-md bg-background" key={playlist.id}>
+                <li
+                  className="relative rounded-md bg-background"
+                  key={playlist.id}
+                >
                   <div className="relative aspect-square w-full">
                     <Image
                       className="rounded-t-md"
@@ -105,7 +108,7 @@ const Playlists: NextPage = () => {
                   </div>
                   <div className="p-4">
                     <a
-                      className="block truncate px-1 text-lg font-semibold text-primary underline underline-offset-2 md:text-2xl"
+                      className="block truncate px-1 text-lg font-semibold text-primary underline underline-offset-2 before:absolute before:inset-0 before:content-[''] md:text-2xl"
                       target="_blank"
                       rel="noopener noreferrer"
                       href={playlist.uri}
