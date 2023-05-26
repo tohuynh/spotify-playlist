@@ -76,7 +76,7 @@ export default function NewPlaylist() {
       >
         <PlusIcon className="h-6 w-6" aria-hidden />
       </button>
-      <div className="flex flex-col gap-y-4 border-b-2 py-16">
+      <div className="flex flex-col gap-y-4 border-b-2 border-neutral-400/10 py-16">
         <div className="mx-auto w-full md:w-2/3 lg:w-1/2">
           <SearchTracks
             placeholderText="Select up to 5 tracks to generate a mixtape"

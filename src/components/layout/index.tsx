@@ -1,6 +1,7 @@
+import { Transition } from "@headlessui/react";
 import Head from "next/head";
 import { ReactNode } from "react";
-import { Toaster } from "react-hot-toast";
+import toast, { ToastIcon, Toaster, resolveValue } from "react-hot-toast";
 
 import AppBar from "../../components/app-bar";
 import Nav from "./nav";
@@ -40,7 +41,7 @@ const Layout = ({ title, description, children }: LayoutProps) => {
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      <main className="min-h-screen bg-zinc-100 text-zinc-900">
+      <main className="min-h-screen">
         <AppBar />
         <Nav />
         <div className="px-4 pb-40 md:ml-36 md:px-10 md:pb-10">{children}</div>
@@ -48,10 +49,6 @@ const Layout = ({ title, description, children }: LayoutProps) => {
           position="bottom-center"
           toastOptions={{
             duration: 3000,
-            style: {
-              maxWidth: "450px",
-              wordBreak: "break-all",
-            },
             success: {
               iconTheme: {
                 primary: "#16a34a",
@@ -69,7 +66,26 @@ const Layout = ({ title, description, children }: LayoutProps) => {
               "aria-live": "polite",
             },
           }}
-        />
+        >
+          {(t) => (
+            <Transition
+              appear
+              show={t.visible}
+              className="bg-back flex transform items-center rounded-md p-2 shadow-sm shadow-neutral-400"
+              enter="transition-all duration-150"
+              enterFrom="opacity-0 scale-50"
+              enterTo="opacity-100 scale-100"
+              leave="transition-all duration-150"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-75"
+            >
+              <ToastIcon toast={t} />
+              <div className="max-w-md break-all px-2 text-foreground">
+                {resolveValue(t.message, t)}
+              </div>
+            </Transition>
+          )}
+        </Toaster>
       </main>
     </>
   );

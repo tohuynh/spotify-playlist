@@ -23,7 +23,7 @@ export default function TrackChips({
       {tracks.map((track, i) => (
         <button
           key={track.id}
-          className="flex w-full items-center justify-between gap-x-4 rounded-md bg-white px-4 py-2 md:w-auto md:max-w-[16rem]"
+          className="flex w-full items-center justify-between gap-x-4 rounded-md bg-background px-4 py-2 text-foreground/70 md:w-auto md:max-w-[16rem]"
           onClick={() =>
             dispatchUserAction({
               type: UserActionType.UNSELECT_TRACK,

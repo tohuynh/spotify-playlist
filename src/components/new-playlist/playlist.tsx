@@ -32,7 +32,12 @@ import AudioPlayer from "./audio-player";
 import { UserAction, UserActionType } from "./new-playlist-state";
 
 const dragHandle = (
-  <svg aria-hidden="true" viewBox="0 0 16 16" className="h-4 w-4">
+  <svg
+    aria-hidden="true"
+    viewBox="0 0 16 16"
+    className="h-4 w-4"
+    stroke="currentColor"
+  >
     <path
       fillRule="evenodd"
       d="M10 13a1 1 0 100-2 1 1 0 000 2zm-4 0a1 1 0 100-2 1 1 0 000 2zm1-5a1 1 0 11-2 0 1 1 0 012 0zm3 1a1 1 0 100-2 1 1 0 000 2zm1-5a1 1 0 11-2 0 1 1 0 012 0zM6 5a1 1 0 100-2 1 1 0 000 2z"
@@ -66,7 +71,7 @@ export function SortableItem({
 
   return (
     <li
-      className={`bg-white p-2 md:py-2 ${
+      className={`bg-background p-2 md:py-2 ${
         isDragging ? "z-[1] shadow-lg" : "z-0"
       } md:p-4`}
       ref={setNodeRef}
@@ -75,7 +80,7 @@ export function SortableItem({
       <div className="grid grid-cols-[auto_1fr_auto] gap-x-2 md:grid-cols-[auto_1fr_1fr_auto_auto_auto] lg:gap-x-4">
         <div className="flex items-center justify-center">
           <button
-            className={`flex h-8 w-6 items-center justify-center rounded-md hover:bg-gray-200 ${
+            className={`flex h-8 w-6 items-center justify-center rounded-md text-foreground/60 hover:bg-foreground/10 ${
               isDragging ? "cursor-grabbing" : "cursor-grab"
             }`}
             title="Reorder"
@@ -87,9 +92,6 @@ export function SortableItem({
           </button>
         </div>
         <div className="flex items-center gap-x-1 overflow-hidden">
-          <div className="md:mr-1">
-            <SpotifyIcon heightClass="h-5" widthClass="w-5" />
-          </div>
           <div className="hidden flex-shrink-0 md:block">
             <Image
               layout="fixed"
@@ -101,7 +103,7 @@ export function SortableItem({
           </div>
           <div className="overflow-hidden p-1">
             <a
-              className="block truncate text-sm font-semibold text-blue-700 underline underline-offset-2 md:text-base"
+              className="block truncate text-sm font-semibold text-primary underline underline-offset-2 md:text-base"
               href={`https://open.spotify.com/track/${track.id}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -110,7 +112,7 @@ export function SortableItem({
               {track.name}
             </a>
             <div
-              className="truncate text-xs text-zinc-500 md:text-sm"
+              className="truncate text-xs text-foreground/50 md:text-sm"
               title={track.artists.join(", ")}
             >
               {track.artists.join(", ")}
@@ -118,12 +120,12 @@ export function SortableItem({
           </div>
         </div>
         <div
-          className="hidden truncate text-base md:block"
+          className="hidden truncate text-base text-foreground/80 md:block"
           title={track.albumName}
         >
           {track.albumName}
         </div>
-        <div className="hidden text-sm md:flex md:items-center md:justify-center md:text-base">
+        <div className="hidden text-sm text-foreground/60 md:flex md:items-center md:justify-center md:text-base">
           {convertDurationToHMS(track.duration)}
         </div>
         <div className="hidden md:flex md:items-center md:justify-center">
@@ -131,7 +133,7 @@ export function SortableItem({
         </div>
         <div className="flex items-center justify-center">
           <button
-            className="flex h-8 w-6 items-center justify-center rounded-md hover:bg-gray-200"
+            className="flex h-8 w-6 items-center justify-center rounded-md text-foreground/60 hover:bg-foreground/10"
             title="Remove"
             aria-label="Remove"
             onClick={() =>
@@ -141,7 +143,7 @@ export function SortableItem({
               })
             }
           >
-            <TrashIcon className="h-4 w-4 text-zinc-700" aria-hidden />
+            <TrashIcon className="h-4 w-4" aria-hidden />
           </button>
         </div>
       </div>
@@ -209,7 +211,7 @@ export default function Playlist({
         <ul
           className={`${
             isFetching ? "blur-[2px]" : "blur-none"
-          } flex flex-col divide-y`}
+          } flex flex-col divide-y divide-neutral-400/10`}
           ref={listRef}
         >
           {draggablePlaylistTracks.map((track) => (

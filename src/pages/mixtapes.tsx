@@ -76,9 +76,9 @@ const Playlists: NextPage = () => {
     <Layout title="Tiny Mixtape" description="Discover Spotify mixtapes">
       {sessionData ? (
         <div className="flex flex-col gap-4 pt-6">
-          <label className="text-lg text-zinc-800">
+          <label className="text-lg text-foreground">
             <input
-              className="mr-2 h-5 w-5"
+              className="mr-2 h-5 w-5 accent-primary"
               type="checkbox"
               checked={isCreatorOnly}
               onChange={onToggleIsCreatorOnly}
@@ -94,7 +94,7 @@ const Playlists: NextPage = () => {
                 playlist.audioFeatures
               ).every((val) => val !== 0);
               return (
-                <li className="rounded-md bg-white" key={playlist.id}>
+                <li className="rounded-md bg-background" key={playlist.id}>
                   <div className="relative aspect-square w-full">
                     <Image
                       className="rounded-t-md"
@@ -105,7 +105,7 @@ const Playlists: NextPage = () => {
                   </div>
                   <div className="p-4">
                     <a
-                      className="block truncate px-1 text-lg font-semibold text-blue-700 underline underline-offset-2 md:text-2xl"
+                      className="block truncate px-1 text-lg font-semibold text-primary underline underline-offset-2 md:text-2xl"
                       target="_blank"
                       rel="noopener noreferrer"
                       href={playlist.uri}
@@ -114,7 +114,7 @@ const Playlists: NextPage = () => {
                       {playlist.name}
                     </a>
                     <div
-                      className="truncate text-sm text-zinc-500 md:text-base"
+                      className="truncate text-sm text-foreground/50 md:text-base"
                       title={playlist.description}
                     >
                       {playlist.description}
@@ -122,7 +122,7 @@ const Playlists: NextPage = () => {
                     {hasAudioFeatures && (
                       <div className="mt-4 grid grid-cols-[auto_1fr] items-center gap-x-2 gap-y-1">
                         <label
-                          className="text-xs text-zinc-700 sm:text-sm"
+                          className="text-xs text-foreground/70 sm:text-sm"
                           htmlFor="energy"
                         >
                           Intensity:
@@ -135,7 +135,7 @@ const Playlists: NextPage = () => {
                           value={playlist.audioFeatures.energy}
                         />
                         <label
-                          className="text-xs text-zinc-700 sm:text-sm"
+                          className="text-xs text-foreground/70 sm:text-sm"
                           htmlFor="danceability"
                         >
                           Danceability:
@@ -148,7 +148,7 @@ const Playlists: NextPage = () => {
                           value={playlist.audioFeatures.danceability}
                         />
                         <label
-                          className="text-xs text-zinc-700 sm:text-sm"
+                          className="text-xs text-foreground/70 sm:text-sm"
                           htmlFor="valence"
                         >
                           Positivity:
@@ -160,8 +160,11 @@ const Playlists: NextPage = () => {
                           max={100}
                           value={playlist.audioFeatures.valence}
                         />
-                        <div className="col-span-full text-xs text-zinc-700 sm:text-sm">
-                          {`Beats per minute: ${playlist.audioFeatures.tempo}`}
+                        <div className="col-span-full text-xs text-foreground/70 sm:text-sm">
+                          <span>Beats per minute:</span>
+                          <span className="ml-1 font-semibold">
+                            {playlist.audioFeatures.tempo}
+                          </span>
                         </div>
                       </div>
                     )}

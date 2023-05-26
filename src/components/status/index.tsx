@@ -49,12 +49,12 @@ export default function Status({
   const icon = isSuccess ? (
     <CheckCircleIcon
       aria-label={status}
-      className={`${heightClass} ${widthClass} text-green-600`}
+      className={`${heightClass} ${widthClass} text-success`}
     />
   ) : isError ? (
     <ExclamationCircleIcon
       aria-label={status}
-      className={`${heightClass} ${widthClass} text-red-600`}
+      className={`${heightClass} ${widthClass} text-error`}
     />
   ) : (
     loader
@@ -70,12 +70,14 @@ export default function Status({
     >
       {icon}
       {isSuccess && (
-        <span className="flex-1 break-all text-zinc-700">
+        <span className="flex-1 break-all text-foreground/80">
           {successMessage}
         </span>
       )}
       {isError && (
-        <span className="flex-1 break-all text-zinc-700">{errorMessage}</span>
+        <span className="flex-1 break-all text-foreground/80">
+          {errorMessage}
+        </span>
       )}
     </div>
   );

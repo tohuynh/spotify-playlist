@@ -55,10 +55,10 @@ export default function SearchTracks({
 
   return (
     <Combobox value={selected} onChange={onSelectTrack} disabled={disabled}>
-      <div className="relative">
-        <div className="relative cursor-default rounded-md bg-white">
+      <div className="relative outline-none">
+        <div className="relative cursor-default rounded-md outline-none">
           <Combobox.Input
-            className="h-14 w-full truncate rounded-md px-12 text-base disabled:cursor-not-allowed"
+            className="focusable h-14 w-full truncate rounded-md bg-background px-12 text-base text-foreground disabled:cursor-not-allowed"
             displayValue={(track: PlaylistTrack) =>
               track ? `${track.name} • ${track.artists.join(", ")}` : query
             }
@@ -68,12 +68,15 @@ export default function SearchTracks({
           />
           <div className="absolute inset-y-0 left-0 flex items-center px-4">
             <MagnifyingGlassIcon
-              className="h-4 w-4 text-zinc-400"
+              className="h-4 w-4 text-foreground/50"
               aria-hidden
             />
           </div>
           <Combobox.Button className="absolute inset-y-0 right-0 flex items-center px-4">
-            <ChevronUpDownIcon className="h-4 w-4 text-zinc-400" aria-hidden />
+            <ChevronUpDownIcon
+              className="h-4 w-4 text-foreground/50"
+              aria-hidden
+            />
           </Combobox.Button>
         </div>
         <Transition
@@ -85,7 +88,7 @@ export default function SearchTracks({
           <Combobox.Options
             className={`${
               query.trim().length === 0 ? "py-0" : "py-2"
-            } absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white shadow-md sm:text-sm lg:text-base`}
+            } absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-background shadow-sm shadow-neutral-400 sm:text-sm lg:text-base`}
           >
             {isSuccess ? (
               <>
@@ -93,8 +96,8 @@ export default function SearchTracks({
                   <Combobox.Option
                     key={track.id}
                     className={({ active }) =>
-                      `relative cursor-default select-none py-2 pl-10 pr-4 text-zinc-700 ${
-                        active ? "bg-gray-100" : "bg-white"
+                      `relative cursor-default select-none py-2 pl-10 pr-4 text-foreground/80 ${
+                        active ? "bg-foreground/10" : "bg-transparent"
                       }`
                     }
                     value={track}
@@ -110,9 +113,12 @@ export default function SearchTracks({
                         </span>
                         {selected && (
                           <span
-                            className={`absolute inset-y-0 left-0 flex items-center pl-3 text-green-600`}
+                            className={`absolute inset-y-0 left-0 flex items-center pl-3 text-success`}
                           >
-                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                            <CheckIcon
+                              className="h-5 w-5 text-success"
+                              aria-hidden="true"
+                            />
                           </span>
                         )}
                       </>

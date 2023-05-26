@@ -50,7 +50,7 @@ export default function ModifyPlaylist({
     });
   };
   return (
-    <div className="w-full rounded-md bg-white">
+    <div className="w-full rounded-md bg-background text-foreground">
       <Disclosure>
         {({ open }) => (
           <>
@@ -61,7 +61,7 @@ export default function ModifyPlaylist({
               <ChevronDownIcon
                 className={`${
                   open ? "rotate-180 transform" : ""
-                } h-4 w-4 text-zinc-400`}
+                } h-4 w-4 text-foreground/50`}
               />
             </Disclosure.Button>
             <Transition
@@ -73,17 +73,20 @@ export default function ModifyPlaylist({
               leaveFrom="transform scale-100 opacity-100"
               leaveTo="transform scale-95 opacity-0"
             />
-            <Disclosure.Panel className="px-4 py-2 text-xs text-zinc-700 md:text-base">
+            <Disclosure.Panel className="px-4 py-2 text-xs md:text-base">
               <form onSubmit={handleSubmit}>
                 <fieldset
                   className="group grid grid-cols-[auto_minmax(0,1fr)_auto] gap-2"
                   disabled={disabled}
                 >
-                  <label className="text-right" htmlFor="energy">
+                  <label
+                    className="text-right text-foreground/70"
+                    htmlFor="energy"
+                  >
                     Chill
                   </label>
                   <input
-                    className="group-disabled:cursor-not-allowed"
+                    className="focusable group-disabled:cursor-not-allowed"
                     type="range"
                     id="energy"
                     name="energy"
@@ -92,13 +95,18 @@ export default function ModifyPlaylist({
                     value={audioFeaturesForDisplay.energy || 0}
                     onChange={handleChange}
                   />
-                  <label htmlFor="energy">Intense</label>
+                  <label className="text-foreground/70" htmlFor="energy">
+                    Intense
+                  </label>
 
-                  <label className="text-right" htmlFor="danceability">
+                  <label
+                    className="text-right text-foreground/70"
+                    htmlFor="danceability"
+                  >
                     Unrhythmic
                   </label>
                   <input
-                    className="group-disabled:cursor-not-allowed"
+                    className="focusable group-disabled:cursor-not-allowed"
                     type="range"
                     id="danceability"
                     name="danceability"
@@ -107,17 +115,19 @@ export default function ModifyPlaylist({
                     value={audioFeaturesForDisplay.danceability || 0}
                     onChange={handleChange}
                   />
-                  <label htmlFor="danceability">Danceable</label>
+                  <label className="text-foreground/70" htmlFor="danceability">
+                    Danceable
+                  </label>
 
                   <label
                     title="sad, depressed, angry"
-                    className="text-right"
+                    className="text-right text-foreground/70"
                     htmlFor="valence"
                   >
                     Negative
                   </label>
                   <input
-                    className="group-disabled:cursor-not-allowed"
+                    className="focusable group-disabled:cursor-not-allowed"
                     type="range"
                     id="valence"
                     name="valence"
@@ -126,14 +136,18 @@ export default function ModifyPlaylist({
                     value={audioFeaturesForDisplay.valence || 0}
                     onChange={handleChange}
                   />
-                  <label title="happy, cheerful, euphoric" htmlFor="valence">
+                  <label
+                    className="text-foreground/70"
+                    title="happy, cheerful, euphoric"
+                    htmlFor="valence"
+                  >
                     Positive
                   </label>
                   <div className="col-span-full mt-1">
-                    <label>
+                    <label className="text-foreground/70">
                       Beats per minute (BPM):
                       <input
-                        className="mt-1 h-10 w-full rounded border-2 border-gray-200 p-3 text-sm group-disabled:cursor-not-allowed"
+                        className="focusable mt-1 h-10 w-full rounded border border-neutral-400/10 bg-background p-3 text-sm group-disabled:cursor-not-allowed"
                         type="number"
                         name="tempo"
                         min={0}
@@ -144,7 +158,7 @@ export default function ModifyPlaylist({
                   </div>
                   <div className="col-span-full mt-4">
                     <button
-                      className="rounded-md border border-transparent bg-zinc-200 px-4 py-2 text-base font-medium text-zinc-800 group-disabled:cursor-not-allowed"
+                      className="rounded-md border border-neutral-400/25 px-4 py-2 text-base font-medium group-disabled:cursor-not-allowed"
                       type="submit"
                     >
                       Modify

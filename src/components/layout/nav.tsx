@@ -17,11 +17,15 @@ function NavItem({ label, icon, isCurrent, href }: NavItemProps) {
   return (
     <li>
       <Link href={href}>
-        <a className="flex flex-col items-center">
+        <a
+          className={`flex flex-col items-center ${
+            isCurrent ? "" : "text-foreground/70"
+          }`}
+        >
           <span
             className={`${
-              isCurrent ? "bg-gray-200" : "bg-transparent"
-            } inline-block flex h-8 w-14 items-center justify-center rounded-full`}
+              isCurrent ? "bg-background" : "bg-transparent"
+            } inline-flex h-8 w-14 items-center justify-center rounded-full`}
           >
             {icon}
           </span>
@@ -53,7 +57,7 @@ const NAVS = [
 export default function Nav() {
   const { pathname } = useRouter();
   return (
-    <nav className="fixed bottom-0 flex h-16 w-full flex-row items-center justify-center bg-zinc-50 md:h-full md:w-36 md:flex-col md:border-t-0">
+    <nav className="fixed bottom-0 flex h-16 w-full flex-row items-center justify-center border border-t border-neutral-400/10 bg-default md:h-full md:w-36 md:flex-col md:border-t-0 md:border-r">
       <ul className="flex w-full flex-row items-center justify-evenly gap-10 md:w-auto md:flex-col">
         {NAVS.map((nav) => (
           <NavItem key={nav.href} {...nav} isCurrent={pathname === nav.href} />

@@ -59,7 +59,7 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black bg-opacity-25" />
+          <div className="fixed inset-0 bg-foreground/10" />
         </Transition.Child>
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4 text-center">
@@ -72,28 +72,28 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all">
-                <Dialog.Title as="h3" className="text-xl font-medium">
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-md bg-default p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Title as="h3" className="text-xl font-semibold">
                   New mixtape
                 </Dialog.Title>
                 <form
                   className="mt-2 flex flex-col gap-y-3"
                   onSubmit={onSubmit}
                 >
-                  <label className="block font-medium text-zinc-600">
+                  <label className="block font-medium text-foreground/80">
                     Name:
                     <input
                       required
-                      className="mt-1 h-10 w-full rounded border-2 border-gray-200 p-3"
+                      className="focusable mt-1 h-10 w-full rounded bg-background p-3"
                       type="text"
                       name="playlistName"
                     />
                   </label>
-                  <label className="block font-medium text-zinc-600">
+                  <label className="block font-medium text-foreground/80">
                     Description:
                     <input
                       required
-                      className="mt-1 h-10 w-full rounded border-2 border-gray-200 p-3"
+                      className="focusable mt-1 h-10 w-full rounded bg-background p-3"
                       type="text"
                       name="playlistDescription"
                     />
@@ -116,11 +116,11 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
                       errorMessage={error?.message}
                     />
                   </div>
-                  <div className="mt-4 flex flex-col items-center justify-start gap-4 font-medium text-zinc-800 md:flex-row md:justify-end">
+                  <div className="mt-4 flex flex-col items-center justify-start gap-4 font-medium md:flex-row md:justify-end">
                     <button
                       disabled={isLoading}
                       type="reset"
-                      className="inline-flex w-full justify-center rounded-md border border-transparent bg-zinc-200 px-4 py-2 disabled:cursor-not-allowed md:w-auto"
+                      className="inline-flex w-full justify-center rounded-md bg-background px-4 py-2 text-foreground disabled:cursor-not-allowed md:w-auto"
                       onClick={onClose}
                     >
                       Cancel
@@ -128,7 +128,7 @@ export default function CreatePlaylistDialog(props: CreatePlaylistDialogProps) {
                     <button
                       disabled={isLoading}
                       type="submit"
-                      className="inline-flex w-full items-center justify-center gap-2 rounded-md border border-transparent bg-zinc-200 px-4 py-2 font-semibold text-spotify-green disabled:cursor-not-allowed md:w-auto"
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-background px-4 py-2 font-semibold text-spotify-green disabled:cursor-not-allowed md:w-auto"
                     >
                       <SpotifyIcon heightClass="h-5" widthClass="w-5" />
                       <span>Save on Spotify</span>

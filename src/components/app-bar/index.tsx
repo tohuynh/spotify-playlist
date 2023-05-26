@@ -14,8 +14,8 @@ export default function AppBar() {
   }
 
   return (
-    <div className="flex h-16 flex-row items-center justify-between bg-zinc-100 px-4 md:pr-8 md:pl-44 xl:pr-16 xl:pl-52">
-      <h1 className="basis-3/4 truncate text-lg lg:text-2xl">
+    <div className="flex h-16 flex-row items-center justify-between px-4 md:pr-8 md:pl-44 xl:pr-16 xl:pl-52">
+      <h1 className="basis-3/4 truncate text-lg font-semibold lg:text-2xl">
         {data ? `Hello, ${data.user?.name}` : "Hello, Guest"}
       </h1>
       <button
@@ -30,9 +30,15 @@ export default function AppBar() {
         }
       >
         {data ? (
-          <ArrowRightOnRectangleIcon className="h-6 w-6" aria-hidden />
+          <ArrowRightOnRectangleIcon
+            className="h-6 w-6 text-foreground/80"
+            aria-hidden
+          />
         ) : (
-          <ArrowLeftOnRectangleIcon className="h-6 w-6" aria-hidden />
+          <ArrowLeftOnRectangleIcon
+            className="h-6 w-6 text-foreground/80"
+            aria-hidden
+          />
         )}
       </button>
     </div>

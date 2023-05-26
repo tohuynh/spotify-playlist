@@ -3,25 +3,37 @@ import { useMemo, useRef, useState } from "react";
 
 const playIcon = (
   <svg
-    aria-hidden
     xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
     className="h-5 w-5"
-    viewBox="0 0 512 512"
   >
-    <title>Preview</title>
-    <path d="M133 440a35.37 35.37 0 01-17.5-4.67c-12-6.8-19.46-20-19.46-34.33V111c0-14.37 7.46-27.53 19.46-34.33a35.13 35.13 0 0135.77.45l247.85 148.36a36 36 0 010 61l-247.89 148.4A35.5 35.5 0 01133 440z" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"
+    />
+    <title>Play</title>
   </svg>
 );
 
 const stopIcon = (
   <svg
-    aria-hidden
     xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
     className="h-5 w-5"
-    viewBox="0 0 512 512"
   >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M5.25 7.5A2.25 2.25 0 017.5 5.25h9a2.25 2.25 0 012.25 2.25v9a2.25 2.25 0 01-2.25 2.25h-9a2.25 2.25 0 01-2.25-2.25v-9z"
+    />
     <title>Stop</title>
-    <path d="M392 432H120a40 40 0 01-40-40V120a40 40 0 0140-40h272a40 40 0 0140 40v272a40 40 0 01-40 40z" />
   </svg>
 );
 
@@ -62,7 +74,7 @@ export default function AudioPlayer({ url }: { url: string | null }) {
 
   if (url === null) {
     return (
-      <div>
+      <div className="text-foreground/60">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="ml-3 mr-2 h-5 w-5"
@@ -89,7 +101,7 @@ export default function AudioPlayer({ url }: { url: string | null }) {
   }
 
   return (
-    <div className="flex flex-col items-end justify-center text-zinc-700">
+    <div className="flex flex-col items-end justify-center">
       <audio
         ref={audioPlayerRef}
         src={url}
@@ -99,7 +111,7 @@ export default function AudioPlayer({ url }: { url: string | null }) {
         }
       />
       <button
-        className="flex w-10 items-center justify-center"
+        className="flex w-10 items-center justify-center p-1 text-foreground/60"
         aria-label={`${isPlaying ? "Pause" : "Play"} track`}
         onClick={onTogglePlay}
       >

@@ -11,10 +11,12 @@ export default function Welcome() {
   }
   return (
     <div className="box-border flex h-[calc(100vh-8rem)] flex-col items-center justify-center px-4">
-      <h2 className="text-center text-3xl">Discover &amp; Create Mixtapes</h2>
+      <h2 className="mb-2 text-center text-3xl font-semibold">
+        Discover &amp; Create Mixtapes
+      </h2>
       {!data && (
         <button
-          className="mt-2 flex items-center justify-between gap-x-4 rounded-full p-4"
+          className="mt-2 flex items-center justify-between gap-x-4 rounded-full border border-neutral-400/10 p-4"
           onClick={() =>
             signIn("spotify", {
               callbackUrl: pathname === "/" ? "/create-mixtape" : pathname,
@@ -32,7 +34,7 @@ export default function Welcome() {
           <span>
             Created with{" "}
             <a
-              className="underline underline-offset-1"
+              className="text-primary underline underline-offset-1"
               target="_blank"
               rel="noopener noreferrer"
               href="https://create.t3.gg/"
@@ -49,7 +51,7 @@ export default function Welcome() {
             <svg
               viewBox="0 0 24 24"
               aria-label="Source code"
-              className="h-6 w-6 fill-zinc-900"
+              className="h-6 w-6 fill-foreground"
             >
               <path
                 fillRule="evenodd"
