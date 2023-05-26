@@ -27,7 +27,6 @@ import { Dispatch } from "react";
 
 import { PlaylistTrack } from "../../server/router/output-types";
 import { convertDurationToHMS } from "../../utils/convert-duration-to-hms";
-import SpotifyIcon from "../spotify-icon";
 import AudioPlayer from "./audio-player";
 import { UserAction, UserActionType } from "./new-playlist-state";
 
@@ -71,26 +70,26 @@ export function SortableItem({
 
   return (
     <li
-      className={`bg-background p-2 md:py-2 ${
+      className={`bg-background py-2 ${
         isDragging ? "z-[1] shadow-lg" : "z-0"
-      } md:p-4`}
+      } md:py-4`}
       ref={setNodeRef}
       style={style}
     >
-      <div className="grid grid-cols-[auto_1fr_auto] gap-x-2 md:grid-cols-[auto_1fr_1fr_auto_auto_auto] lg:gap-x-4">
-        <div className="flex items-center justify-center">
-          <button
-            className={`flex h-8 w-6 items-center justify-center rounded-md text-foreground/70 hover:bg-foreground/10 ${
-              isDragging ? "cursor-grabbing" : "cursor-grab"
-            }`}
-            title="Reorder"
-            aria-label="Drag handle"
-            {...listeners}
-            {...attributes}
-          >
+      <div className="grid grid-cols-[auto_1fr_auto] gap-x-2 md:grid-cols-[auto_1fr_1fr_auto_auto_auto] md:gap-x-4">
+        <button
+          className={`group flex h-full w-12 items-center justify-center ${
+            isDragging ? "cursor-grabbing" : "cursor-grab"
+          }`}
+          title="Reorder"
+          aria-label="Drag handle"
+          {...listeners}
+          {...attributes}
+        >
+          <span className="inline-flex h-8 w-6 items-center justify-center rounded-md text-foreground/70 group-hover:bg-foreground/10">
             {dragHandle}
-          </button>
-        </div>
+          </span>
+        </button>
         <div className="flex items-center gap-x-1 overflow-hidden">
           <div className="hidden flex-shrink-0 md:block">
             <Image
@@ -120,7 +119,7 @@ export function SortableItem({
           </div>
         </div>
         <div
-          className="hidden truncate text-base text-foreground/90 md:block"
+          className="hidden truncate p-1 text-base text-foreground/90 md:block"
           title={track.albumName}
         >
           {track.albumName}
@@ -128,24 +127,24 @@ export function SortableItem({
         <div className="hidden text-sm text-foreground/70 md:flex md:items-center md:justify-center md:text-base">
           {convertDurationToHMS(track.duration)}
         </div>
-        <div className="hidden md:flex md:items-center md:justify-center">
-          <AudioPlayer url={track.previewUrl} />
+        <div className="hidden md:block">
+          <AudioPlayer url={track.previewUrl} trackId={track.id} />
         </div>
-        <div className="flex items-center justify-center">
-          <button
-            className="flex h-8 w-6 items-center justify-center rounded-md text-foreground/70 hover:bg-foreground/10"
-            title="Remove"
-            aria-label="Remove"
-            onClick={() =>
-              dispatchUserAction({
-                type: UserActionType.REMOVE_TRACK,
-                payload: track,
-              })
-            }
-          >
+        <button
+          className="group flex h-full w-12 items-center justify-center"
+          title="Remove"
+          aria-label="Remove"
+          onClick={() =>
+            dispatchUserAction({
+              type: UserActionType.REMOVE_TRACK,
+              payload: track,
+            })
+          }
+        >
+          <span className="flex h-8 w-6 items-center justify-center rounded-md text-foreground/70 group-hover:bg-foreground/10">
             <TrashIcon className="h-4 w-4" aria-hidden />
-          </button>
-        </div>
+          </span>
+        </button>
       </div>
     </li>
   );

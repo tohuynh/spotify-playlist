@@ -37,7 +37,13 @@ const stopIcon = (
   </svg>
 );
 
-export default function AudioPlayer({ url }: { url: string | null }) {
+export default function AudioPlayer({
+  url,
+  trackId,
+}: {
+  trackId: string;
+  url: string | null;
+}) {
   const audioPlayerRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -74,7 +80,7 @@ export default function AudioPlayer({ url }: { url: string | null }) {
 
   if (url === null) {
     return (
-      <div className="text-foreground/70">
+      <div className="flex h-full w-12 items-center justify-center text-foreground/70">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="ml-3 mr-2 h-5 w-5"
@@ -101,7 +107,7 @@ export default function AudioPlayer({ url }: { url: string | null }) {
   }
 
   return (
-    <div className="flex flex-col items-end justify-center">
+    <div className="relative flex h-full flex-col">
       <audio
         ref={audioPlayerRef}
         src={url}
@@ -111,26 +117,24 @@ export default function AudioPlayer({ url }: { url: string | null }) {
         }
       />
       <button
-        className="flex w-10 items-center justify-center p-1 text-foreground/70"
+        className="flex w-12 flex-1 items-center justify-center text-foreground/70"
         aria-label={`${isPlaying ? "Pause" : "Play"} track`}
         onClick={onTogglePlay}
       >
         {isPlaying ? stopIcon : playIcon}
       </button>
-      {isPlaying && (
-        <>
-          <label className="sr-only" htmlFor="current-time">
-            Current time
-          </label>
-          <meter
-            id="current-time"
-            className="h-2 w-10"
-            min={0}
-            max={100}
-            value={currentTime}
-          />
-        </>
-      )}
+      <label className="sr-only" htmlFor={trackId}>
+        Current time
+      </label>
+      <meter
+        id={trackId}
+        className={`absolute bottom-0 h-2 w-12 ${
+          isPlaying ? "opacity-100" : "opacity-0"
+        }`}
+        min={0}
+        max={100}
+        value={currentTime}
+      />
     </div>
   );
 }
