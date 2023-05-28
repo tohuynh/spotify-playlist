@@ -15,7 +15,7 @@
     --color-foreground: 39 39 42; /* zinc-800 */
     --color-background: 250 250 250; /* zinc-50 */
 
-    @apply text-zinc-950 bg-default;
+    @apply bg-default text-zinc-950;
   }
 
   html.dark {
@@ -30,11 +30,11 @@
   }
 
   .focusable {
-    @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/50;
+    @apply focus-visible:outline-primary/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
   }
 
   a,
   button {
-    @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/50;
+    @apply focus-visible:outline-primary/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
   }
 }

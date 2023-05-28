@@ -41,10 +41,12 @@ const Layout = ({ title, description, children }: LayoutProps) => {
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      <main className="min-h-screen">
+      <main className="flex min-h-screen flex-col">
         <AppBar />
         <Nav />
-        <div className="px-4 pb-40 md:ml-36 md:px-10 md:pb-10">{children}</div>
+        <div className="flex flex-1 flex-col px-4 pb-40 md:ml-36 md:px-10 md:pb-10">
+          {children}
+        </div>
         <Toaster
           position="bottom-center"
           toastOptions={{

@@ -10,27 +10,29 @@ export default function Welcome() {
     return null;
   }
   return (
-    <div className="box-border flex h-[calc(100vh-8rem)] flex-col items-center justify-center px-4">
-      <h2 className="mb-2 text-center text-3xl font-semibold">
+    <div className="flex flex-1 flex-col items-center justify-center gap-y-4 px-4 tracking-tight">
+      <h2 className="mb-2 text-center text-3xl font-bold sm:text-4xl lg:text-5xl">
         Discover &amp; Create Mixtapes
       </h2>
       {!data && (
         <button
-          className="mt-2 flex items-center justify-between gap-x-4 rounded-full border border-neutral-400/10 p-4"
+          className="flex items-center justify-between gap-x-3 rounded-full border border-neutral-400/10 bg-spotify-green/10 px-3 py-2 lg:px-4 lg:py-3"
           onClick={() =>
             signIn("spotify", {
               callbackUrl: pathname === "/" ? "/create-mixtape" : pathname,
             })
           }
         >
-          <SpotifyIcon heightClass="h-8" widthClass="w-8" />
-          <span className="text-lg font-semibold text-spotify-green">
+          <span className="inline-block h-5 w-5 md:h-6 md:w-6">
+            <SpotifyIcon />
+          </span>
+          <span className="text-sm font-semibold text-spotify-green md:text-base">
             Sign in with Spotify to get started
           </span>
         </button>
       )}
-      <div className="mt-10">
-        <p className="flex items-center gap-4 text-lg">
+      <div className="mt-6">
+        <p className="flex items-center justify-center gap-4 md:text-lg">
           <span>
             Created with{" "}
             <a
